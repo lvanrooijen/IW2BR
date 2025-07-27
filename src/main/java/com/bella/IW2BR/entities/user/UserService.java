@@ -9,6 +9,7 @@ import com.bella.IW2BR.exceptions.user.UserAlreadyRegisteredException;
 import com.bella.IW2BR.exceptions.user.UserNotFoundException;
 import com.bella.IW2BR.security.jwt.JwtService;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -78,12 +79,12 @@ public class UserService implements UserDetailsService {
    * @return {@link GetUser}
    * @throws EntityNotFoundException when a user with this ID is not found
    */
-  public GetUser updateUser(Long id, PatchUser patch) {
+  public GetUser updateUser(UUID id, PatchUser patch) {
     User user =
         userRepository
             .findById(id)
             .orElseThrow(
-                () -> new UserNotFoundException(String.format("No user with id %d found", id)));
+                () -> new UserNotFoundException(String.format("No user with id %s found", id)));
 
     userMapper.updateUserFields(user, patch);
     userRepository.save(user);
@@ -96,13 +97,13 @@ public class UserService implements UserDetailsService {
    * @param id represents user id
    * @throws EntityNotFoundException when user ID is not present in the database
    */
-  public void deleteUser(Long id) {
+  public void deleteUser(UUID id) {
     userRepository
         .findById(id)
         .orElseThrow(
             () ->
                 new UserNotFoundException(
-                    String.format("Can't delete user, user with id %d found", id)));
+                    String.format("Can't delete user, user with id %s found", id)));
     userRepository.deleteById(id);
   }
 

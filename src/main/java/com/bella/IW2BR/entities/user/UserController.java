@@ -4,6 +4,7 @@ import com.bella.IW2BR.entities.user.dto.*;
 import com.bella.IW2BR.utils.constants.routes.Endpoints;
 import jakarta.validation.Valid;
 import java.net.URI;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,7 +30,7 @@ public class UserController implements UserControllerSwaggerDocs {
   @Override
   @PatchMapping("/{id}")
   public ResponseEntity<GetUser> updateUser(
-      @PathVariable Long id, @RequestBody @Valid PatchUser patch) {
+      @PathVariable UUID id, @RequestBody @Valid PatchUser patch) {
     GetUser customer = userService.updateUser(id, patch);
 
     return ResponseEntity.ok(customer);
@@ -39,7 +40,7 @@ public class UserController implements UserControllerSwaggerDocs {
   // TODO gebruiker mag eigen account ook verwijderen. die SpeLL even uitzoeken hiervoor!
   @PreAuthorize("hasRole('ADMIN')")
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+  public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
     userService.deleteUser(id);
     return ResponseEntity.ok().build();
   }

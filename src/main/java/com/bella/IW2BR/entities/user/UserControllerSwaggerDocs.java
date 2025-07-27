@@ -4,6 +4,7 @@ import com.bella.IW2BR.entities.user.dto.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 
 /** This interface contains all the annotations to provide Swagger documentation. */
@@ -26,14 +27,14 @@ public interface UserControllerSwaggerDocs {
     @ApiResponse(responseCode = "400", description = "invalid request body"),
     @ApiResponse(responseCode = "404", description = "user with given ID not found")
   })
-  public ResponseEntity<GetUser> updateUser(Long id, PatchUser patch);
+  public ResponseEntity<GetUser> updateUser(UUID id, PatchUser patch);
 
   @Operation(summary = "delete user", description = "deletes a user from the database")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "user deleted"),
     @ApiResponse(responseCode = "404", description = "user with given ID not found")
   })
-  public ResponseEntity<Void> deleteUser(Long id);
+  public ResponseEntity<Void> deleteUser(UUID id);
 
   @Operation(summary = "login user", description = "login a user with a jwt token")
   @ApiResponses({@ApiResponse(responseCode = "200", description = "user logged in")})

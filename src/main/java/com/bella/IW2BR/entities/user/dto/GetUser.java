@@ -1,5 +1,7 @@
 package com.bella.IW2BR.entities.user.dto;
 
+import java.util.UUID;
+
 /**
  * User DTO containing details returned in HTTP-requests
  *
@@ -8,4 +10,4 @@ package com.bella.IW2BR.entities.user.dto;
  * @param id user ID
  * @param username email address of the user
  */
-public record GetUser(Long id, String username) {}
+public record GetUser(UUID id, String username) {}

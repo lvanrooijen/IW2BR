@@ -3,6 +3,7 @@ package com.bella.IW2BR.entities.user;
 import jakarta.persistence.*;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,8 +27,8 @@ public class User implements UserDetails {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    UUID id;
 
     @Column(name = "email", nullable = false, unique = true)
     String email;

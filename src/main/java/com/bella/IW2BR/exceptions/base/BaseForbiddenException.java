@@ -13,7 +13,7 @@ import com.bella.IW2BR.exceptions.GlobalExceptionHandler;
  * <p>Exceptions will be caught and handled by the following method {@link
  * GlobalExceptionHandler#handleForbiddenExceptions(Exception e)}
  */
-public class BaseForbiddenException extends RuntimeException {
+public abstract class BaseForbiddenException extends RuntimeException {
   public BaseForbiddenException(String message) {
     super(message);
   }

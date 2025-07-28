@@ -46,11 +46,11 @@ public class EmailService {
   /**
    * Sends registration email to the user
    *
-   * @param to email adress of the recipient
+   * @param to email address of the recipient
    * @param username name of the recipient
-   * @throws MessagingException when somehting goes wrong
+   * @throws MessagingException when something goes wrong
    */
-  public void sendUserRegisterationEmail(String to, String username) throws MessagingException {
+  public void sendUserRegistrationEmail(String to, String username) throws MessagingException {
     Context context = new Context();
     context.setVariable("username", username);
     context.setVariable("year", LocalDate.now().getYear());

@@ -4,23 +4,25 @@ import com.bella.IW2BR.email.EmailService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class UserRegistrationEventListener implements ApplicationListener<UserRegistrationEvent> {
+public class UserRegistrationEventListener {
   private final EmailService emailService;
 
-  @Override
-  public void onApplicationEvent(UserRegistrationEvent event) {
+  @EventListener
+  @Async
+  public void handleUserRegistrationEvent(UserRegistrationEvent event) {
     log.info(
         String.format(
             "[USER REGISTRATION EVENT] [email=%s] [userID=%s]",
             event.getEmail(), event.getUserId()));
     try {
-      emailService.sendUserRegisterationEmail(event.getEmail(), event.getFullName());
+      emailService.sendUserRegistrationEmail(event.getEmail(), event.getFullName());
     } catch (MessagingException e) {
       log.warn(String.format("[MESSAGING EXCEPTION] detail: %s", e.getMessage()));
     }

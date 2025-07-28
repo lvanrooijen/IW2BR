@@ -1,7 +1,6 @@
 package com.bella.IW2BR.entities.user;
 
 import com.bella.IW2BR.entities.user.dto.*;
-import com.bella.IW2BR.events.userregistration.UserRegistrationEvent;
 import com.bella.IW2BR.events.userregistration.UserRegistrationPublisher;
 import com.bella.IW2BR.exceptions.user.FailedLoginException;
 import com.bella.IW2BR.exceptions.user.InvalidUserRoleException;
@@ -60,12 +59,7 @@ public class UserService implements UserDetailsService {
 
     userRepository.save(user);
 
-    UserRegistrationEvent userRegistrationEvent =
-        new UserRegistrationEvent(user, user.getEmail(), user.getId(), user.getFullName());
-    eventPublisher.publishUserRegistrationEvent(
-        userRegistrationEvent.getEmail(),
-        userRegistrationEvent.getUserId(),
-        userRegistrationEvent.getFullName());
+    eventPublisher.publishUserRegistrationEvent(user);
 
     String token = jwtService.generateTokenForUser(user);
     return new GetUserWithJwtToken(user.getId(), user.getUsername(), token);
@@ -112,6 +106,12 @@ public class UserService implements UserDetailsService {
     return userRepository.findByEmailIgnoreCase(username).orElse(null);
   }
 
+  /**
+   * handles user login
+   *
+   * @param requestBody containing login credentials of user
+   * @return {@link GetUserWithJwtToken} dto
+   */
   public GetUserWithJwtToken login(LoginUser requestBody) {
     User user =
         userRepository

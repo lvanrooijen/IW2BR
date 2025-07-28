@@ -3,7 +3,7 @@ package com.bella.IW2BR.entities.user.dto;
 import java.util.UUID;
 
 /**
- * User DTO containing details returned in HTTP-requests
+ * User DTO containing user details and jwt-token
  *
  * <p>email address is used as the username
  *

@@ -1,6 +1,7 @@
 package com.bella.IW2BR.entities.user.dto;
 
-import com.bella.IW2BR.utils.constants.ExceptionMessages;
+import static com.bella.IW2BR.entities.user.dto.UserConstraints.*;
+
 import com.bella.IW2BR.utils.customvalidators.password.Password;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -20,8 +21,16 @@ import org.hibernate.validator.constraints.Length;
 public record PostUser(
     @NotBlank @Email(message = "Invalid email address") String email,
     @NotBlank @Password String password,
-    @NotBlank @Length(min = 3, max = 50, message = ExceptionMessages.FIRST_NAME_INVALID_LENGTH)
+    @NotBlank
+        @Length(
+            min = NAME_LENGTH_MIN,
+            max = LAST_NAME_LENGTH_MAX,
+            message = FIRST_NAME_INVALID_LENGTH)
         String firstName,
-    @NotBlank @Length(min = 3, max = 50, message = ExceptionMessages.LAST_NAME_INVALID_LENGTH)
+    @NotBlank
+        @Length(
+            min = NAME_LENGTH_MIN,
+            max = LAST_NAME_LENGTH_MAX,
+            message = LAST_NAME_INVALID_LENGTH_MSG)
         String lastName,
     @NotBlank String role) {}

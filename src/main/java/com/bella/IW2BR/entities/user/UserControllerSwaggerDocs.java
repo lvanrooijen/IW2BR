@@ -7,7 +7,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 
-/** This interface contains all the annotations to provide Swagger documentation. */
+/**
+ * This interface contains all the annotations to provide Swagger documentation for the user
+ * controller
+ */
 public interface UserControllerSwaggerDocs {
 
   @Operation(

@@ -1,6 +1,7 @@
 package com.bella.IW2BR.entities.user.dto;
 
-import com.bella.IW2BR.utils.constants.ExceptionMessages;
+import static com.bella.IW2BR.entities.user.dto.UserConstraints.*;
+
 import jakarta.validation.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
@@ -16,8 +17,11 @@ import org.hibernate.validator.constraints.Length;
  */
 public record PatchUser(
     @Email(message = "Invalid email") String email,
-    @Length(min = 3, max = 50, message = ExceptionMessages.FIRST_NAME_INVALID_LENGTH)
+    @Length(min = NAME_LENGTH_MIN, max = FIRST_NAME_LENGTH_MAX, message = FIRST_NAME_INVALID_LENGTH)
         String firstName,
-    @Length(min = 3, max = 100, message = ExceptionMessages.LAST_NAME_INVALID_LENGTH)
+    @Length(
+            min = NAME_LENGTH_MIN,
+            max = LAST_NAME_LENGTH_MAX,
+            message = LAST_NAME_INVALID_LENGTH_MSG)
         String lastName,
     String role) {}

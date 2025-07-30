@@ -1,9 +1,10 @@
-package com.bella.IW2BR.entities.user;
+package com.bella.IW2BR.security;
 
 import com.bella.IW2BR.entities.user.dto.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 
@@ -11,7 +12,7 @@ import org.springframework.http.ResponseEntity;
  * This interface contains all the annotations to provide Swagger documentation for the user
  * controller
  */
-public interface UserControllerSwaggerDocs {
+public interface AuthenticationControllerDocs {
 
   @Operation(
       summary = "create user",
@@ -22,7 +23,7 @@ public interface UserControllerSwaggerDocs {
         responseCode = "400",
         description = "invalid request body, user already registered")
   })
-  public ResponseEntity<GetUserWithJwtToken> registerUser(PostUser body);
+  public ResponseEntity<GetUserWithJwtToken> registerUser(PostUser body, HttpServletResponse response);
 
   @Operation(summary = "update user", description = "updates user and save it in the database")
   @ApiResponses({
@@ -41,5 +42,5 @@ public interface UserControllerSwaggerDocs {
 
   @Operation(summary = "login user", description = "login a user with a jwt token")
   @ApiResponses({@ApiResponse(responseCode = "200", description = "user logged in")})
-  public ResponseEntity<GetUserWithJwtToken> login(LoginUser requestBody);
+  public ResponseEntity<GetUserWithJwtToken> login(LoginUser requestBody, HttpServletResponse response);
 }

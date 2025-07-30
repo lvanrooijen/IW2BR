@@ -9,6 +9,6 @@ import java.util.UUID;
  *
  * @param id user ID
  * @param username email address of user
- * @param token jwt-token
+ * @param accessToken jwt access-token
  */
-public record GetUserWithJwtToken(UUID id, String username, String token) {}
+public record GetUserWithJwtToken(UUID id, String username, String accessToken) {}

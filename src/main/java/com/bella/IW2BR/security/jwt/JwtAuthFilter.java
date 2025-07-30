@@ -4,7 +4,7 @@ import static com.bella.IW2BR.utils.constants.security.JwtConstants.AUTHORIZATIO
 import static com.bella.IW2BR.utils.constants.security.JwtConstants.AUTHORIZATION_HEADER_NAME;
 
 import com.bella.IW2BR.entities.user.User;
-import com.bella.IW2BR.entities.user.UserService;
+import com.bella.IW2BR.security.AuthenticationService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,11 +22,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Component
 @Slf4j
 public class JwtAuthFilter extends OncePerRequestFilter {
-  private final UserService userService;
+  private final AuthenticationService authenticationService;
   private final JwtService jwtService;
 
-  public JwtAuthFilter(UserService userService, JwtService jwtService) {
-    this.userService = userService;
+  public JwtAuthFilter(AuthenticationService authenticationService, JwtService jwtService) {
+    this.authenticationService = authenticationService;
     this.jwtService = jwtService;
   }
 
@@ -68,6 +68,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         .readToken(authorization.substring(AUTHORIZATION_HEADER_JWT_PREFIX.length()))
         .filter(token -> !token.isExpired())
         .flatMap(
-            token -> Optional.ofNullable((User) userService.loadUserByUsername(token.email())));
+            token ->
+                Optional.ofNullable(
+                    (User) authenticationService.loadUserByUsername(token.email())));
   }
 }

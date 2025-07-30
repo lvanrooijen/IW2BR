@@ -1,4 +1,4 @@
-package com.bella.IW2BR.security;
+package com.bella.IW2BR.security.config;
 
 import io.jsonwebtoken.Jwts;
 import javax.crypto.SecretKey;

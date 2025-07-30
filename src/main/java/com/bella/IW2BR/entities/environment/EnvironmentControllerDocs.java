@@ -9,7 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 
-public interface EnvironmentControllerSwaggerDocs {
+public interface EnvironmentControllerDocs {
   @Operation(
       summary = "create environment",
       description = "creates a new environment and saves it in the database")

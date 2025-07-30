@@ -1,8 +1,8 @@
-package com.bella.IW2BR.security;
+package com.bella.IW2BR.security.config;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
-import com.bella.IW2BR.entities.user.UserService;
+import com.bella.IW2BR.security.AuthenticationService;
 import com.bella.IW2BR.security.jwt.JwtAuthFilter;
 import com.bella.IW2BR.security.jwt.UnAuthorizedEntryPoint;
 import com.bella.IW2BR.utils.constants.routes.SecurityRoutes;
@@ -21,7 +21,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class CustomSecurityFilterChain {
   private final JwtAuthFilter jwtAuthFilter;
 
-  public CustomSecurityFilterChain(UserService userService, JwtAuthFilter jwtAuthFilter) {
+  public CustomSecurityFilterChain(
+      AuthenticationService authenticationService, JwtAuthFilter jwtAuthFilter) {
     this.jwtAuthFilter = jwtAuthFilter;
   }
 

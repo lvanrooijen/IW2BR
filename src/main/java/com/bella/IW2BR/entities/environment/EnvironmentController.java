@@ -15,7 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RestController
 @RequestMapping(Endpoints.ENVIRONMENTS)
 @RequiredArgsConstructor
-public class EnvironmentController implements EnvironmentControllerSwaggerDocs {
+public class EnvironmentController implements EnvironmentControllerDocs {
   private final EnvironmentService environmentService;
 
   @Override

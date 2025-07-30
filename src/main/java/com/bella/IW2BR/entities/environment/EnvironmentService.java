@@ -6,7 +6,7 @@ import com.bella.IW2BR.entities.environment.dto.PatchEnvironment;
 import com.bella.IW2BR.entities.environment.dto.PostEnvironment;
 import com.bella.IW2BR.entities.user.User;
 import com.bella.IW2BR.exceptions.generic.ItemNotFoundException;
-import com.bella.IW2BR.security.AuthenticationService;
+import com.bella.IW2BR.security.AuthHelperService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,11 +16,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class EnvironmentService {
   private final EnvironmentRepository environmentRepository;
-  private final AuthenticationService authenticationService;
+  private final AuthHelperService authHelperService;
   private final EnvironmentMapper mapper;
 
   public GetEnvironment createEnvironment(PostEnvironment body) {
-    User loggedInUser = authenticationService.getAuthenticatedUser();
+    User loggedInUser = authHelperService.getAuthenticatedUser();
 
     Environment createdEnvironment = mapper.fromPostEnvironment(body, loggedInUser);
     environmentRepository.save(createdEnvironment);

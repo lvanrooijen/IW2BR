@@ -1,8 +1,6 @@
 package com.bella.IW2BR.security.jwt;
 
-
-import static com.bella.IW2BR.utils.constants.security.JwtConstants.JWT_EXPIRATION_MS;
-import static com.bella.IW2BR.utils.constants.security.JwtConstants.ROLES_CLAIM_NAME;
+import static com.bella.IW2BR.utils.constants.security.JwtConstants.*;
 
 import com.bella.IW2BR.entities.user.User;
 import com.bella.IW2BR.security.jwt.dto.JwtTokenDetails;
@@ -26,77 +24,96 @@ import org.springframework.stereotype.Service;
 @Transactional
 @RequiredArgsConstructor
 public class JwtService {
-    private final SecretKey jwtSecretKey;
+  private final SecretKey jwtSecretKey;
 
-    /**
-     * generates a jwt token for the user
-     *
-     * @param user who the token is generated for
-     * @return jwt token
-     */
-    public String generateTokenForUser(User user) {
-        long currentTimeMillis = System.currentTimeMillis();
+  /**
+   * generates a jwt token for the user
+   *
+   * @param user who the token is generated for
+   * @return jwt token
+   */
+  public String generateTokenForUser(User user) {
+    return buildToken(user, JWT_EXPIRATION_MS);
+  }
 
-        return Jwts.builder()
-                .claim(ROLES_CLAIM_NAME, convertAuthoritiesToRoles(user))
-                .subject(user.getEmail())
-                .issuedAt(new Date(currentTimeMillis))
-                .expiration(new Date(currentTimeMillis + JWT_EXPIRATION_MS))
-                .signWith(jwtSecretKey)
-                .compact();
+  /**
+   * generates a refresh token for the user
+   *
+   * @param user who the token is generated for
+   * @return jwt token
+   */
+  public String generateRefreshTokenForUser(User user) {
+    return buildToken(user, REFRESH_TOKEN_EXPIRATION_MS);
+  }
+
+  /**
+   * Builds a jwt-token
+   *
+   * @param user who the token is generated for
+   * @param expiration_time represents how long it takes for the token to expire
+   * @return jwt token
+   */
+  public String buildToken(User user, long expiration_time) {
+    long currentTimeMillis = System.currentTimeMillis();
+    return Jwts.builder()
+        .subject(user.getEmail())
+        .issuedAt(new Date(currentTimeMillis))
+        .expiration(new Date(currentTimeMillis + expiration_time))
+        .signWith(jwtSecretKey)
+        .compact();
+  }
+
+  /**
+   * Converts users granted authorities to a list of roles in string format
+   *
+   * @param user user
+   * @return list of user roles as a string format
+   */
+  public List<String> convertAuthoritiesToRoles(User user) {
+    return user.getAuthorities().stream()
+        .map(GrantedAuthority::getAuthority)
+        .collect(Collectors.toList());
+  }
+
+  public Optional<JwtTokenDetails> readToken(String token) {
+    try {
+      Claims claims =
+          Jwts.parser().verifyWith(jwtSecretKey).build().parseSignedClaims(token).getPayload();
+      return Optional.of(
+          new JwtTokenDetails(
+              claims.getSubject(),
+              getRolesFromClaims(claims),
+              claims.getIssuedAt(),
+              claims.getExpiration()));
+    } catch (RuntimeException ex) {
+
+      log.warn("[" + ex.getClass().getName() + "]" + " " + ex.getMessage());
+
+      return Optional.empty();
+    }
+  }
+
+  private String[] getRolesFromClaims(Claims claims) {
+    Object rolesObject = claims.get(ROLES_CLAIM_NAME);
+
+    if (rolesObject == null) {
+      throw new IllegalArgumentException(ROLES_CLAIM_NAME + " claim not found");
     }
 
-    /**
-     * Converts users granted authorities to a list of roles in string format
-     *
-     * @param user user
-     * @return list of user roles as a string format
-     */
-    public List<String> convertAuthoritiesToRoles(User user) {
-        return user.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
+    if (!(rolesObject instanceof Iterable<?> rawRoles)) {
+      throw new IllegalArgumentException("claims " + ROLES_CLAIM_NAME + " value is invalid");
     }
 
-    public Optional<JwtTokenDetails> readToken(String token) {
-        try {
-            Claims claims =
-                    Jwts.parser().verifyWith(jwtSecretKey).build().parseSignedClaims(token).getPayload();
-            return Optional.of(
-                    new JwtTokenDetails(
-                            claims.getSubject(),
-                            getRolesFromClaims(claims),
-                            claims.getIssuedAt(),
-                            claims.getExpiration()));
-        } catch (RuntimeException ex) {
+    List<String> parsedRoles = new ArrayList<>();
 
-            log.warn("[" + ex.getClass().getName() + "]" + " " + ex.getMessage());
-
-            return Optional.empty();
-        }
+    for (Object o : rawRoles) {
+      if (o instanceof String parsedRole) {
+        parsedRoles.add(parsedRole);
+      } else {
+        log.warn(String.format("role is not a valid type: %s", o.getClass().getName()));
+      }
     }
 
-    private String[] getRolesFromClaims(Claims claims) {
-        Object rolesObject = claims.get(ROLES_CLAIM_NAME);
-
-        if (rolesObject == null) {
-            throw new IllegalArgumentException(ROLES_CLAIM_NAME + " claim not found");
-        }
-
-        if (!(rolesObject instanceof Iterable<?> rawRoles)) {
-            throw new IllegalArgumentException("claims " + ROLES_CLAIM_NAME + " value is invalid");
-        }
-
-        List<String> parsedRoles = new ArrayList<>();
-
-        for (Object o : rawRoles) {
-            if (o instanceof String parsedRole) {
-                parsedRoles.add(parsedRole);
-            } else {
-                log.warn(String.format("role is not a valid type: %s", o.getClass().getName()));
-            }
-        }
-
-        return parsedRoles.toArray(new String[0]);
-    }
+    return parsedRoles.toArray(new String[0]);
+  }
 }

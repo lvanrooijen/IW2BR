@@ -3,8 +3,8 @@ package com.bella.IW2BR.utils.constants.routes;
 /** Contains constants holding endpoints for security configuration */
 public class SecurityRoutes {
   private static final String BASE = "/api/v1";
-  private static final String REGISTER_USERS = BASE + "/users/register";
-  private static final String LOGIN_USERS = BASE + "/users/login";
+  private static final String REGISTER_USERS = BASE + "/auth/register";
+  private static final String LOGIN_USERS = BASE + "/auth/login";
   private static final String SWAGGER_UI = "/swagger-ui/**";
   private static final String SWAGGER_DOCS = "/v3/api-docs*/**";
 

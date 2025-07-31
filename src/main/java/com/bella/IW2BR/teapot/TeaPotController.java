@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * <p>TODO delete this controller
  */
 @RestController
-@RequestMapping(Endpoints.BASE_ROUTE + "/teapot")
+@RequestMapping(Endpoints.TESTING_TEAPOT)
 @RequiredArgsConstructor
 public class TeaPotController {
   private final RefreshTokenRepository refreshTokenRepository;

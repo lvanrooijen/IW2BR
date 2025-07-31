@@ -2,6 +2,7 @@ package com.bella.IW2BR.security.refreshtoken;
 
 import com.bella.IW2BR.entities.user.User;
 import jakarta.persistence.*;
+import java.time.LocalDate;
 import java.util.UUID;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class RefreshToken {
     this.token = token;
     this.user = user;
     this.isRevoked = isRevoked;
+    this.expiresAt = LocalDate.now().plusDays(7);
   }
 
   @Id
@@ -33,4 +35,7 @@ public class RefreshToken {
 
   @Column(name = "revoked", nullable = false)
   private boolean isRevoked;
+
+  @Column(name = "expires_at", nullable = false)
+  private LocalDate expiresAt;
 }

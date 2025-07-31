@@ -9,7 +9,7 @@ public class SecurityRoutes {
   private static final String SWAGGER_DOCS = "/v3/api-docs*/**";
 
   // TODO delete me
-  private static final String TESTING_TEAPOT = BASE + "/teapot";
+  private static final String TESTING_TEAPOT = BASE + "/teapots/*";
 
   /**
    * Method that returns endpoints that don't require authentication

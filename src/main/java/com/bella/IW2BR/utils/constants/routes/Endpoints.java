@@ -6,4 +6,7 @@ public class Endpoints {
   public static final String AUTH = BASE_ROUTE + "/auth";
   public static final String USERS = BASE_ROUTE + "/users";
   public static final String ENVIRONMENTS = BASE_ROUTE + "/environments";
+
+  // TODO delete me
+  public static final String TESTING_TEAPOT = BASE_ROUTE + "/teapots";
 }

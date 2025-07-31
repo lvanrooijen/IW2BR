@@ -7,10 +7,7 @@ import com.bella.IW2BR.security.jwt.dto.JwtTokenDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import jakarta.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import javax.crypto.SecretKey;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +29,7 @@ public class JwtService {
    * @param user who the token is generated for
    * @return jwt token
    */
-  public String generateTokenForUser(User user) {
+  public String generateAccessTokenForUser(User user) {
     return buildToken(user, JWT_EXPIRATION_MS);
   }
 
@@ -55,10 +52,14 @@ public class JwtService {
    */
   public String buildToken(User user, long expiration_time) {
     long currentTimeMillis = System.currentTimeMillis();
+    Map<String, Object> claims = new HashMap<>();
+    claims.put(ROLES_CLAIM_NAME, convertAuthoritiesToRoles(user));
+
     return Jwts.builder()
         .subject(user.getEmail())
         .issuedAt(new Date(currentTimeMillis))
         .expiration(new Date(currentTimeMillis + expiration_time))
+        .claims(claims)
         .signWith(jwtSecretKey)
         .compact();
   }
@@ -87,9 +88,18 @@ public class JwtService {
               claims.getExpiration()));
     } catch (RuntimeException ex) {
 
-      log.warn("[" + ex.getClass().getName() + "]" + " " + ex.getMessage());
+      log.warn("[" + ex.getClass().getSimpleName() + "]" + " " + ex.getMessage());
 
       return Optional.empty();
+    }
+  }
+
+  public boolean isTokenExpired(String token) {
+    JwtTokenDetails tokenDetails = readToken(token).orElse(null);
+    if (tokenDetails == null) {
+      return true;
+    } else {
+      return tokenDetails.expiresAt().before(new Date());
     }
   }
 
@@ -110,7 +120,7 @@ public class JwtService {
       if (o instanceof String parsedRole) {
         parsedRoles.add(parsedRole);
       } else {
-        log.warn(String.format("role is not a valid type: %s", o.getClass().getName()));
+        log.warn(String.format("role is not a valid type: %s", o.getClass().getSimpleName()));
       }
     }
 

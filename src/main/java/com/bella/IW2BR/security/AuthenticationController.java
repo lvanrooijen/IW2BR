@@ -16,7 +16,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RestController
 @RequestMapping(Endpoints.AUTH)
 @RequiredArgsConstructor
-@CrossOrigin("$frontend-client")
 public class AuthenticationController implements AuthenticationControllerDocs {
   private final AuthenticationService authenticationService;
 

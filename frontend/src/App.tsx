@@ -1,10 +1,11 @@
-import { useState } from 'react';
 import './App.css';
+import Login from './pages/Login';
 
 function App() {
   return (
     <>
-      <h1> heello</h1>
+      <h1>Welcome</h1>
+      <Login />
     </>
   );
 }

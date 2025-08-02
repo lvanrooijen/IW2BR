@@ -1,5 +1,6 @@
 package com.bella.IW2BR.exceptions;
 
+import com.bella.IW2BR.exceptions.authentication.InvalidRefreshTokenException;
 import com.bella.IW2BR.exceptions.base.BaseBadRequestException;
 import com.bella.IW2BR.exceptions.base.BaseForbiddenException;
 import com.bella.IW2BR.exceptions.base.BaseNotFoundException;
@@ -128,5 +129,11 @@ public class GlobalExceptionHandler {
     log.warn("[FailedLoginException] {}", e.getMessage(), e);
     return ProblemDetail.forStatusAndDetail(
         HttpStatus.BAD_REQUEST, "Invalid username and/or password");
+  }
+
+  @ExceptionHandler(InvalidRefreshTokenException.class)
+  public ProblemDetail handleInvalidRefreshTokenException(Exception e) {
+    log.warn("[InvalidRefreshTokenException] {}", e.getMessage(), e);
+    return ProblemDetail.forStatus(HttpStatus.UNAUTHORIZED);
   }
 }

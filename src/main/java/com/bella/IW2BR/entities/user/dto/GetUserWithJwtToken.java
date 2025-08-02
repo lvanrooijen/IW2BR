@@ -8,7 +8,8 @@ import java.util.UUID;
  * <p>email address is used as the username
  *
  * @param id user ID
- * @param username email address of user
+ * @param email email address of user
  * @param accessToken jwt access-token
  */
-public record GetUserWithJwtToken(UUID id, String username, String accessToken) {}
+public record GetUserWithJwtToken(
+    UUID id, String email, String username, String role, String accessToken) {}

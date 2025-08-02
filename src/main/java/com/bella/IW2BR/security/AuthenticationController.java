@@ -63,4 +63,6 @@ public class AuthenticationController implements AuthenticationControllerDocs {
     authenticationService.deleteUser(id);
     return ResponseEntity.ok().build();
   }
+
+  // TODO logout, revoke de refresh token
 }

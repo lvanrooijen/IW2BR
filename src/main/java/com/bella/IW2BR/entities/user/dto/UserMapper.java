@@ -19,12 +19,15 @@ public class UserMapper {
   /**
    * @param user entity
    * @param accessToken jwt-token short duration access token
-   * @param refreshToken jwt-token used as refresh token
    * @return {@link GetUserWithJwtToken} dto
    */
-  public GetUserWithJwtToken toGetUserWithJwtToken(
-      User user, String accessToken, String refreshToken) {
-    return new GetUserWithJwtToken(user.getId(), user.getEmail(), accessToken);
+  public GetUserWithJwtToken toGetUserWithJwtToken(User user, String accessToken) {
+    return new GetUserWithJwtToken(
+        user.getId(),
+        user.getEmail(),
+        user.getFullName(),
+        user.getRole().substring(5),
+        accessToken);
   }
 
   /**

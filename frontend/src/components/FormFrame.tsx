@@ -12,7 +12,7 @@ const FormFrame: React.FC<FormFrameProps> = ({
 
   return (
     <>
-      <div>
+      <div className="p-6 border-2 rounded-md">
         <h2>{formLabel}</h2>
         <form
           onSubmit={(e) => {

@@ -7,7 +7,7 @@ import com.bella.IW2BR.entities.user.User;
 import com.bella.IW2BR.entities.user.UserRepository;
 import com.bella.IW2BR.entities.user.dto.*;
 import com.bella.IW2BR.events.userregistration.UserRegistrationPublisher;
-import com.bella.IW2BR.exceptions.authentication.MissingRefreshTokenException;
+import com.bella.IW2BR.exceptions.authentication.InvalidRefreshTokenException;
 import com.bella.IW2BR.exceptions.user.FailedLoginException;
 import com.bella.IW2BR.exceptions.user.InvalidUserRoleException;
 import com.bella.IW2BR.exceptions.user.UserAlreadyRegisteredException;
@@ -25,6 +25,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,6 +35,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /** Handles the business logic related to users */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService implements UserDetailsService {
@@ -80,7 +82,7 @@ public class AuthenticationService implements UserDetailsService {
 
     eventPublisher.publishUserRegistrationEvent(user);
 
-    String token = jwtService.generateAccessTokenForUser(user);
+    String accessToken = jwtService.generateAccessTokenForUser(user);
 
     RefreshToken refreshToken =
         RefreshToken.builder()
@@ -92,7 +94,7 @@ public class AuthenticationService implements UserDetailsService {
 
     storeRefreshTokenInHttpServletResponse(response, refreshToken.getToken());
 
-    return new GetUserWithJwtToken(user.getId(), user.getUsername(), token);
+    return userMapper.toGetUserWithJwtToken(user, accessToken);
   }
 
   /**
@@ -112,16 +114,18 @@ public class AuthenticationService implements UserDetailsService {
       throw new FailedLoginException("invalid username and/or password");
     }
 
-    String token = jwtService.generateAccessTokenForUser(user);
+    String accessToken = jwtService.generateAccessTokenForUser(user);
+    String newRefreshToken = jwtService.generateRefreshTokenForUser(user);
 
     RefreshToken refreshToken =
         refreshTokenRepository.findByUser(user).orElse(new RefreshToken(null, user, false));
 
-    refreshToken.setToken(jwtService.generateRefreshTokenForUser(user));
+    refreshToken.setToken(newRefreshToken);
     refreshTokenRepository.save(refreshToken);
-    storeRefreshTokenInHttpServletResponse(response, refreshToken.getToken());
 
-    return userMapper.toGetUserWithJwtToken(user, token, refreshToken.getToken());
+    storeRefreshTokenInHttpServletResponse(response, newRefreshToken);
+
+    return userMapper.toGetUserWithJwtToken(user, accessToken);
   }
 
   /**
@@ -171,7 +175,7 @@ public class AuthenticationService implements UserDetailsService {
         ResponseCookie.from("refreshToken", refreshToken)
             .httpOnly(true)
             .secure(true)
-            .path("/auth")
+            .path("/api/v1/auth")
             .maxAge(Duration.ofDays(7))
             .sameSite("Strict")
             .build();
@@ -181,23 +185,23 @@ public class AuthenticationService implements UserDetailsService {
 
   public GetUserWithJwtToken refreshToken(
       HttpServletRequest request, HttpServletResponse response) {
-    String token = extractTokenFromCookie(request);
+    String refreshTokenFromCookie = extractTokenFromCookie(request);
     User user = getAuthenticatedUser();
-    RefreshToken refreshToken =
+    RefreshToken refreshTokenFromDB =
         refreshTokenRepository
             .findByUser(user)
             .orElseThrow(
                 () ->
-                    new MissingRefreshTokenException(
+                    new InvalidRefreshTokenException(
                         "There is no refresh token connected to this user"));
 
-    validateRefreshTokenOrThrow(token, refreshToken);
+    validateRefreshTokenOrThrow(refreshTokenFromCookie, refreshTokenFromDB);
 
-    refreshTokenRepository.save(updateRefreshToken(refreshToken));
-    storeRefreshTokenInHttpServletResponse(response, refreshToken.getToken());
+    refreshTokenRepository.save(updateRefreshToken(refreshTokenFromDB));
+    storeRefreshTokenInHttpServletResponse(response, refreshTokenFromDB.getToken());
 
     String accessToken = jwtService.generateAccessTokenForUser(user);
-    return new GetUserWithJwtToken(user.getId(), user.getUsername(), accessToken);
+    return userMapper.toGetUserWithJwtToken(user, accessToken);
   }
 
   public String extractTokenFromCookie(HttpServletRequest request) {
@@ -212,20 +216,22 @@ public class AuthenticationService implements UserDetailsService {
     return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
   }
 
-  public void validateRefreshTokenOrThrow(String token, RefreshToken refreshToken) {
-    if (token == null) {
-      throw new MissingRefreshTokenException("http request does not contain a refresh token");
+  public void validateRefreshTokenOrThrow(
+      String refreshTokenFromCookie, RefreshToken refreshTokenFromDB) {
+    if (refreshTokenFromCookie == null) {
+      throw new InvalidRefreshTokenException("http request does not contain a refresh token");
     }
-    if (refreshToken.isRevoked()) {
+    if (refreshTokenFromDB.isRevoked()) {
       throw new FailedLoginException("refresh-token is revoked");
     }
-    if (jwtService.isTokenExpired(refreshToken.getToken())) {
+    if (jwtService.isTokenExpired(refreshTokenFromDB.getToken())) {
       throw new FailedLoginException("refresh-token is expired");
     }
-    if (refreshToken.getExpiresAt().isBefore(LocalDate.now())) {
+    if (refreshTokenFromDB.getExpiresAt().isBefore(LocalDate.now())) {
       throw new FailedLoginException("refresh-token is expired");
     }
-    if (!token.equals(refreshToken.getToken())) {
+    if (!refreshTokenFromCookie.equals(refreshTokenFromDB.getToken())) {
+      // TODO dit geeft internal server, maar word wel opgevangen?
       throw new FailedLoginException("refresh-token does not match refresh token of user");
     }
   }

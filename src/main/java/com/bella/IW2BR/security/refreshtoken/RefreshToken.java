@@ -27,7 +27,7 @@ public class RefreshToken {
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  @Column(name = "token", nullable = false)
+  @Column(name = "token", nullable = false, length = 512)
   private String token;
 
   @OneToOne(optional = false)

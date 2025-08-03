@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import FormFrame from '../components/FormFrame';
-import FormInputField from '../components/FormInputField';
 import { useAuth } from '../util/context/AuthContext';
+import FormFrame from '../components/form/FormFrame';
+import FormInputField from '../components/form/FormInputField';
 
 const AuthPage = () => {
   const [signUpMode, setSignUpMode] = useState<boolean>(false);
   const { login, register } = useAuth();
+  const FormWrapperStyle = 'flex items-center justify-center h-screen';
 
   if (signUpMode) {
     return (
-      <>
+      <div className={FormWrapperStyle}>
         <FormFrame
           formLabel={'Sign up'}
           handleSubmit={(form) => register(form)}
@@ -23,21 +24,21 @@ const AuthPage = () => {
             type="password"
           />
           <input type="hidden" name="role" value={'USER'} />
+          <p>
+            Already have an account?{' '}
+            <span
+              className="underline text-primary cursor-pointer"
+              onClick={() => setSignUpMode(false)}
+            >
+              login
+            </span>
+          </p>
         </FormFrame>
-        <p>
-          Already have an account?{' '}
-          <span
-            className="underline text-amber-400 cursor-pointer"
-            onClick={() => setSignUpMode(false)}
-          >
-            login
-          </span>
-        </p>
-      </>
+      </div>
     );
   } else {
     return (
-      <>
+      <div className={FormWrapperStyle}>
         <FormFrame formLabel="Login" handleSubmit={(form) => login(form)}>
           <FormInputField
             placeholder={'email'}
@@ -49,17 +50,17 @@ const AuthPage = () => {
             name={'password'}
             type={'password'}
           />
+          <p>
+            Don't have an account?{' '}
+            <span
+              className="underline text-primary cursor-pointer"
+              onClick={() => setSignUpMode(true)}
+            >
+              sign up
+            </span>
+          </p>
         </FormFrame>
-        <p>
-          Don't have an account yet?{' '}
-          <span
-            className="underline text-amber-400 cursor-pointer"
-            onClick={() => setSignUpMode(true)}
-          >
-            sign up
-          </span>
-        </p>
-      </>
+      </div>
     );
   }
 };

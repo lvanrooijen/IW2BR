@@ -11,19 +11,20 @@ const FormFrame: React.FC<FormFrameProps> = ({
   };
 
   return (
-    <>
-      <div className="p-6 border-2 rounded-md">
-        <h2>{formLabel}</h2>
-        <form
-          onSubmit={(e) => {
-            getFormValues(e);
-          }}
-        >
-          {children}
-          <button>submit</button>
-        </form>
-      </div>
-    </>
+    <div className="border-2 rounded-md flex justify-center items-center flex-col gap-6 bg-base-300">
+      <h2 className="text-2xl pt-3 text-accent">{formLabel}</h2>
+      <form
+        className="flex flex-col justify-center items-center px-12"
+        onSubmit={(e) => {
+          getFormValues(e);
+        }}
+      >
+        <div>{children}</div>
+        <button className="btn btn-secondary p-3 my-3" type="submit">
+          Submit
+        </button>
+      </form>
+    </div>
   );
 };
 

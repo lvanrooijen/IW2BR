@@ -186,14 +186,14 @@ public class AuthenticationService implements UserDetailsService {
   public GetUserWithJwtToken refreshToken(
       HttpServletRequest request, HttpServletResponse response) {
     String refreshTokenFromCookie = extractTokenFromCookie(request);
-    User user = getAuthenticatedUser();
+    log.warn("TOKEN FROM COOKIE: " + refreshTokenFromCookie);
+
     RefreshToken refreshTokenFromDB =
         refreshTokenRepository
             .findByToken(refreshTokenFromCookie)
-            .orElseThrow(
-                () ->
-                    new InvalidRefreshTokenException(
-                        "There is no refresh token connected to this user"));
+            .orElseThrow(() -> new InvalidRefreshTokenException("Refresh token not found"));
+
+    User user = refreshTokenFromDB.getUser();
 
     validateRefreshTokenOrThrow(refreshTokenFromCookie, refreshTokenFromDB);
 
@@ -237,7 +237,7 @@ public class AuthenticationService implements UserDetailsService {
 
   @Transactional
   public RefreshToken updateRefreshToken(RefreshToken refreshToken) {
-    String newRefreshToken = jwtService.generateRefreshTokenForUser(getAuthenticatedUser());
+    String newRefreshToken = jwtService.generateRefreshTokenForUser(refreshToken.getUser());
     refreshToken.setToken(newRefreshToken);
     refreshToken.setExpiresAt(LocalDate.now().plusDays(REFRESH_TOKEN_EXPIRATION_DAYS));
     return refreshToken;

@@ -1,3 +1,4 @@
+import BasicPage from '../components/page/BasicPage';
 import type { UserProps } from '../interfaces/ApiServiceInterfaces';
 
 const Home: React.FC<HomeProps> = ({ user }) => {
@@ -5,10 +6,12 @@ const Home: React.FC<HomeProps> = ({ user }) => {
     return <div>User not logged in</div>;
   }
   return (
-    <div>
-      <p>Home Page BB</p>
-      <p>Welcome {user?.username}</p>
-    </div>
+    <BasicPage>
+      <div>
+        <p>Home Page BB</p>
+        <p>Welcome {user?.username}</p>
+      </div>
+    </BasicPage>
   );
 };
 

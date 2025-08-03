@@ -42,6 +42,6 @@ export async function registerUser(
 }
 
 export async function logoutUser() {
-  //todo
-  console.log('MAKE THE LOGOUT FUNCTION!!!!!');
+  AxiosInstance.post('/auth/logout');
+  console.log('logged out');
 }

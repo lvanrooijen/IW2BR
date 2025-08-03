@@ -19,8 +19,15 @@ for more information visit the projects [Wiki Pages](https://github.com/lvanrooi
 2. `docker compose up --build`
 3. `mvn install`
 4. `mvn spring-boot:run`
+   or <a href="https://www.youtube.com/watch?v=MtaTKXJ89jk" target="_blank">
+  <img 
+    src="https://github.com/user-attachments/assets/e2e07ab6-bfc0-4ee8-99cb-d595f129b9ba"
+    alt="play button"
+    width="21"
+    height="21"
+  />
+</a>
 
-   or push the button [![image](https://github.com/user-attachments/assets/c448a1c6-24f2-438a-9763-df3f5765c057)](https://www.youtube.com/watch?v=MtaTKXJ89jk)
 
 ## what runs where
 

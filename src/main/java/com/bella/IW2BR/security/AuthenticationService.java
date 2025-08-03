@@ -8,7 +8,7 @@ import com.bella.IW2BR.domain.user.UserRepository;
 import com.bella.IW2BR.domain.user.dto.*;
 import com.bella.IW2BR.events.userregistration.UserRegistrationPublisher;
 import com.bella.IW2BR.exceptions.authentication.InvalidRefreshTokenException;
-import com.bella.IW2BR.exceptions.user.FailedLoginException;
+import com.bella.IW2BR.exceptions.user.FailedLoginAttemptException;
 import com.bella.IW2BR.exceptions.user.InvalidUserRoleException;
 import com.bella.IW2BR.exceptions.user.UserAlreadyRegisteredException;
 import com.bella.IW2BR.exceptions.user.UserNotFoundException;
@@ -111,7 +111,7 @@ public class AuthenticationService implements UserDetailsService {
             .orElseThrow(() -> new UserNotFoundException("invalid username and/or password"));
 
     if (!passwordEncoder.matches(requestBody.password(), user.getPassword())) {
-      throw new FailedLoginException("invalid username and/or password");
+      throw new FailedLoginAttemptException("invalid username and/or password");
     }
 
     String accessToken = jwtService.generateAccessTokenForUser(user);
@@ -154,7 +154,6 @@ public class AuthenticationService implements UserDetailsService {
    * @param id represents user id
    * @throws EntityNotFoundException when user ID is not present in the database
    */
-  
   public void deleteUser(UUID id) {
     userRepository
         .findById(id)
@@ -190,7 +189,7 @@ public class AuthenticationService implements UserDetailsService {
     User user = getAuthenticatedUser();
     RefreshToken refreshTokenFromDB =
         refreshTokenRepository
-            .findByUser(user)
+            .findByToken(refreshTokenFromCookie)
             .orElseThrow(
                 () ->
                     new InvalidRefreshTokenException(
@@ -223,17 +222,16 @@ public class AuthenticationService implements UserDetailsService {
       throw new InvalidRefreshTokenException("http request does not contain a refresh token");
     }
     if (refreshTokenFromDB.isRevoked()) {
-      throw new FailedLoginException("refresh-token is revoked");
+      throw new InvalidRefreshTokenException("refresh-token is revoked");
     }
     if (jwtService.isTokenExpired(refreshTokenFromDB.getToken())) {
-      throw new FailedLoginException("refresh-token is expired");
+      throw new InvalidRefreshTokenException("refresh-token is expired");
     }
     if (refreshTokenFromDB.getExpiresAt().isBefore(LocalDate.now())) {
-      throw new FailedLoginException("refresh-token is expired");
+      throw new InvalidRefreshTokenException("refresh-token is expired");
     }
     if (!refreshTokenFromCookie.equals(refreshTokenFromDB.getToken())) {
-      // TODO dit geeft internal server, maar word wel opgevangen?
-      throw new FailedLoginException("refresh-token does not match refresh token of user");
+      throw new InvalidRefreshTokenException("refresh-token does not match refresh token of user");
     }
   }
 
@@ -243,5 +241,21 @@ public class AuthenticationService implements UserDetailsService {
     refreshToken.setToken(newRefreshToken);
     refreshToken.setExpiresAt(LocalDate.now().plusDays(REFRESH_TOKEN_EXPIRATION_DAYS));
     return refreshToken;
+  }
+
+  public void logoutUser(HttpServletRequest request) {
+    String refreshTokenFromCookie = extractTokenFromCookie(request);
+    RefreshToken refreshTokenFromDB =
+        refreshTokenRepository
+            .findByToken(refreshTokenFromCookie)
+            .orElseThrow(
+                () ->
+                    new InvalidRefreshTokenException(
+                        String.format(
+                            "[InvalidRefreshToken] refresh token does not exist. RefreshToken=%s",
+                            refreshTokenFromCookie)));
+
+    refreshTokenFromDB.setRevoked(true);
+    refreshTokenRepository.save(refreshTokenFromDB);
   }
 }

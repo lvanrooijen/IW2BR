@@ -4,11 +4,11 @@ import com.bella.IW2BR.exceptions.authentication.InvalidRefreshTokenException;
 import com.bella.IW2BR.exceptions.base.BaseBadRequestException;
 import com.bella.IW2BR.exceptions.base.BaseForbiddenException;
 import com.bella.IW2BR.exceptions.base.BaseNotFoundException;
+import com.bella.IW2BR.exceptions.user.FailedLoginAttemptException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import javax.security.auth.login.FailedLoginException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -124,9 +124,9 @@ public class GlobalExceptionHandler {
     return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "invalid request body");
   }
 
-  @ExceptionHandler(FailedLoginException.class)
-  public ProblemDetail handleFailedLoginException(Exception e) {
-    log.warn("[FailedLoginException] {}", e.getMessage(), e);
+  @ExceptionHandler(FailedLoginAttemptException.class)
+  public ProblemDetail handleFailedLoginAttemptException(Exception e) {
+    log.warn("[FailedLoginAttemptException] {}", e.getMessage(), e);
     return ProblemDetail.forStatusAndDetail(
         HttpStatus.BAD_REQUEST, "Invalid username and/or password");
   }

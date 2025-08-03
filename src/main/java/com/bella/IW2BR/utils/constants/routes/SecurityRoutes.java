@@ -5,6 +5,7 @@ public class SecurityRoutes {
   private static final String BASE = "/api/v1";
   private static final String REGISTER_USERS = BASE + "/auth/register";
   private static final String LOGIN_USERS = BASE + "/auth/login";
+  private static final String LOGOUT = BASE + "/auth/logout";
   private static final String SWAGGER_UI = "/swagger-ui/**";
   private static final String SWAGGER_DOCS = "/v3/api-docs*/**";
 

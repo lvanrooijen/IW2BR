@@ -47,11 +47,22 @@ public interface AuthenticationControllerDocs {
   public ResponseEntity<GetUserWithJwtToken> login(
       LoginUser requestBody, HttpServletResponse response);
 
-  @Operation(summary = "refresh token", description = "retrieves a new access token if a valid refresh token is provided")
+  @Operation(
+      summary = "refresh token",
+      description = "retrieves a new access token if a valid refresh token is provided")
   @ApiResponses({
-          @ApiResponse(responseCode = "200", description = "accessToken refreshed"),
-          @ApiResponse(responseCode = "401", description = "invalid refresh token, refresh token is revoked, refresh token is expired")
+    @ApiResponse(responseCode = "200", description = "accessToken refreshed"),
+    @ApiResponse(
+        responseCode = "401",
+        description = "invalid refresh token, refresh token is revoked, refresh token is expired")
   })
   public ResponseEntity<GetUserWithJwtToken> refreshToken(
-          HttpServletRequest request, HttpServletResponse response);
+      HttpServletRequest request, HttpServletResponse response);
+
+  @Operation(summary = "logout usr", description = "revokes the refresh token of the user")
+  @ApiResponses({
+    @ApiResponse(responseCode = "200", description = "refresh-token has been revoked"),
+    @ApiResponse(responseCode = "401", description = "token doesn't exist")
+  })
+  public ResponseEntity<Void> logoutUser(HttpServletRequest request);
 }

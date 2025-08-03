@@ -64,6 +64,10 @@ public class AuthenticationController implements AuthenticationControllerDocs {
     return ResponseEntity.ok().build();
   }
 
-  // TODO logout, revoke de refresh token
-
+  @Override
+  @PostMapping("/logout")
+  public ResponseEntity<Void> logoutUser(HttpServletRequest request) {
+    authenticationService.logoutUser(request);
+    return ResponseEntity.ok().build();
+  }
 }

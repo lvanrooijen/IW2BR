@@ -2,7 +2,7 @@
 
 IW-2-BR is intended to be a study platform. 
 A user can create an enviroment per subject. create and add notes, flashcards and exams to test their knowledge.
-for more information visit the projects [wiki page](https://github.com/lvanrooijen/IW2BR/wiki)
+for more information visit the projects [Wiki Pages](https://github.com/lvanrooijen/IW2BR/wiki)
 
 ## Requirements
 

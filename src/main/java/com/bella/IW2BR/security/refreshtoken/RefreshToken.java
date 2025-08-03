@@ -1,6 +1,6 @@
 package com.bella.IW2BR.security.refreshtoken;
 
-import com.bella.IW2BR.entities.user.User;
+import com.bella.IW2BR.domain.user.User;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;

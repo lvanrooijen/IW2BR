@@ -1,8 +1,8 @@
-package com.bella.IW2BR.entities.environment;
+package com.bella.IW2BR.domain.environment;
 
-import com.bella.IW2BR.entities.environment.dto.GetEnvironment;
-import com.bella.IW2BR.entities.environment.dto.PatchEnvironment;
-import com.bella.IW2BR.entities.environment.dto.PostEnvironment;
+import com.bella.IW2BR.domain.environment.dto.GetEnvironment;
+import com.bella.IW2BR.domain.environment.dto.PatchEnvironment;
+import com.bella.IW2BR.domain.environment.dto.PostEnvironment;
 import com.bella.IW2BR.utils.constants.routes.Endpoints;
 import jakarta.validation.Valid;
 import java.net.URI;

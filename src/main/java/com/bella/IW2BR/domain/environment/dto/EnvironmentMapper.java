@@ -1,7 +1,7 @@
-package com.bella.IW2BR.entities.environment.dto;
+package com.bella.IW2BR.domain.environment.dto;
 
-import com.bella.IW2BR.entities.environment.Environment;
-import com.bella.IW2BR.entities.user.User;
+import com.bella.IW2BR.domain.environment.Environment;
+import com.bella.IW2BR.domain.user.User;
 import java.time.LocalDate;
 import org.springframework.stereotype.Service;
 

@@ -2,10 +2,10 @@ package com.bella.IW2BR.security;
 
 import static com.bella.IW2BR.utils.constants.security.JwtConstants.REFRESH_TOKEN_EXPIRATION_DAYS;
 
-import com.bella.IW2BR.entities.user.Role;
-import com.bella.IW2BR.entities.user.User;
-import com.bella.IW2BR.entities.user.UserRepository;
-import com.bella.IW2BR.entities.user.dto.*;
+import com.bella.IW2BR.domain.user.Role;
+import com.bella.IW2BR.domain.user.User;
+import com.bella.IW2BR.domain.user.UserRepository;
+import com.bella.IW2BR.domain.user.dto.*;
 import com.bella.IW2BR.events.userregistration.UserRegistrationPublisher;
 import com.bella.IW2BR.exceptions.authentication.InvalidRefreshTokenException;
 import com.bella.IW2BR.exceptions.user.FailedLoginException;

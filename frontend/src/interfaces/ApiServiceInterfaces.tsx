@@ -11,3 +11,11 @@ export interface RegisterFormProps {
   lastName: string;
   role: string; // todo enum of nah?
 }
+
+export interface UserProps {
+  id: string;
+  username: string;
+  email: string;
+  role: string;
+  accessToken?: string;
+}

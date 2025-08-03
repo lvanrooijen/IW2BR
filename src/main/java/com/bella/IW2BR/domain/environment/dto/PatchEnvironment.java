@@ -1,3 +1,3 @@
-package com.bella.IW2BR.entities.environment.dto;
+package com.bella.IW2BR.domain.environment.dto;
 
 public record PatchEnvironment(String title, String description) {}

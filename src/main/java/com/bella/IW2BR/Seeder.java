@@ -1,6 +1,6 @@
 package com.bella.IW2BR;
 
-import com.bella.IW2BR.entities.user.UserRepository;
+import com.bella.IW2BR.domain.user.UserRepository;
 import com.bella.IW2BR.utils.seederdata.SeederData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;

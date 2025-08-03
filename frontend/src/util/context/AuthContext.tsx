@@ -8,9 +8,10 @@ import {
 import type {
   LoginFormProps,
   RegisterFormProps,
+  UserProps,
 } from '../../interfaces/ApiServiceInterfaces';
 
-const AuthContext = createContext();
+const AuthContext = createContext<AuthContextProps | null>(null);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -26,7 +27,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         })
         .catch((error) => {
           console.error('Failed to refresh token', error);
-          logout(); // of delete accessToken ??
+          localStorage.removeItem('accessToken');
         });
     }
   }, []);
@@ -59,9 +60,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } catch (error) {
       console.error('Logout error', error);
     } finally {
-      localStorage.removeItem('accessToken');
       setUser(null);
       setIsLoggedIn(false);
+      localStorage.removeItem('accessToken');
     }
   };
 
@@ -72,16 +73,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
-
-// interfaces
-interface UserProps {
-  id: string;
-  username: string;
-  email: string;
-  role: string;
-}
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('AuthProvider context is null');
+  }
+  return context;
+};
 
 interface AuthProviderProps {
   children: React.ReactNode;
+}
+
+// interfaces
+
+interface AuthContextProps {
+  isLoggedIn: boolean;
+  user: UserProps | null;
+  login: (form: LoginFormProps) => Promise<void>;
+  register: (form: RegisterFormProps) => Promise<void>;
+  logout: () => Promise<void>;
 }

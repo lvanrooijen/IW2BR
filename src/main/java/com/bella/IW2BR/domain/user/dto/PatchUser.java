@@ -1,6 +1,6 @@
-package com.bella.IW2BR.entities.user.dto;
+package com.bella.IW2BR.domain.user.dto;
 
-import static com.bella.IW2BR.entities.user.dto.UserConstraints.*;
+import static com.bella.IW2BR.domain.user.dto.UserConstraints.*;
 
 import jakarta.validation.constraints.Email;
 import org.hibernate.validator.constraints.Length;

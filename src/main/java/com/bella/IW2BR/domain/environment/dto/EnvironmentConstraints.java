@@ -1,4 +1,4 @@
-package com.bella.IW2BR.entities.environment.dto;
+package com.bella.IW2BR.domain.environment.dto;
 
 public class EnvironmentConstraints {
   public static final int TITLE_MIN_LENGTH = 3;

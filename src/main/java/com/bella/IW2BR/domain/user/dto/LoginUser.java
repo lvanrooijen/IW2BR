@@ -1,4 +1,4 @@
-package com.bella.IW2BR.entities.user.dto;
+package com.bella.IW2BR.domain.user.dto;
 
 /**
  * User DTO used for logging in a user

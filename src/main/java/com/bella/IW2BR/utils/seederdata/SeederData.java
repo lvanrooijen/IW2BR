@@ -1,7 +1,7 @@
 package com.bella.IW2BR.utils.seederdata;
 
-import com.bella.IW2BR.entities.user.Role;
-import com.bella.IW2BR.entities.user.User;
+import com.bella.IW2BR.domain.user.Role;
+import com.bella.IW2BR.domain.user.User;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

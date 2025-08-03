@@ -2,7 +2,7 @@ package com.bella.IW2BR.security.jwt;
 
 import static com.bella.IW2BR.utils.constants.security.JwtConstants.*;
 
-import com.bella.IW2BR.entities.user.User;
+import com.bella.IW2BR.domain.user.User;
 import com.bella.IW2BR.security.jwt.dto.JwtTokenDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

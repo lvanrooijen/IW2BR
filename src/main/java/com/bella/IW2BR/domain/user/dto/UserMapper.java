@@ -1,6 +1,6 @@
-package com.bella.IW2BR.entities.user.dto;
+package com.bella.IW2BR.domain.user.dto;
 
-import com.bella.IW2BR.entities.user.User;
+import com.bella.IW2BR.domain.user.User;
 import org.springframework.stereotype.Component;
 
 /** This class is used to convert user related DTO's to entities and vice versa */

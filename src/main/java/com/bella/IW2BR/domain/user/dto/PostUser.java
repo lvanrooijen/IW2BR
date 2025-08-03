@@ -1,6 +1,6 @@
-package com.bella.IW2BR.entities.user.dto;
+package com.bella.IW2BR.domain.user.dto;
 
-import static com.bella.IW2BR.entities.user.dto.UserConstraints.*;
+import static com.bella.IW2BR.domain.user.dto.UserConstraints.*;
 
 import com.bella.IW2BR.utils.customvalidators.password.Password;
 import jakarta.validation.constraints.Email;

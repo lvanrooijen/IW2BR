@@ -1,4 +1,4 @@
-package com.bella.IW2BR.entities.user.dto;
+package com.bella.IW2BR.domain.user.dto;
 
 import java.util.UUID;
 

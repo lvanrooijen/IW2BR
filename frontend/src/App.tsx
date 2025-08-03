@@ -9,12 +9,14 @@ function App() {
   const { isLoggedIn, user } = useAuth();
 
   useEffect(() => {}, [isLoggedIn]);
+
+  if (!isLoggedIn) {
+    return <AuthPage />;
+  }
+
   return (
     <Routes>
-      <Route
-        path="/"
-        element={isLoggedIn ? <Home user={user} /> : <AuthPage />}
-      />
+      <Route path="/" element={<Home user={user} />} />
     </Routes>
   );
 }

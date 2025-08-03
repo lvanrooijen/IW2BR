@@ -1,4 +1,4 @@
-package com.bella.IW2BR.entities.user.dto;
+package com.bella.IW2BR.domain.user.dto;
 
 public class UserConstraints {
   public static final int NAME_LENGTH_MIN = 3;

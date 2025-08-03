@@ -1,6 +1,6 @@
 package com.bella.IW2BR.security;
 
-import com.bella.IW2BR.entities.user.dto.*;
+import com.bella.IW2BR.domain.user.dto.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -23,7 +23,8 @@ public interface AuthenticationControllerDocs {
         responseCode = "400",
         description = "invalid request body, user already registered")
   })
-  public ResponseEntity<GetUserWithJwtToken> registerUser(PostUser body, HttpServletResponse response);
+  public ResponseEntity<GetUserWithJwtToken> registerUser(
+      PostUser body, HttpServletResponse response);
 
   @Operation(summary = "update user", description = "updates user and save it in the database")
   @ApiResponses({
@@ -42,5 +43,6 @@ public interface AuthenticationControllerDocs {
 
   @Operation(summary = "login user", description = "login a user with a jwt token")
   @ApiResponses({@ApiResponse(responseCode = "200", description = "user logged in")})
-  public ResponseEntity<GetUserWithJwtToken> login(LoginUser requestBody, HttpServletResponse response);
+  public ResponseEntity<GetUserWithJwtToken> login(
+      LoginUser requestBody, HttpServletResponse response);
 }

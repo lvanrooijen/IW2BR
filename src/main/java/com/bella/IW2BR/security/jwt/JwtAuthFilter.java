@@ -3,7 +3,7 @@ package com.bella.IW2BR.security.jwt;
 import static com.bella.IW2BR.utils.constants.security.JwtConstants.AUTHORIZATION_HEADER_JWT_PREFIX;
 import static com.bella.IW2BR.utils.constants.security.JwtConstants.AUTHORIZATION_HEADER_NAME;
 
-import com.bella.IW2BR.entities.user.User;
+import com.bella.IW2BR.domain.user.User;
 import com.bella.IW2BR.security.AuthenticationService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

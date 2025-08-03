@@ -1,7 +1,6 @@
 package com.bella.IW2BR.events.userregistration;
 
-
-import com.bella.IW2BR.entities.user.User;
+import com.bella.IW2BR.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;

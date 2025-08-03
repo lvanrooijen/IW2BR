@@ -1,10 +1,10 @@
-package com.bella.IW2BR.entities.environment;
+package com.bella.IW2BR.domain.environment;
 
-import com.bella.IW2BR.entities.environment.dto.EnvironmentMapper;
-import com.bella.IW2BR.entities.environment.dto.GetEnvironment;
-import com.bella.IW2BR.entities.environment.dto.PatchEnvironment;
-import com.bella.IW2BR.entities.environment.dto.PostEnvironment;
-import com.bella.IW2BR.entities.user.User;
+import com.bella.IW2BR.domain.environment.dto.EnvironmentMapper;
+import com.bella.IW2BR.domain.environment.dto.GetEnvironment;
+import com.bella.IW2BR.domain.environment.dto.PatchEnvironment;
+import com.bella.IW2BR.domain.environment.dto.PostEnvironment;
+import com.bella.IW2BR.domain.user.User;
 import com.bella.IW2BR.exceptions.generic.ItemNotFoundException;
 import com.bella.IW2BR.security.AuthHelperService;
 import java.util.List;

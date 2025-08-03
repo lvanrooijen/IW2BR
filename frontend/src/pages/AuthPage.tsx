@@ -65,15 +65,3 @@ const AuthPage = () => {
 };
 
 export default AuthPage;
-
-interface LoginForm {
-  username: string;
-  password: string;
-}
-
-interface SignUpForm {
-  username: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-}

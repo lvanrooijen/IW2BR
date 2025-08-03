@@ -1,6 +1,6 @@
 package com.bella.IW2BR.security;
 
-import com.bella.IW2BR.entities.user.dto.*;
+import com.bella.IW2BR.domain.user.dto.*;
 import com.bella.IW2BR.utils.constants.routes.Endpoints;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -1,5 +1,6 @@
 package com.bella.IW2BR.domain.user;
 
+import com.bella.IW2BR.security.refreshtoken.RefreshToken;
 import jakarta.persistence.*;
 import java.util.Collection;
 import java.util.List;
@@ -45,6 +46,9 @@ public class User implements UserDetails {
 
   @Column(name = "last_name", nullable = false)
   private String lastName;
+
+  @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+  private RefreshToken refreshToken;
 
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return List.of(new SimpleGrantedAuthority(role.toString()));

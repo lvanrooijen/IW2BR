@@ -4,19 +4,23 @@ import AuthPage from './pages/AuthPage';
 import Home from './pages/Home';
 import { useAuth } from './util/context/AuthContext';
 import { useEffect } from 'react';
+import { ClimbingBoxLoader } from 'react-spinners';
 
 function App() {
-  const { isLoggedIn, user } = useAuth();
+  const { authIsLoading, isLoggedIn, user } = useAuth();
 
   useEffect(() => {}, [isLoggedIn]);
 
-  if (!isLoggedIn) {
-    return <AuthPage />;
+  if (authIsLoading) {
+    return <ClimbingBoxLoader />;
   }
 
   return (
     <Routes>
-      <Route path="/" element={<Home user={user} />} />
+      <Route
+        path="/"
+        element={isLoggedIn ? <Home user={user} /> : <AuthPage />}
+      />
     </Routes>
   );
 }

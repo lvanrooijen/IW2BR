@@ -38,6 +38,7 @@ public class AuthenticationController implements AuthenticationControllerDocs {
     return ResponseEntity.ok(user);
   }
 
+  @Override
   @PostMapping("/refresh-token")
   public ResponseEntity<GetUserWithJwtToken> refreshToken(
       HttpServletRequest request, HttpServletResponse response) {
@@ -56,13 +57,13 @@ public class AuthenticationController implements AuthenticationControllerDocs {
   }
 
   @Override
-  // TODO gebruiker mag eigen account ook verwijderen. die SpeLL even uitzoeken hiervoor!
-  @PreAuthorize("hasRole('ADMIN')")
   @DeleteMapping("/{id}")
+  @PreAuthorize("hasRole('ADMIN') or #id == authentication.principal.id")
   public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
     authenticationService.deleteUser(id);
     return ResponseEntity.ok().build();
   }
 
   // TODO logout, revoke de refresh token
+
 }

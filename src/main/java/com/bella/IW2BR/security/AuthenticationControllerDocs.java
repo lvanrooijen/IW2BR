@@ -4,6 +4,7 @@ import com.bella.IW2BR.domain.user.dto.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
@@ -45,4 +46,12 @@ public interface AuthenticationControllerDocs {
   @ApiResponses({@ApiResponse(responseCode = "200", description = "user logged in")})
   public ResponseEntity<GetUserWithJwtToken> login(
       LoginUser requestBody, HttpServletResponse response);
+
+  @Operation(summary = "refresh token", description = "retrieves a new access token if a valid refresh token is provided")
+  @ApiResponses({
+          @ApiResponse(responseCode = "200", description = "accessToken refreshed"),
+          @ApiResponse(responseCode = "401", description = "invalid refresh token, refresh token is revoked, refresh token is expired")
+  })
+  public ResponseEntity<GetUserWithJwtToken> refreshToken(
+          HttpServletRequest request, HttpServletResponse response);
 }

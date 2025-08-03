@@ -154,6 +154,7 @@ public class AuthenticationService implements UserDetailsService {
    * @param id represents user id
    * @throws EntityNotFoundException when user ID is not present in the database
    */
+  
   public void deleteUser(UUID id) {
     userRepository
         .findById(id)

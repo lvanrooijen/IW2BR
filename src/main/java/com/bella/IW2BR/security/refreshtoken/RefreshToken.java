@@ -31,6 +31,7 @@ public class RefreshToken {
   private String token;
 
   @OneToOne(optional = false)
+  @JoinColumn(name = "user_id")
   private User user;
 
   @Column(name = "revoked", nullable = false)

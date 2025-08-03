@@ -16,6 +16,7 @@ const AuthContext = createContext<AuthContextProps | null>(null);
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [user, setUser] = useState<UserProps | null>(null);
+  const [authIsLoading, setAuthIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
@@ -28,7 +29,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         .catch((error) => {
           console.error('Failed to refresh token', error);
           localStorage.removeItem('accessToken');
-        });
+        })
+        .finally(() => setAuthIsLoading(false));
+    } else {
+      setAuthIsLoading(false);
     }
   }, []);
 
@@ -67,7 +71,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, user, login, register, logout }}>
+    <AuthContext.Provider
+      value={{ authIsLoading, isLoggedIn, user, login, register, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -88,6 +94,7 @@ interface AuthProviderProps {
 // interfaces
 
 interface AuthContextProps {
+  authIsLoading: boolean;
   isLoggedIn: boolean;
   user: UserProps | null;
   login: (form: LoginFormProps) => Promise<void>;

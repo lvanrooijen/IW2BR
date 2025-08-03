@@ -42,6 +42,7 @@ AxiosInstance.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
+        console.log('ACCESSTOKEN INVALID, ATTEMPTING TO REFRESH::');
         const response = await axios.post(REFRESH_TOKEN, null, {
           withCredentials: true,
         });

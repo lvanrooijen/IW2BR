@@ -1,4 +1,3 @@
-// interfaces
 export interface LoginFormProps {
   username: string;
   password: string;
@@ -9,7 +8,7 @@ export interface RegisterFormProps {
   password: string;
   firstName: string;
   lastName: string;
-  role: string; // todo enum of nah?
+  role: string;
 }
 
 export interface UserProps {

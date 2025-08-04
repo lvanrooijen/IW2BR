@@ -23,6 +23,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (token) {
       refreshToken()
         .then((userData) => {
+          console.log('loading app, attempting to refresh token');
           setUser(userData);
           setIsLoggedIn(true);
         })

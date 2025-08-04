@@ -3,6 +3,7 @@ package com.bella.IW2BR.domain.environment;
 import com.bella.IW2BR.domain.user.User;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.UUID;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,4 +40,8 @@ public class Environment {
   @ManyToOne
   @JoinColumn(name = "owner", nullable = false)
   private User owner;
+
+  public boolean isOwner(UUID userId){
+    return owner.getId().equals(userId);
+  }
 }

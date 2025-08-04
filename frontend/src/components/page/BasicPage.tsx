@@ -4,14 +4,13 @@ const BasicPage: React.FC<BasicPageProps> = ({ children }) => {
   return (
     <div>
       <NavBar />
-      {children}
+      <div className="flex flex-row items-center">{children}</div>
     </div>
   );
 };
 
 export default BasicPage;
 
-// interfaces
 interface BasicPageProps {
   children: React.ReactNode;
 }

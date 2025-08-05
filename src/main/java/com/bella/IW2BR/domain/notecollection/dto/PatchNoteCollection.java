@@ -1,12 +1,10 @@
-package com.bella.IW2BR.domain.tag.dto;
+package com.bella.IW2BR.domain.notecollection.dto;
 
-import static com.bella.IW2BR.domain.tag.dto.TagConstraintsGlobal.*;
+import static com.bella.IW2BR.utils.constants.GlobalValidationConstraints.*;
 
-import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 
-public record PostTag(
-    @NotBlank
+public record PatchNoteCollection(
         @Length(min = TITLE_MIN_LENGTH, max = TITLE_MAX_LENGTH, message = INVALID_TITLE_LENGTH_MSG)
         String title,
     @Length(

@@ -1,59 +1,47 @@
 package com.bella.IW2BR.domain.tag;
 
 import com.bella.IW2BR.domain.environment.Environment;
-import com.bella.IW2BR.domain.environment.EnvironmentRepository;
+import com.bella.IW2BR.domain.environment.EnvironmentHelperMethods;
 import com.bella.IW2BR.domain.tag.dto.GetTag;
 import com.bella.IW2BR.domain.tag.dto.PatchTag;
 import com.bella.IW2BR.domain.tag.dto.PostTag;
 import com.bella.IW2BR.domain.tag.dto.TagMapper;
-import com.bella.IW2BR.domain.user.User;
-import com.bella.IW2BR.exceptions.generic.IllegalActionException;
 import com.bella.IW2BR.exceptions.generic.ItemNotFoundException;
-import com.bella.IW2BR.security.AuthHelperService;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+/** Handles the business logic of tags */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class TagService {
   private final TagRepository tagRepository;
-  private final EnvironmentRepository environmentRepository;
-  private final AuthHelperService authHelperService;
   private final TagMapper tagMapper;
+  private final EnvironmentHelperMethods environmentHelperMethods;
 
-  public GetTag createTag(PostTag body) {
-    Environment environment =
-        getEnvironmentOrThrow(body.environmentId(), "Failed to create tag, environment not found");
-
-    User loggedInUser = authHelperService.getAuthenticatedUser();
-
-    if (!environment.isOwner(loggedInUser.getId())) {
-      throw new IllegalActionException(
-          "Failed to create tag. creator is not the owner of the environment");
-    }
+  public GetTag createTag(Long environmentId, PostTag body) {
+    Environment environment = environmentHelperMethods.getEnvironmentOrThrow(environmentId);
 
     Tag tag = tagMapper.fromPostTag(body, environment);
-
-    tagRepository.save(tag);
-
     double score = calculateScore(tag);
 
+    environmentHelperMethods.throwIfNotOwnerOrAdmin(environment);
+    environmentHelperMethods.throwIfNotInEnvironment(tag, environmentId);
+
+    tagRepository.save(tag);
     return tagMapper.toGetTag(tag, score);
   }
 
-  private Environment getEnvironmentOrThrow(Long environmentId, String exceptionMsgPrefix) {
-    return environmentRepository
-        .findById(environmentId)
-        .orElseThrow(
-            () ->
-                new ItemNotFoundException(
-                    exceptionMsgPrefix + ", could not find environment with id: " + environmentId));
-  }
-
+  /**
+   * Calculates score based on positive and negative flags.
+   *
+   * <p>Returns 0 if total flags are 6 or less, otherwise positive percentage
+   */
   private double calculateScore(Tag tag) {
     int timesFlagged = tag.getNegativeFlaggedCount() + tag.getPositiveFlaggedCount();
-
     if (timesFlagged <= 6) {
       return 0;
     }
@@ -63,31 +51,53 @@ public class TagService {
     return Math.round(score * 100.0) / 100.0;
   }
 
-  public void deleteTag(Long id) {
-    tagRepository
-        .findById(id)
-        .orElseThrow(() -> new ItemNotFoundException("Could not delete, tag does not exist"));
+  public void deleteTag(Long environmentId, Long id) {
+    Tag tag = getTagOrThrow(id);
+
+    environmentHelperMethods.throwIfNotInEnvironment(tag, environmentId);
+    environmentHelperMethods.throwIfNotOwnerOrAdmin(tag.getEnvironment());
+
     tagRepository.deleteById(id);
   }
 
-  public GetTag getTagById(Long id) {
-    Tag tag =
-        tagRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Tag not found"));
+  public GetTag getTagById(Long environmentId, Long id) {
+    Tag tag = getTagOrThrow(id);
+
+    environmentHelperMethods.throwIfNotInEnvironment(tag, environmentId);
+    environmentHelperMethods.throwIfNotOwnerOrAdmin(tag.getEnvironment());
+
     double score = calculateScore(tag);
     return tagMapper.toGetTag(tag, score);
   }
 
-  public List<GetTag> getAllTags() {
-    List<Tag> tags = tagRepository.findAll();
+  public List<GetTag> getAllTags(Long environmentId) {
+    List<Tag> tags = tagRepository.findAllByEnvironmentId(environmentId);
+    if (tags.isEmpty()) {
+      return new ArrayList<GetTag>();
+    }
+
+
+    environmentHelperMethods.throwIfNotOwnerOrAdmin(tags.get(0).getEnvironment());
+
     return tags.stream().map(tag -> tagMapper.toGetTag(tag, calculateScore(tag))).toList();
   }
 
-  public GetTag updateTag(Long id, PatchTag patch) {
-    Tag tag =
-        tagRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Tag not found"));
+  public GetTag updateTag(Long environmentId, Long id, PatchTag patch) {
+    Tag tag = getTagOrThrow(id);
+    Environment environment = tag.getEnvironment();
+
+    environmentHelperMethods.throwIfNotOwnerOrAdmin(environment);
+    environmentHelperMethods.throwIfNotInEnvironment(tag, environmentId);
+
     tagMapper.updateTagFields(tag, patch);
-    tagRepository.save(tag);
     double score = calculateScore(tag);
+
+    tagRepository.save(tag);
     return tagMapper.toGetTag(tag, score);
+  }
+
+  // helper methods
+  private Tag getTagOrThrow(Long id) {
+    return tagRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Tag not found"));
   }
 }

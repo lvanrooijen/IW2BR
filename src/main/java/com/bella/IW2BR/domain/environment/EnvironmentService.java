@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 public class EnvironmentService {
   private final EnvironmentRepository environmentRepository;
   private final AuthHelperService authHelperService;
+  private final EnvironmentHelperMethods environmentHelperMethods;
   private final EnvironmentMapper mapper;
 
   public GetEnvironment createEnvironment(PostEnvironment body) {
@@ -29,31 +30,28 @@ public class EnvironmentService {
   }
 
   public GetEnvironment getById(Long id) {
-    Environment environment =
-        environmentRepository
-            .findById(id)
-            .orElseThrow(
-                () ->
-                    new ItemNotFoundException(
-                        String.format("environment with id: %d can not be found", id)));
+    Environment environment = getEnvironmentOrThrow(id);
+    environmentHelperMethods.throwIfNotOwnerOrAdmin(environment);
+
     return mapper.toGetEnvironment(environment);
   }
 
   public List<GetEnvironment> getAll() {
-    List<Environment> environments = environmentRepository.findAll();
+    User loggedInUser = authHelperService.getAuthenticatedUser();
+
+    List<Environment> environments;
+    if (loggedInUser.isAdmin()) {
+      environments = environmentRepository.findAll();
+    } else {
+      environments = environmentRepository.findAllByOwner(loggedInUser);
+    }
+
     return environments.stream().map(mapper::toGetEnvironment).toList();
   }
 
   public GetEnvironment updateEnvironment(Long id, PatchEnvironment patch) {
-    Environment environment =
-        environmentRepository
-            .findById(id)
-            .orElseThrow(
-                () ->
-                    new ItemNotFoundException(
-                        String.format(
-                            "Can not update environment, and environment with id %d does not exist",
-                            id)));
+    environmentHelperMethods.throwIfNotOwnerOrAdmin(id);
+    Environment environment = getEnvironmentOrThrow(id);
 
     mapper.updateEnvironmentFields(environment, patch);
     environmentRepository.save(environment);
@@ -62,13 +60,16 @@ public class EnvironmentService {
   }
 
   public void deleteEnvironmentById(Long id) {
-    environmentRepository
-        .findById(id)
-        .orElseThrow(
-            () ->
-                new ItemNotFoundException(
-                    String.format(
-                        "Can not delete environment, environment by id %s can not be found", id)));
+    environmentHelperMethods.throwIfNotOwnerOrAdmin(id);
+    getEnvironmentOrThrow(id);
+
     environmentRepository.deleteById(id);
+  }
+
+  // helper methods
+  public Environment getEnvironmentOrThrow(Long environmentId) {
+    return environmentRepository
+        .findById(environmentId)
+        .orElseThrow(() -> new ItemNotFoundException("Environment not found"));
   }
 }

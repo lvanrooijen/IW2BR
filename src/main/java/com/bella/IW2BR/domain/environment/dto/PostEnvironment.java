@@ -1,6 +1,6 @@
 package com.bella.IW2BR.domain.environment.dto;
 
-import static com.bella.IW2BR.domain.environment.dto.EnvironmentConstraints.*;
+import static com.bella.IW2BR.domain.environment.dto.EnvironmentConstraintsGlobal.*;
 
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;

@@ -9,12 +9,12 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 /**
  * Controller for handling note collection related operations.
  *
- * <p>The TAGS endpoint contains an environmentId path variable:
+ * <p>The NOTE COLLECTIONS endpoint contains an environmentId path variable:
  * /environments/{environmentId}/note_collections
  */
 @RestController
@@ -31,9 +31,9 @@ public class NoteCollectionController implements NoteCollectionControllerDocs {
         noteCollectionService.createNoteCollection(environmentId, body);
 
     URI location =
-        UriComponentsBuilder.newInstance()
-            .path("/environments/{environmentId}/note_collections/{id}")
-            .buildAndExpand(environmentId, noteCollection.id())
+        ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(noteCollection.id())
             .toUri();
     return ResponseEntity.created(location).body(noteCollection);
   }

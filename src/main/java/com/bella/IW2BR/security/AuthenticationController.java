@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping(Endpoints.AUTH)
@@ -26,7 +26,10 @@ public class AuthenticationController implements AuthenticationControllerDocs {
     GetUserWithJwtToken user = authenticationService.registerUser(body, response);
 
     URI location =
-        UriComponentsBuilder.newInstance().path("/users/{id}").buildAndExpand(user.id()).toUri();
+        ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(user.id())
+            .toUri();
     return ResponseEntity.created(location).body(user);
   }
 

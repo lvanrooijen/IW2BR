@@ -10,7 +10,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping(Endpoints.ENVIRONMENTS)
@@ -24,10 +24,10 @@ public class EnvironmentController implements EnvironmentControllerDocs {
       @RequestBody @Valid PostEnvironment body) {
     GetEnvironment environment = environmentService.createEnvironment(body);
     URI location =
-        UriComponentsBuilder.newInstance()
-            .path("environments/{id}")
-            .buildAndExpand(environment.id())
-            .toUri();
+            ServletUriComponentsBuilder.fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(environment.id())
+                    .toUri();
 
     return ResponseEntity.created(location).body(environment);
   }

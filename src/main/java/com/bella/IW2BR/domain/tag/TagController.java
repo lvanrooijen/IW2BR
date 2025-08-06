@@ -10,7 +10,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 /**
  * Controller for handling tag related operations.
@@ -29,9 +29,9 @@ public class TagController implements TagControllerDocs {
       @PathVariable Long environmentId, @RequestBody @Valid PostTag body) {
     GetTag tag = tagService.createTag(environmentId, body);
     URI location =
-        UriComponentsBuilder.newInstance()
-            .path("/environments/{environmentId}/tags/{id}")
-            .buildAndExpand(environmentId, tag.id())
+        ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(tag.id())
             .toUri();
     return ResponseEntity.created(location).body(tag);
   }

@@ -1,7 +1,11 @@
 package com.bella.IW2BR.domain.environment;
 
+import com.bella.IW2BR.domain.note.Note;
+import com.bella.IW2BR.domain.note.NoteRepository;
 import com.bella.IW2BR.domain.notecollection.NoteCollection;
+import com.bella.IW2BR.domain.notecollection.NoteCollectionRepository;
 import com.bella.IW2BR.domain.tag.Tag;
+import com.bella.IW2BR.domain.tag.TagRepository;
 import com.bella.IW2BR.domain.user.User;
 import com.bella.IW2BR.exceptions.generic.IllegalActionException;
 import com.bella.IW2BR.exceptions.generic.ItemNotFoundException;
@@ -16,6 +20,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class EnvironmentHelperMethods {
   private final EnvironmentRepository environmentRepository;
+  private final TagRepository tagRepository;
+  private final NoteCollectionRepository noteCollectionRepository;
+  private final NoteRepository noteRepository;
   private final AuthHelperService authHelperService;
 
   public Environment getEnvironmentOrThrow(Long environmentId) {
@@ -32,7 +39,7 @@ public class EnvironmentHelperMethods {
    *     does not have admin role
    */
   public void throwIfNotOwnerOrAdmin(Environment environment) {
-      User user = authHelperService.getAuthenticatedUser();
+    User user = authHelperService.getAuthenticatedUser();
     if (!environment.isOwner(user.getId()) && !user.isAdmin()) {
       throw new IllegalActionException(
           "Failed to create tag. creator is not the owner of the environment");
@@ -48,7 +55,7 @@ public class EnvironmentHelperMethods {
    * @throws ItemNotFoundException when the provided environment ID is not found
    */
   public void throwIfNotOwnerOrAdmin(Long environmentId) {
-      User user = authHelperService.getAuthenticatedUser();
+    User user = authHelperService.getAuthenticatedUser();
     Environment environment =
         environmentRepository
             .findById(environmentId)
@@ -84,5 +91,44 @@ public class EnvironmentHelperMethods {
       throw new ResourceNotInEnvironmentException(
           "Note Collection is not a member of this environment");
     }
+  }
+
+  /**
+   * Gets a Tag by ID or throws {@link ItemNotFoundException}
+   *
+   * @param tagId ID of tag
+   * @return {@link Tag}
+   * @throws ItemNotFoundException when the tag can not be found
+   */
+  public Tag getTagOrThrow(Long tagId) {
+    return tagRepository
+        .findById(tagId)
+        .orElseThrow(() -> new ItemNotFoundException("Tag not found"));
+  }
+
+  /**
+   * Gets a note collection by ID
+   *
+   * @param noteCollectionId ID of note collection
+   * @return {@link NoteCollection}
+   * @throws ItemNotFoundException when the note collection can not be found
+   */
+  public NoteCollection getNoteCollectionOrThrow(Long noteCollectionId) {
+    return noteCollectionRepository
+        .findById(noteCollectionId)
+        .orElseThrow(() -> new ItemNotFoundException("Note Collection not found"));
+  }
+
+  /**
+   * Gets a Note by ID
+   *
+   * @param id ID of note
+   * @return {@link Note}
+   * @throws ItemNotFoundException when the note can not be found
+   */
+  public Note getNoteOrThrow(Long id) {
+    return noteRepository
+        .findById(id)
+        .orElseThrow(() -> new ItemNotFoundException("Note not found"));
   }
 }

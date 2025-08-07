@@ -13,5 +13,5 @@ public class Endpoints {
   public static final String TAGS = ENVIRONMENTS_WITH_ID + "/tags";
   public static final String NOTE_COLLECTIONS = ENVIRONMENTS_WITH_ID + "/note_collections";
   private static final String NOTE_COLLECTIONS_WITH_ID = NOTE_COLLECTIONS + "/{noteCollectionId}";
-  public static final String NOTES = NOTE_COLLECTIONS_WITH_ID;
+  public static final String NOTES = NOTE_COLLECTIONS_WITH_ID + "/notes";
 }

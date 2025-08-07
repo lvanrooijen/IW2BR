@@ -9,12 +9,9 @@ import org.springframework.stereotype.Service;
 public class NoteMapper {
 
   public GetNote toGetNote(Note note) {
+    Long tagId = note.getTag() != null ? note.getTag().getId() : null;
     return new GetNote(
-        note.getId(),
-        note.getTitle(),
-        note.getBody(),
-        note.getNotecollection().getId(),
-        note.getTag().getId());
+        note.getId(), note.getTitle(), note.getBody(), note.getNotecollection().getId(), tagId);
   }
 
   public Note fromPostNote(PostNote entity, NoteCollection noteCollection) {

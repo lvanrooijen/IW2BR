@@ -4,6 +4,7 @@ import com.bella.IW2BR.domain.note.dto.GetNote;
 import com.bella.IW2BR.domain.note.dto.PatchNote;
 import com.bella.IW2BR.domain.note.dto.PostNote;
 import com.bella.IW2BR.utils.constants.routes.Endpoints;
+import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * Controller for handling note related operations.
  *
  * <p>The NOTES endpoint contains an environmentId and a noteCollectionId path variable:
- * /environments/{environmentId}/note_collections/{noteCollectionId}
+ * /environments/{environmentId}/note_collections/{noteCollectionId}/notes
  */
 @RestController
 @RequestMapping(Endpoints.NOTES)
@@ -28,7 +29,7 @@ public class NoteController {
   public ResponseEntity<GetNote> createNote(
       @PathVariable Long environmentId,
       @PathVariable Long noteCollectionId,
-      @RequestBody PostNote body) {
+      @RequestBody @Valid PostNote body) {
     GetNote note = noteService.createNote(environmentId, noteCollectionId, body);
 
     URI location =
@@ -50,9 +51,7 @@ public class NoteController {
 
   @GetMapping
   public ResponseEntity<List<GetNote>> getAllNotes(
-      @PathVariable Long environmentId,
-      @PathVariable Long noteCollectionId,
-      @PathVariable Long id) {
+      @PathVariable Long environmentId, @PathVariable Long noteCollectionId) {
     List<GetNote> notes = noteService.getAllNotes(environmentId, noteCollectionId);
     return ResponseEntity.ok(notes);
   }
@@ -62,12 +61,12 @@ public class NoteController {
       @PathVariable Long environmentId,
       @PathVariable Long noteCollectionId,
       @PathVariable Long id,
-      @RequestBody PatchNote patch) {
+      @RequestBody @Valid PatchNote patch) {
     GetNote note = noteService.updateNote(environmentId, noteCollectionId, id, patch);
     return ResponseEntity.ok(note);
   }
 
-  @PatchMapping("/{id}")
+  @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteNote(
       @PathVariable Long environmentId,
       @PathVariable Long noteCollectionId,

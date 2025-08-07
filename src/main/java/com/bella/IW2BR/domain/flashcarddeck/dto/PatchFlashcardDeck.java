@@ -10,4 +10,5 @@ import org.hibernate.validator.constraints.Length;
 public record PatchFlashcardDeck(
     @Length(min = TITLE_MIN, max = TITLE_MAX, message = INVALID_TITLE_LENGTH_MSG) String title,
     @Length(min = DESCRIPTION_MIN, max = DESCRIPTION_MAX, message = INVALID_DESCRIPTION_LENGTH_MSG)
-        String description) {}
+        String description,
+    Long tagId) {}

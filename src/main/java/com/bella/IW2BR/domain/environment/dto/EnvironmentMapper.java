@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EnvironmentMapper {
-  public Environment fromPostEnvironment(PostEnvironment dto, User user) {
+  public Environment fromPost(PostEnvironment dto, User user) {
     return Environment.builder()
         .title(dto.title())
         .description(dto.description())
@@ -16,7 +16,7 @@ public class EnvironmentMapper {
         .build();
   }
 
-  public GetEnvironment toGetEnvironment(Environment environment) {
+  public GetEnvironment toGet(Environment environment) {
     return new GetEnvironment(
         environment.getId(),
         environment.getTitle(),
@@ -24,7 +24,7 @@ public class EnvironmentMapper {
         environment.getCreatedAt());
   }
 
-  public Environment updateEnvironmentFields(Environment environment, PatchEnvironment patch) {
+  public Environment updateFields(Environment environment, PatchEnvironment patch) {
     if (patch.title() != null) {
       environment.setTitle(patch.title());
     }

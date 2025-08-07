@@ -1,6 +1,6 @@
 package com.bella.IW2BR.domain.tag.dto;
 
-import static com.bella.IW2BR.domain.tag.dto.TagConstraintsGlobal.*;
+import static com.bella.IW2BR.domain.tag.dto.TagConstraints.*;
 
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;

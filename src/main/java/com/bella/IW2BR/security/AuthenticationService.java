@@ -143,9 +143,9 @@ public class AuthenticationService implements UserDetailsService {
             .orElseThrow(
                 () -> new UserNotFoundException(String.format("No user with id %s found", id)));
 
-    userMapper.updateUserFields(user, patch);
+    userMapper.updateFields(user, patch);
     userRepository.save(user);
-    return userMapper.toGetUserDto(user);
+    return userMapper.toGet(user);
   }
 
   /**

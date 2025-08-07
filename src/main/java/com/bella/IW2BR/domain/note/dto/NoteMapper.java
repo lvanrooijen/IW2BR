@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class NoteMapper {
 
-  public GetNote toGetNote(Note note) {
+  public GetNote toGet(Note note) {
     Long tagId = note.getTag() != null ? note.getTag().getId() : null;
     return new GetNote(
         note.getId(), note.getTitle(), note.getBody(), note.getNotecollection().getId(), tagId);
   }
 
-  public Note fromPostNote(PostNote entity, NoteCollection noteCollection) {
+  public Note fromPost(PostNote entity, NoteCollection noteCollection) {
     return Note.builder()
         .title(entity.title())
         .body(entity.body())
@@ -22,13 +22,13 @@ public class NoteMapper {
         .build();
   }
 
-  public Note fromPostNote(PostNote entity, NoteCollection noteCollection, Tag tag) {
-    Note note = fromPostNote(entity, noteCollection);
+  public Note fromPost(PostNote entity, NoteCollection noteCollection, Tag tag) {
+    Note note = fromPost(entity, noteCollection);
     note.setTag(tag);
     return note;
   }
 
-  public Note updateNoteFields(Note note, PatchNote patch) {
+  public Note updateFields(Note note, PatchNote patch) {
     if (patch.title() != null) {
       note.setTitle(patch.title());
     }
@@ -38,8 +38,8 @@ public class NoteMapper {
     return note;
   }
 
-  public Note updateNoteFields(Note note, PatchNote patch, Tag tag) {
-    updateNoteFields(note, patch);
+  public Note updateFields(Note note, PatchNote patch, Tag tag) {
+    updateFields(note, patch);
     note.setTag(tag);
     return note;
   }

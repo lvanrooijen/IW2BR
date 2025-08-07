@@ -1,0 +1,16 @@
+TODO:
+
+- pva maken
+- wiki pages updaten
+- overige domains toevoegen
+- Swaggger docs voor de notes controller
+- java docstrings updaten
+
+- elke app onderdeel krijgt zijn eigen “tagline”
+app naam concept:
+“I want 2 Be Resourceful” (de app als geheel)
+“I want 2 Be Remembered” (flashcards)
+“I want 2 Be Ready” (quizzes)
+“I want 2 Be Recorded” (notities)
+
+

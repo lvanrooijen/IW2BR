@@ -33,14 +33,14 @@ public class NoteService {
     Note note;
     if (body.tagId() != null) {
       Tag tag = environmentHelperMethods.getTagOrThrow(body.tagId());
-      note = noteMapper.fromPostNote(body, noteCollection, tag);
+      note = noteMapper.fromPost(body, noteCollection, tag);
     } else {
-      note = noteMapper.fromPostNote(body, noteCollection);
+      note = noteMapper.fromPost(body, noteCollection);
     }
 
     noteRepository.save(note);
 
-    return noteMapper.toGetNote(note);
+    return noteMapper.toGet(note);
   }
 
   public GetNote getNoteById(Long environmentId, Long noteCollectionId, Long id) {
@@ -50,7 +50,7 @@ public class NoteService {
     environmentHelperMethods.throwIfNotInEnvironment(noteCollection, environmentId);
     Note note = environmentHelperMethods.getNoteOrThrow(id);
 
-    return noteMapper.toGetNote(note);
+    return noteMapper.toGet(note);
   }
 
   public List<GetNote> getAllNotes(Long environmentId, Long noteCollectionId) {
@@ -59,7 +59,7 @@ public class NoteService {
         environmentHelperMethods.getNoteCollectionOrThrow(noteCollectionId);
     List<Note> notes = noteRepository.findByNotecollection(noteCollection);
 
-    return notes.stream().map(noteMapper::toGetNote).toList();
+    return notes.stream().map(noteMapper::toGet).toList();
   }
 
   public GetNote updateNote(Long environmentId, Long noteCollectionId, Long id, PatchNote patch) {
@@ -67,12 +67,12 @@ public class NoteService {
     Note note = environmentHelperMethods.getNoteOrThrow(id);
     if (patch.tagId() != null) {
       Tag tag = environmentHelperMethods.getTagOrThrow(patch.tagId());
-      noteMapper.updateNoteFields(note, patch, tag);
+      noteMapper.updateFields(note, patch, tag);
     } else {
-      noteMapper.updateNoteFields(note, patch);
+      noteMapper.updateFields(note, patch);
     }
     noteRepository.save(note);
-    return noteMapper.toGetNote(note);
+    return noteMapper.toGet(note);
   }
 
   public void deleteNote(Long environmentId, Long noteCollectionId, Long id) {

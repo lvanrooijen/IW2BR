@@ -5,16 +5,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class NoteCollectionMapper {
-  public GetNoteCollection toGetNoteCollection(NoteCollection entity) {
+  public GetNoteCollection toGet(NoteCollection entity) {
     return new GetNoteCollection(entity.getId(), entity.getTitle(), entity.getDescription());
   }
 
-  public NoteCollection fromPostNoteCollection(PostNoteCollection dto) {
+  public NoteCollection fromPost(PostNoteCollection dto) {
     return NoteCollection.builder().title(dto.title()).description(dto.description()).build();
   }
 
-  public NoteCollection updateNoteCollectionFields(
-      NoteCollection noteCollection, PatchNoteCollection patch) {
+  public NoteCollection updateFields(NoteCollection noteCollection, PatchNoteCollection patch) {
     if (patch.title() != null) {
       noteCollection.setTitle(patch.title());
     }

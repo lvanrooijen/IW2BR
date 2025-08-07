@@ -20,8 +20,10 @@ public class Note {
 
   @Id @GeneratedValue private Long id;
 
+  @Column(name = "title", nullable = false)
   private String title;
 
+  @Column(name = "body", nullable = false)
   private String body;
 
   @ManyToOne

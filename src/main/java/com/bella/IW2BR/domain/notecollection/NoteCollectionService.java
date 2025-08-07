@@ -19,7 +19,7 @@ public class NoteCollectionService {
   private final EnvironmentHelperMethods environmentHelperMethods;
 
   public GetNoteCollection createNoteCollection(Long environmentId, PostNoteCollection body) {
-    NoteCollection noteCollection = noteCollectionMapper.fromPostNoteCollection(body);
+    NoteCollection noteCollection = noteCollectionMapper.fromPost(body);
     Environment environment = environmentHelperMethods.getEnvironmentOrThrow(environmentId);
 
     environmentHelperMethods.throwIfNotOwnerOrAdmin(environment);
@@ -27,7 +27,7 @@ public class NoteCollectionService {
     noteCollection.setEnvironment(environment);
     noteCollectionRepository.save(noteCollection);
 
-    return noteCollectionMapper.toGetNoteCollection(noteCollection);
+    return noteCollectionMapper.toGet(noteCollection);
   }
 
   public GetNoteCollection getNoteCollectionById(Long environmentId, Long id) {
@@ -36,7 +36,7 @@ public class NoteCollectionService {
     environmentHelperMethods.throwIfNotInEnvironment(noteCollection, environmentId);
     environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
 
-    return noteCollectionMapper.toGetNoteCollection(noteCollection);
+    return noteCollectionMapper.toGet(noteCollection);
   }
 
   public List<GetNoteCollection> getAllNoteCollections(Long environmentId) {
@@ -44,7 +44,7 @@ public class NoteCollectionService {
     List<NoteCollection> noteCollections =
         noteCollectionRepository.findAllByEnvironmentId(environmentId);
 
-    return noteCollections.stream().map(noteCollectionMapper::toGetNoteCollection).toList();
+    return noteCollections.stream().map(noteCollectionMapper::toGet).toList();
   }
 
   public GetNoteCollection updateNoteCollection(
@@ -54,10 +54,10 @@ public class NoteCollectionService {
     environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
     environmentHelperMethods.throwIfNotInEnvironment(noteCollection, environmentId);
 
-    noteCollectionMapper.updateNoteCollectionFields(noteCollection, patch);
+    noteCollectionMapper.updateFields(noteCollection, patch);
     noteCollectionRepository.save(noteCollection);
 
-    return noteCollectionMapper.toGetNoteCollection(noteCollection);
+    return noteCollectionMapper.toGet(noteCollection);
   }
 
   public void deleteCollection(Long environmentId, Long id) {

@@ -25,14 +25,14 @@ public class TagService {
   public GetTag createTag(Long environmentId, PostTag body) {
     Environment environment = environmentHelperMethods.getEnvironmentOrThrow(environmentId);
 
-    Tag tag = tagMapper.fromPostTag(body, environment);
+    Tag tag = tagMapper.fromPost(body, environment);
     double score = calculateScore(tag);
 
     environmentHelperMethods.throwIfNotOwnerOrAdmin(environment);
     environmentHelperMethods.throwIfNotInEnvironment(tag, environmentId);
 
     tagRepository.save(tag);
-    return tagMapper.toGetTag(tag, score);
+    return tagMapper.toGet(tag, score);
   }
 
   /**
@@ -67,7 +67,7 @@ public class TagService {
     environmentHelperMethods.throwIfNotOwnerOrAdmin(tag.getEnvironment());
 
     double score = calculateScore(tag);
-    return tagMapper.toGetTag(tag, score);
+    return tagMapper.toGet(tag, score);
   }
 
   public List<GetTag> getAllTags(Long environmentId) {
@@ -76,10 +76,9 @@ public class TagService {
       return new ArrayList<GetTag>();
     }
 
-
     environmentHelperMethods.throwIfNotOwnerOrAdmin(tags.get(0).getEnvironment());
 
-    return tags.stream().map(tag -> tagMapper.toGetTag(tag, calculateScore(tag))).toList();
+    return tags.stream().map(tag -> tagMapper.toGet(tag, calculateScore(tag))).toList();
   }
 
   public GetTag updateTag(Long environmentId, Long id, PatchTag patch) {
@@ -89,11 +88,11 @@ public class TagService {
     environmentHelperMethods.throwIfNotOwnerOrAdmin(environment);
     environmentHelperMethods.throwIfNotInEnvironment(tag, environmentId);
 
-    tagMapper.updateTagFields(tag, patch);
+    tagMapper.updateFields(tag, patch);
     double score = calculateScore(tag);
 
     tagRepository.save(tag);
-    return tagMapper.toGetTag(tag, score);
+    return tagMapper.toGet(tag, score);
   }
 
   // helper methods

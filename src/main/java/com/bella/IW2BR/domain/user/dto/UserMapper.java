@@ -12,7 +12,7 @@ public class UserMapper {
    * @param user entity
    * @return {@link GetUser} dto
    */
-  public GetUser toGetUserDto(User user) {
+  public GetUser toGet(User user) {
     return new GetUser(user.getId(), user.getEmail());
   }
 
@@ -39,7 +39,7 @@ public class UserMapper {
    * @param patch {@link PatchUser}
    * @return {@link User} updated user object
    */
-  public User updateUserFields(User user, PatchUser patch) {
+  public User updateFields(User user, PatchUser patch) {
     if (patch.firstName() != null) {
       user.setFirstName(patch.firstName());
     }

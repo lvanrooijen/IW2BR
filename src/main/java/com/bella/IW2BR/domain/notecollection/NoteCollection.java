@@ -2,15 +2,11 @@ package com.bella.IW2BR.domain.notecollection;
 
 import com.bella.IW2BR.domain.environment.Environment;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "note_collection")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class NoteCollection {
   @Builder

@@ -13,10 +13,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 /** Represents users of this app */
 @Entity
 @Table(name = "users")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class User implements UserDetails {
   @Builder
   public User(String email, String password, Role role, String firstName, String lastName) {

@@ -3,15 +3,11 @@ package com.bella.IW2BR.domain.tag;
 import com.bella.IW2BR.domain.environment.Environment;
 import jakarta.persistence.*;
 import java.time.LocalDate;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "tags")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class Tag {
   @Builder

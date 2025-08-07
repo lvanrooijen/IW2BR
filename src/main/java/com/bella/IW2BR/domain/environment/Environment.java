@@ -4,16 +4,12 @@ import com.bella.IW2BR.domain.user.User;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /** Represents environment related to a particular study subject. */
 @Entity
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @Table(name = "environments")
 public class Environment {
   @Builder
@@ -41,7 +37,7 @@ public class Environment {
   @JoinColumn(name = "owner", nullable = false)
   private User owner;
 
-  public boolean isOwner(UUID userId){
+  public boolean isOwner(UUID userId) {
     return owner.getId().equals(userId);
   }
 }

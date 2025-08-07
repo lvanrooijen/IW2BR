@@ -1,20 +1,31 @@
 TODO:
 
-- pva maken
-- wiki pages updaten
+BACKEND
 - overige domains toevoegen
 - Swaggger docs voor de notes controller
 - Swagger docs voor de flashcard decks maken
 - flashcard decks endpoints testen
 - java docstrings updaten
-- alle delete responses vervangen met noContent response ipv. oke.
+- google welke status code als iets gedelete is? als 204 dan vervang alles
 - alle pathvariabels specifieker maken
+- wiki pages updaten
+- voeg @Positive toe daar waar nodig!
+- die flashcardsdecks en notes even nalopen
+- dubbel checken of de wie wat mag wat zien overal goed is ingesteld
+- todo's maken en aan project board toevoegen
+
+- flyway uncommenten
+- fly way files maken, op volgorde! want sql oefenen
+
+FRONTEND
+- wire frames maken
+- todo's maken en aan project board toevoegen
 
 - elke app onderdeel krijgt zijn eigen “tagline”
 app naam concept:
-“I want 2 Be Resourceful” (de app als geheel)
-“I want 2 Be Remembered” (flashcards)
-“I want 2 Be Ready” (quizzes)
-“I want 2 Be Recorded” (notities)
+    - I want 2 Be Resourceful (de app als geheel)
+    - I want 2 Be Remembered (flashcards)
+    - I want 2 Be Ready (quizzes)
+    - I want 2 Be Recorded (notities)
 
 

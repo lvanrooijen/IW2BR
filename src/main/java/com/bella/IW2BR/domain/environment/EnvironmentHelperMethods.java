@@ -1,5 +1,7 @@
 package com.bella.IW2BR.domain.environment;
 
+import com.bella.IW2BR.domain.flashcarddeck.FlashcardDeck;
+import com.bella.IW2BR.domain.flashcarddeck.FlashcardDeckRepository;
 import com.bella.IW2BR.domain.note.Note;
 import com.bella.IW2BR.domain.note.NoteRepository;
 import com.bella.IW2BR.domain.notecollection.NoteCollection;
@@ -23,6 +25,7 @@ public class EnvironmentHelperMethods {
   private final TagRepository tagRepository;
   private final NoteCollectionRepository noteCollectionRepository;
   private final NoteRepository noteRepository;
+  private final FlashcardDeckRepository flashcardDeckRepository;
   private final AuthHelperService authHelperService;
 
   public Environment getEnvironmentOrThrow(Long environmentId) {
@@ -94,6 +97,20 @@ public class EnvironmentHelperMethods {
   }
 
   /**
+   * Verifies if a Flashcard deck is connected to the specified environment.
+   *
+   * @param flashcardDeck Flashcard Deck
+   * @param environmentId ID of the environment Tag is supposed to be a member of
+   * @throws ResourceNotInEnvironmentException if Note Collection is not a member of environment
+   */
+  public void throwIfNotInEnvironment(FlashcardDeck flashcardDeck, Long environmentId) {
+    if (!Objects.equals(flashcardDeck.getEnvironment().getId(), environmentId)) {
+      throw new ResourceNotInEnvironmentException(
+          "Flashcard deck is not a member of this environment");
+    }
+  }
+
+  /**
    * Gets a Tag by ID or throws {@link ItemNotFoundException}
    *
    * @param tagId ID of tag
@@ -130,5 +147,18 @@ public class EnvironmentHelperMethods {
     return noteRepository
         .findById(id)
         .orElseThrow(() -> new ItemNotFoundException("Note not found"));
+  }
+
+  /**
+   * Gets a flashcard deck by ID
+   *
+   * @param id ID of the flashcard Deck
+   * @return {@link FlashcardDeck}
+   * @throws ItemNotFoundException when flashcard deck can not be found
+   */
+  public FlashcardDeck getFlashcardDeckOrThrow(Long id) {
+    return flashcardDeckRepository
+        .findById(id)
+        .orElseThrow(() -> new ItemNotFoundException("Flashcard deck not found"));
   }
 }

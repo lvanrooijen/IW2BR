@@ -4,7 +4,11 @@ TODO:
 - wiki pages updaten
 - overige domains toevoegen
 - Swaggger docs voor de notes controller
+- Swagger docs voor de flashcard decks maken
+- flashcard decks endpoints testen
 - java docstrings updaten
+- alle delete responses vervangen met noContent response ipv. oke.
+- alle pathvariabels specifieker maken
 
 - elke app onderdeel krijgt zijn eigen “tagline”
 app naam concept:

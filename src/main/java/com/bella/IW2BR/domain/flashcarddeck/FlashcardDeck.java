@@ -1,7 +1,9 @@
 package com.bella.IW2BR.domain.flashcarddeck;
 
 import com.bella.IW2BR.domain.environment.Environment;
+import com.bella.IW2BR.domain.flashcard.Flashcard;
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,4 +31,7 @@ public class FlashcardDeck {
   @ManyToOne
   @JoinColumn(name = "environment_id", nullable = false)
   private Environment environment;
+
+  @OneToMany(mappedBy = "flashcardDeck", cascade = CascadeType.ALL, orphanRemoval = true)
+  List<Flashcard> flashcards;
 }

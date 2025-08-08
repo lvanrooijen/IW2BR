@@ -18,7 +18,7 @@ public class NoteMapper {
     return Note.builder()
         .title(entity.title())
         .body(entity.body())
-        .notecollection(noteCollection)
+        .noteCollection(noteCollection)
         .build();
   }
 

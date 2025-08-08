@@ -6,7 +6,6 @@ import com.bella.IW2BR.domain.notecollection.dto.GetNoteCollection;
 import com.bella.IW2BR.domain.notecollection.dto.NoteCollectionMapper;
 import com.bella.IW2BR.domain.notecollection.dto.PatchNoteCollection;
 import com.bella.IW2BR.domain.notecollection.dto.PostNoteCollection;
-import com.bella.IW2BR.exceptions.generic.ItemNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,7 +30,7 @@ public class NoteCollectionService {
   }
 
   public GetNoteCollection getById(Long environmentId, Long id) {
-    NoteCollection noteCollection = getNoteCollectionOrThrow(id);
+    NoteCollection noteCollection = environmentHelperMethods.getNoteCollectionOrThrow(id);
 
     environmentHelperMethods.throwIfNotInEnvironment(noteCollection, environmentId);
     environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
@@ -48,7 +47,7 @@ public class NoteCollectionService {
   }
 
   public GetNoteCollection update(Long environmentId, Long id, PatchNoteCollection patch) {
-    NoteCollection noteCollection = getNoteCollectionOrThrow(id);
+    NoteCollection noteCollection = environmentHelperMethods.getNoteCollectionOrThrow(id);
 
     environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
     environmentHelperMethods.throwIfNotInEnvironment(noteCollection, environmentId);
@@ -61,25 +60,11 @@ public class NoteCollectionService {
   }
 
   public void delete(Long environmentId, Long id) {
-    NoteCollection noteCollection = getNoteCollectionOrThrow(id);
+    NoteCollection noteCollection = environmentHelperMethods.getNoteCollectionOrThrow(id);
 
     environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
     environmentHelperMethods.throwIfNotInEnvironment(noteCollection, environmentId);
 
     noteCollectionRepository.deleteById(id);
-  }
-
-  /**
-   * Helper method, fetches Note Collection or throws Exception
-   *
-   * @param id ID of note collection
-   * @return {@link NoteCollection}
-   * @throws ItemNotFoundException when the note collection does not exist
-   */
-  private NoteCollection getNoteCollectionOrThrow(Long id) {
-
-    return noteCollectionRepository
-        .findById(id)
-        .orElseThrow(() -> new ItemNotFoundException("Note collection not found"));
   }
 }

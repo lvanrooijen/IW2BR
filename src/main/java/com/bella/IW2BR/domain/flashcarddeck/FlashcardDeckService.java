@@ -56,7 +56,6 @@ public class FlashcardDeckService {
     mapper.updateFields(flashcardDeck, patch);
 
     flashcardDeckRepository.save(flashcardDeck);
-
     return mapper.toGet(flashcardDeck);
   }
 

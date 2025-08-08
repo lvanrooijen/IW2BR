@@ -71,6 +71,7 @@ public class NoteService {
     } else {
       noteMapper.updateFields(note, patch);
     }
+
     noteRepository.save(note);
     return noteMapper.toGet(note);
   }

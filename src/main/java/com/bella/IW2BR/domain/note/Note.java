@@ -11,10 +11,10 @@ import lombok.*;
 @NoArgsConstructor
 public class Note {
   @Builder
-  public Note(String title, String body, NoteCollection notecollection, Tag tag) {
+  public Note(String title, String body, NoteCollection noteCollection, Tag tag) {
     this.title = title;
     this.body = body;
-    this.notecollection = notecollection;
+    this.notecollection = noteCollection;
     this.tag = tag;
   }
 

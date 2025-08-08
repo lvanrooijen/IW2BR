@@ -1,7 +1,9 @@
 package com.bella.IW2BR.domain.notecollection;
 
 import com.bella.IW2BR.domain.environment.Environment;
+import com.bella.IW2BR.domain.note.Note;
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.*;
 
 @Entity
@@ -26,4 +28,7 @@ public class NoteCollection {
   @ManyToOne
   @JoinColumn(name = "environment_id", nullable = false)
   private Environment environment;
+
+  @OneToMany(mappedBy = "notecollection", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Note> notes;
 }

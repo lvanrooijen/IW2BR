@@ -6,7 +6,6 @@ import com.bella.IW2BR.domain.tag.dto.GetTag;
 import com.bella.IW2BR.domain.tag.dto.PatchTag;
 import com.bella.IW2BR.domain.tag.dto.PostTag;
 import com.bella.IW2BR.domain.tag.dto.TagMapper;
-import com.bella.IW2BR.exceptions.generic.ItemNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +51,7 @@ public class TagService {
   }
 
   public void delete(Long environmentId, Long id) {
-    Tag tag = getTagOrThrow(id);
+    Tag tag = environmentHelperMethods.getTagOrThrow(id);
 
     environmentHelperMethods.throwIfNotInEnvironment(tag, environmentId);
     environmentHelperMethods.throwIfNotOwnerOrAdmin(tag.getEnvironment());
@@ -61,7 +60,7 @@ public class TagService {
   }
 
   public GetTag getById(Long environmentId, Long id) {
-    Tag tag = getTagOrThrow(id);
+    Tag tag = environmentHelperMethods.getTagOrThrow(id);
 
     environmentHelperMethods.throwIfNotInEnvironment(tag, environmentId);
     environmentHelperMethods.throwIfNotOwnerOrAdmin(tag.getEnvironment());
@@ -82,7 +81,7 @@ public class TagService {
   }
 
   public GetTag update(Long environmentId, Long id, PatchTag patch) {
-    Tag tag = getTagOrThrow(id);
+    Tag tag = environmentHelperMethods.getTagOrThrow(id);
     Environment environment = tag.getEnvironment();
 
     environmentHelperMethods.throwIfNotOwnerOrAdmin(environment);
@@ -93,10 +92,5 @@ public class TagService {
 
     tagRepository.save(tag);
     return tagMapper.toGet(tag, score);
-  }
-
-  // helper methods
-  private Tag getTagOrThrow(Long id) {
-    return tagRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Tag not found"));
   }
 }

@@ -22,7 +22,7 @@ public class Endpoints {
 
   public static final String FLASHCARD_DECKS = ENVIRONMENTS_WITH_ID + "/flashcard_decks";
   private static final String FLASHCARD_DECKS_WITH_ID =
-      BASE_ROUTE + "/flashcard_decks/{flashcardDeckId}";
+      ENVIRONMENTS_WITH_ID + "/flashcard_decks/{flashcardDeckId}";
 
   public static final String FLASHCARDS = FLASHCARD_DECKS_WITH_ID + "/flashcards";
 }

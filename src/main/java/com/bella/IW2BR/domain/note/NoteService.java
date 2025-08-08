@@ -8,7 +8,6 @@ import com.bella.IW2BR.domain.note.dto.PostNote;
 import com.bella.IW2BR.domain.notecollection.NoteCollection;
 import com.bella.IW2BR.domain.notecollection.NoteCollectionRepository;
 import com.bella.IW2BR.domain.tag.Tag;
-import com.bella.IW2BR.exceptions.generic.ItemNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,9 +24,8 @@ public class NoteService {
     environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
 
     NoteCollection noteCollection =
-        noteCollectionRepository
-            .findById(noteCollectionId)
-            .orElseThrow(() -> new ItemNotFoundException("note Collection not found"));
+        environmentHelperMethods.getNoteCollectionOrThrow(noteCollectionId);
+
     environmentHelperMethods.throwIfNotInEnvironment(noteCollection, environmentId);
 
     Note note;
@@ -44,6 +42,7 @@ public class NoteService {
   }
 
   public GetNote getNoteById(Long environmentId, Long noteCollectionId, Long id) {
+    // TODO is note member van note collection?
     environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
     NoteCollection noteCollection =
         environmentHelperMethods.getNoteCollectionOrThrow(noteCollectionId);
@@ -63,6 +62,7 @@ public class NoteService {
   }
 
   public GetNote updateNote(Long environmentId, Long noteCollectionId, Long id, PatchNote patch) {
+    // TODO is note member van note collection?
     environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
     Note note = environmentHelperMethods.getNoteOrThrow(id);
     if (patch.tagId() != null) {
@@ -76,6 +76,7 @@ public class NoteService {
   }
 
   public void deleteNote(Long environmentId, Long noteCollectionId, Long id) {
+    // TODO is note member van note collection?
     environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
     NoteCollection noteCollection =
         environmentHelperMethods.getNoteCollectionOrThrow(noteCollectionId);

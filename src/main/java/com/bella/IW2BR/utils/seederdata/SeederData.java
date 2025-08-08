@@ -1,6 +1,8 @@
 package com.bella.IW2BR.utils.seederdata;
 
 import com.bella.IW2BR.domain.environment.Environment;
+import com.bella.IW2BR.domain.flashcard.Flashcard;
+import com.bella.IW2BR.domain.flashcarddeck.FlashcardDeck;
 import com.bella.IW2BR.domain.note.Note;
 import com.bella.IW2BR.domain.notecollection.NoteCollection;
 import com.bella.IW2BR.domain.tag.Tag;
@@ -85,6 +87,32 @@ public class SeederData {
 
     Tag history =
         Tag.builder().title("History").description("What happend to the leg of horus?").build();
+
+    return List.of(mathematics, history);
+  }
+
+  public List<FlashcardDeck> getFlashcardDecks() {
+    FlashcardDeck mathematics =
+        FlashcardDeck.builder().title("Mathematics").description("Can you divide 0 by 2?").build();
+
+    FlashcardDeck history =
+        FlashcardDeck.builder()
+            .title("History")
+            .description("The butterfly effect, was if always the same?")
+            .build();
+
+    return List.of(mathematics, history);
+  }
+
+  public List<Flashcard> getFlashcards() {
+    Flashcard mathematics =
+        Flashcard.builder()
+            .frontBody("Mathematics")
+            .backBody("Are modulo and remainder the same?")
+            .build();
+
+    Flashcard history =
+        Flashcard.builder().frontBody("History").backBody("Who was Quetzalcoatl").build();
 
     return List.of(mathematics, history);
   }

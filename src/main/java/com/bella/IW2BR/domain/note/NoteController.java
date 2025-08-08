@@ -22,7 +22,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RequestMapping(Endpoints.NOTES)
 @RequiredArgsConstructor
 public class NoteController {
-  // TODO WIP
   private final NoteService noteService;
 
   @PostMapping

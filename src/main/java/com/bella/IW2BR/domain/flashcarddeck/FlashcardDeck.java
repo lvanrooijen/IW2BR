@@ -4,10 +4,12 @@ import com.bella.IW2BR.domain.environment.Environment;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "flashcard_decks")
 @Data
+@NoArgsConstructor
 public class FlashcardDeck {
   @Builder
   public FlashcardDeck(String title, String description, Environment environment) {

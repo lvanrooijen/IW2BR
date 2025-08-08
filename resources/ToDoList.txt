@@ -2,17 +2,15 @@ TODO:
 
 BACKEND
 - overige domains toevoegen
-- Swaggger docs voor de notes controller
-- Swagger docs voor de flashcard decks maken
-- flashcard decks endpoints testen
+- Alle swagger docs interfaces over nieuw doen!
 - java docstrings updaten
 - google welke status code als iets gedelete is? als 204 dan vervang alles
 - alle pathvariabels specifieker maken
 - wiki pages updaten
 - voeg @Positive toe daar waar nodig!
-- die flashcardsdecks en notes even nalopen
 - dubbel checken of de wie wat mag wat zien overal goed is ingesteld
 - todo's maken en aan project board toevoegen
+- postman collection fixen --> newman?
 
 - flyway uncommenten
 - fly way files maken, op volgorde! want sql oefenen

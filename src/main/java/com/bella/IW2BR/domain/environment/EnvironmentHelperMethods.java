@@ -1,5 +1,7 @@
 package com.bella.IW2BR.domain.environment;
 
+import com.bella.IW2BR.domain.flashcard.Flashcard;
+import com.bella.IW2BR.domain.flashcard.FlashcardRepository;
 import com.bella.IW2BR.domain.flashcarddeck.FlashcardDeck;
 import com.bella.IW2BR.domain.flashcarddeck.FlashcardDeckRepository;
 import com.bella.IW2BR.domain.note.Note;
@@ -9,6 +11,7 @@ import com.bella.IW2BR.domain.notecollection.NoteCollectionRepository;
 import com.bella.IW2BR.domain.tag.Tag;
 import com.bella.IW2BR.domain.tag.TagRepository;
 import com.bella.IW2BR.domain.user.User;
+import com.bella.IW2BR.exceptions.base.BaseBadRequestException;
 import com.bella.IW2BR.exceptions.generic.IllegalActionException;
 import com.bella.IW2BR.exceptions.generic.ItemNotFoundException;
 import com.bella.IW2BR.exceptions.generic.ResourceNotInEnvironmentException;
@@ -21,18 +24,13 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class EnvironmentHelperMethods {
+  private final AuthHelperService authHelperService;
   private final EnvironmentRepository environmentRepository;
   private final TagRepository tagRepository;
   private final NoteCollectionRepository noteCollectionRepository;
   private final NoteRepository noteRepository;
   private final FlashcardDeckRepository flashcardDeckRepository;
-  private final AuthHelperService authHelperService;
-
-  public Environment getEnvironmentOrThrow(Long environmentId) {
-    return environmentRepository
-        .findById(environmentId)
-        .orElseThrow(() -> new ItemNotFoundException("environment not found"));
-  }
+  private final FlashcardRepository flashcardRepository;
 
   /**
    * Verifies if the authenticated user is the owner of the environment, or has an admin role.
@@ -66,6 +64,20 @@ public class EnvironmentHelperMethods {
     if (!environment.isOwner(user.getId()) && !user.isAdmin()) {
       throw new IllegalActionException(
           "Failed to create tag. creator is not the owner of the environment");
+    }
+  }
+
+  /**
+   * Verifies if the ID's are the same, if not it will throw the passed exception
+   *
+   * @param expectedId ID as given in the URI
+   * @param actualId ID that is connected to the entity
+   * @param exception any exception that extends {@link BaseBadRequestException}
+   * @throws BaseBadRequestException or co-variants if ID's do not match
+   */
+  public void throwIfIdMismatch(Long expectedId, Long actualId, BaseBadRequestException exception) {
+    if (!Objects.equals(expectedId, actualId)) {
+      throw exception;
     }
   }
 
@@ -108,6 +120,19 @@ public class EnvironmentHelperMethods {
       throw new ResourceNotInEnvironmentException(
           "Flashcard deck is not a member of this environment");
     }
+  }
+
+  /**
+   * Get the environment by ID
+   *
+   * @param environmentId ID of environment
+   * @return {@link Environment}
+   * @throws ItemNotFoundException when the environment is not found
+   */
+  public Environment getEnvironmentOrThrow(Long environmentId) {
+    return environmentRepository
+        .findById(environmentId)
+        .orElseThrow(() -> new ItemNotFoundException("environment not found"));
   }
 
   /**
@@ -160,5 +185,18 @@ public class EnvironmentHelperMethods {
     return flashcardDeckRepository
         .findById(id)
         .orElseThrow(() -> new ItemNotFoundException("Flashcard deck not found"));
+  }
+
+  /**
+   * Gets a flashcard by ID
+   *
+   * @param id ID of the flashcard
+   * @return {@link Flashcard}
+   * @throws ItemNotFoundException when flashcard can not be found
+   */
+  public Flashcard getFlashcardOrThrow(Long id) {
+    return flashcardRepository
+        .findById(id)
+        .orElseThrow(() -> new ItemNotFoundException("Flashcard not found"));
   }
 }

@@ -6,10 +6,12 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "flashcards")
 @Data
+@NoArgsConstructor
 public class Flashcard {
   @Builder
   public Flashcard(

@@ -6,6 +6,13 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import org.hibernate.validator.constraints.Length;
 
+/**
+ * DTO for creating flashcards
+ *
+ * @param frontBody content that represent the front of the flashcard
+ * @param backBody content that represents the back of the flashcard
+ * @param tagId ID of Tag
+ */
 public record PostFlashcard(
     @NotBlank @Length(min = BODY_MIN, max = FRONT_BODY_MAX, message = INVALID_FRONT_BODY_LENGTH_MSG)
         String frontBody,

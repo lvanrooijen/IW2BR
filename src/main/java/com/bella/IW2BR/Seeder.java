@@ -2,6 +2,10 @@ package com.bella.IW2BR;
 
 import com.bella.IW2BR.domain.environment.Environment;
 import com.bella.IW2BR.domain.environment.EnvironmentRepository;
+import com.bella.IW2BR.domain.flashcard.Flashcard;
+import com.bella.IW2BR.domain.flashcard.FlashcardRepository;
+import com.bella.IW2BR.domain.flashcarddeck.FlashcardDeck;
+import com.bella.IW2BR.domain.flashcarddeck.FlashcardDeckRepository;
 import com.bella.IW2BR.domain.note.Note;
 import com.bella.IW2BR.domain.note.NoteRepository;
 import com.bella.IW2BR.domain.notecollection.NoteCollection;
@@ -19,12 +23,14 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class Seeder implements CommandLineRunner {
+  private final SeederData seederData;
   private final UserRepository userRepository;
   private final EnvironmentRepository environmentRepository;
+  private final TagRepository tagRepository;
   private final NoteCollectionRepository noteCollectionRepository;
   private final NoteRepository noteRepository;
-  private final TagRepository tagRepository;
-  private final SeederData seederData;
+  private final FlashcardDeckRepository flashcardDeckRepository;
+  private final FlashcardRepository flashcardRepository;
 
   @Override
   public void run(String... args) throws Exception {
@@ -33,6 +39,32 @@ public class Seeder implements CommandLineRunner {
     seedTags();
     seedNoteCollections();
     seedNotes();
+    seedFlashcardDecks();
+    seedFlashcards();
+  }
+
+  private void seedFlashcards() {
+    if (!flashcardRepository.findAll().isEmpty()) return;
+
+    List<FlashcardDeck> flashcardDecks = flashcardDeckRepository.findAll();
+    List<Flashcard> flashcards = seederData.getFlashcards();
+
+    flashcards.get(0).setFlashcardDeck(flashcardDecks.get(0));
+    flashcards.get(1).setFlashcardDeck(flashcardDecks.get(1));
+
+    flashcardRepository.saveAll(flashcards);
+  }
+
+  private void seedFlashcardDecks() {
+    if (!flashcardDeckRepository.findAll().isEmpty()) return;
+
+    List<Environment> environments = environmentRepository.findAll();
+    List<FlashcardDeck> flashcardDecks = seederData.getFlashcardDecks();
+
+    flashcardDecks.get(0).setEnvironment(environments.get(0));
+    flashcardDecks.get(1).setEnvironment(environments.get(1));
+
+    flashcardDeckRepository.saveAll(flashcardDecks);
   }
 
   private void seedTags() {

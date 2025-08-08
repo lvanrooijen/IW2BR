@@ -56,6 +56,7 @@ public class NoteCollectionService {
     noteCollectionMapper.updateFields(noteCollection, patch);
     noteCollectionRepository.save(noteCollection);
 
+    noteCollectionRepository.save(noteCollection);
     return noteCollectionMapper.toGet(noteCollection);
   }
 

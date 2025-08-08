@@ -25,10 +25,10 @@ public class FlashcardDeckController {
   private final FlashcardDeckService flashcardDeckService;
 
   @PostMapping
-  public ResponseEntity<GetFlashcardDeck> createFlashcardDeck(
+  public ResponseEntity<GetFlashcardDeck> create(
       @PathVariable("environmentId") Long environmentId,
       @Valid @RequestBody PostFlashcardDeck body) {
-    GetFlashcardDeck flashcardDeck = flashcardDeckService.createFlashcardDeck(environmentId, body);
+    GetFlashcardDeck flashcardDeck = flashcardDeckService.create(environmentId, body);
 
     URI location =
         ServletUriComponentsBuilder.fromCurrentRequest()
@@ -40,34 +40,30 @@ public class FlashcardDeckController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<GetFlashcardDeck> getFlashcardDeckById(
+  public ResponseEntity<GetFlashcardDeck> get(
       @PathVariable Long environmentId, @PathVariable Long id) {
-    GetFlashcardDeck flashcardDeck = flashcardDeckService.getFlashcardDeckById(environmentId, id);
+    GetFlashcardDeck flashcardDeck = flashcardDeckService.getById(environmentId, id);
     return ResponseEntity.ok(flashcardDeck);
   }
 
   @GetMapping
-  public ResponseEntity<List<GetFlashcardDeck>> getAllFlashcardDecks(
-      @PathVariable Long environmentId) {
-    List<GetFlashcardDeck> flashcardDecks =
-        flashcardDeckService.getAllFlashcardDecks(environmentId);
+  public ResponseEntity<List<GetFlashcardDeck>> getAll(@PathVariable Long environmentId) {
+    List<GetFlashcardDeck> flashcardDecks = flashcardDeckService.getAll(environmentId);
     return ResponseEntity.ok(flashcardDecks);
   }
 
   @PatchMapping("/{id}")
-  public ResponseEntity<GetFlashcardDeck> updateFlashcardDeck(
+  public ResponseEntity<GetFlashcardDeck> patch(
       @PathVariable Long environmentId,
       @PathVariable Long id,
       @RequestBody PatchFlashcardDeck patch) {
-    GetFlashcardDeck flashcardDeck =
-        flashcardDeckService.updateFlashcardDeck(environmentId, id, patch);
+    GetFlashcardDeck flashcardDeck = flashcardDeckService.update(environmentId, id, patch);
     return ResponseEntity.ok(flashcardDeck);
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteFlashcardDeck(
-      @PathVariable Long environmentId, @PathVariable Long id) {
-    flashcardDeckService.deleteFlashcardDeck(environmentId, id);
+  public ResponseEntity<Void> delete(@PathVariable Long environmentId, @PathVariable Long id) {
+    flashcardDeckService.delete(environmentId, id);
     return ResponseEntity.ok().build();
   }
 }

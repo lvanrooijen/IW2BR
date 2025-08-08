@@ -25,11 +25,11 @@ public class NoteController {
   private final NoteService noteService;
 
   @PostMapping
-  public ResponseEntity<GetNote> createNote(
+  public ResponseEntity<GetNote> create(
       @PathVariable Long environmentId,
       @PathVariable Long noteCollectionId,
       @RequestBody @Valid PostNote body) {
-    GetNote note = noteService.createNote(environmentId, noteCollectionId, body);
+    GetNote note = noteService.create(environmentId, noteCollectionId, body);
 
     URI location =
         ServletUriComponentsBuilder.fromCurrentRequest()
@@ -40,37 +40,37 @@ public class NoteController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<GetNote> getNoteById(
+  public ResponseEntity<GetNote> get(
       @PathVariable Long environmentId,
       @PathVariable Long noteCollectionId,
       @PathVariable Long id) {
-    GetNote note = noteService.getNoteById(environmentId, noteCollectionId, id);
+    GetNote note = noteService.getById(environmentId, noteCollectionId, id);
     return ResponseEntity.ok(note);
   }
 
   @GetMapping
-  public ResponseEntity<List<GetNote>> getAllNotes(
+  public ResponseEntity<List<GetNote>> getAll(
       @PathVariable Long environmentId, @PathVariable Long noteCollectionId) {
-    List<GetNote> notes = noteService.getAllNotes(environmentId, noteCollectionId);
+    List<GetNote> notes = noteService.getAll(environmentId, noteCollectionId);
     return ResponseEntity.ok(notes);
   }
 
   @PatchMapping("/{id}")
-  public ResponseEntity<GetNote> updateNote(
+  public ResponseEntity<GetNote> patch(
       @PathVariable Long environmentId,
       @PathVariable Long noteCollectionId,
       @PathVariable Long id,
       @RequestBody @Valid PatchNote patch) {
-    GetNote note = noteService.updateNote(environmentId, noteCollectionId, id, patch);
+    GetNote note = noteService.update(environmentId, noteCollectionId, id, patch);
     return ResponseEntity.ok(note);
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteNote(
+  public ResponseEntity<Void> delete(
       @PathVariable Long environmentId,
       @PathVariable Long noteCollectionId,
       @PathVariable Long id) {
-    noteService.deleteNote(environmentId, noteCollectionId, id);
+    noteService.delete(environmentId, noteCollectionId, id);
     return ResponseEntity.ok().build();
   }
 }

@@ -26,7 +26,7 @@ public interface NoteCollectionControllerDocs {
     @ApiResponse(responseCode = "404", description = "Environment not found")
   })
   @PostMapping
-  ResponseEntity<GetNoteCollection> createNoteCollection(
+  ResponseEntity<GetNoteCollection> create(
       @PathVariable Long environmentId, @RequestBody PostNoteCollection body);
 
   @Operation(
@@ -41,8 +41,7 @@ public interface NoteCollectionControllerDocs {
     @ApiResponse(responseCode = "404", description = "Note collection not found")
   })
   @GetMapping("/{id}")
-  ResponseEntity<GetNoteCollection> getNoteCollectionById(
-      @PathVariable Long environmentId, @PathVariable Long id);
+  ResponseEntity<GetNoteCollection> get(@PathVariable Long environmentId, @PathVariable Long id);
 
   @Operation(
       summary = "Get all note collections",
@@ -55,7 +54,7 @@ public interface NoteCollectionControllerDocs {
     @ApiResponse(responseCode = "404", description = "Environment not found")
   })
   @GetMapping
-  ResponseEntity<List<GetNoteCollection>> getAllNoteCollections(@PathVariable Long environmentId);
+  ResponseEntity<List<GetNoteCollection>> getAll(@PathVariable Long environmentId);
 
   @Operation(
       summary = "Update note collection",
@@ -71,7 +70,7 @@ public interface NoteCollectionControllerDocs {
     @ApiResponse(responseCode = "404", description = "Note collection not found")
   })
   @PatchMapping("/{id}")
-  ResponseEntity<GetNoteCollection> updateNoteCollection(
+  ResponseEntity<GetNoteCollection> patch(
       @PathVariable Long environmentId,
       @PathVariable Long id,
       @RequestBody PatchNoteCollection body);
@@ -88,6 +87,5 @@ public interface NoteCollectionControllerDocs {
     @ApiResponse(responseCode = "404", description = "Note collection not found")
   })
   @DeleteMapping("/{id}")
-  ResponseEntity<Void> deleteNoteCollection(
-      @PathVariable Long environmentId, @PathVariable Long id);
+  ResponseEntity<Void> delete(@PathVariable Long environmentId, @PathVariable Long id);
 }

@@ -25,10 +25,9 @@ public class NoteCollectionController implements NoteCollectionControllerDocs {
 
   @Override
   @PostMapping
-  public ResponseEntity<GetNoteCollection> createNoteCollection(
+  public ResponseEntity<GetNoteCollection> create(
       @PathVariable Long environmentId, @RequestBody PostNoteCollection body) {
-    GetNoteCollection noteCollection =
-        noteCollectionService.createNoteCollection(environmentId, body);
+    GetNoteCollection noteCollection = noteCollectionService.create(environmentId, body);
 
     URI location =
         ServletUriComponentsBuilder.fromCurrentRequest()
@@ -40,38 +39,33 @@ public class NoteCollectionController implements NoteCollectionControllerDocs {
 
   @Override
   @GetMapping("/{id}")
-  public ResponseEntity<GetNoteCollection> getNoteCollectionById(
+  public ResponseEntity<GetNoteCollection> get(
       @PathVariable Long environmentId, @PathVariable Long id) {
-    GetNoteCollection noteCollection =
-        noteCollectionService.getNoteCollectionById(environmentId, id);
+    GetNoteCollection noteCollection = noteCollectionService.getById(environmentId, id);
     return ResponseEntity.ok(noteCollection);
   }
 
   @Override
   @GetMapping
-  public ResponseEntity<List<GetNoteCollection>> getAllNoteCollections(
-      @PathVariable Long environmentId) {
-    List<GetNoteCollection> noteCollections =
-        noteCollectionService.getAllNoteCollections(environmentId);
+  public ResponseEntity<List<GetNoteCollection>> getAll(@PathVariable Long environmentId) {
+    List<GetNoteCollection> noteCollections = noteCollectionService.getAll(environmentId);
     return ResponseEntity.ok(noteCollections);
   }
 
   @Override
   @PatchMapping("/{id}")
-  public ResponseEntity<GetNoteCollection> updateNoteCollection(
+  public ResponseEntity<GetNoteCollection> patch(
       @PathVariable Long environmentId,
       @PathVariable Long id,
       @RequestBody PatchNoteCollection patch) {
-    GetNoteCollection noteCollection =
-        noteCollectionService.updateNoteCollection(environmentId, id, patch);
+    GetNoteCollection noteCollection = noteCollectionService.update(environmentId, id, patch);
     return ResponseEntity.ok(noteCollection);
   }
 
   @Override
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteNoteCollection(
-      @PathVariable Long environmentId, @PathVariable Long id) {
-    noteCollectionService.deleteCollection(environmentId, id);
+  public ResponseEntity<Void> delete(@PathVariable Long environmentId, @PathVariable Long id) {
+    noteCollectionService.delete(environmentId, id);
     return ResponseEntity.ok().build();
   }
 }

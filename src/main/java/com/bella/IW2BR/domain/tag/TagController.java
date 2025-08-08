@@ -25,9 +25,9 @@ public class TagController implements TagControllerDocs {
 
   @Override
   @PostMapping
-  public ResponseEntity<GetTag> createTag(
+  public ResponseEntity<GetTag> create(
       @PathVariable Long environmentId, @RequestBody @Valid PostTag body) {
-    GetTag tag = tagService.createTag(environmentId, body);
+    GetTag tag = tagService.create(environmentId, body);
     URI location =
         ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{id}")
@@ -38,31 +38,30 @@ public class TagController implements TagControllerDocs {
 
   @Override
   @GetMapping("/{id}")
-  public ResponseEntity<GetTag> getTagById(
-      @PathVariable Long environmentId, @PathVariable Long id) {
-    GetTag tag = tagService.getTagById(environmentId, id);
+  public ResponseEntity<GetTag> get(@PathVariable Long environmentId, @PathVariable Long id) {
+    GetTag tag = tagService.getById(environmentId, id);
     return ResponseEntity.ok(tag);
   }
 
   @Override
   @GetMapping
-  public ResponseEntity<List<GetTag>> getAllTags(@PathVariable Long environmentId) {
+  public ResponseEntity<List<GetTag>> getAll(@PathVariable Long environmentId) {
     List<GetTag> tags = tagService.getAllTags(environmentId);
     return ResponseEntity.ok(tags);
   }
 
   @Override
   @PatchMapping("/{id}")
-  public ResponseEntity<GetTag> updateTag(
+  public ResponseEntity<GetTag> patch(
       @PathVariable Long environmentId, @PathVariable Long id, @RequestBody PatchTag patch) {
-    GetTag tag = tagService.updateTag(environmentId, id, patch);
+    GetTag tag = tagService.update(environmentId, id, patch);
     return ResponseEntity.ok(tag);
   }
 
   @Override
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteTag(@PathVariable Long environmentId, @PathVariable Long id) {
-    tagService.deleteTag(environmentId, id);
+  public ResponseEntity<Void> delete(@PathVariable Long environmentId, @PathVariable Long id) {
+    tagService.delete(environmentId, id);
     return ResponseEntity.ok().build();
   }
 }

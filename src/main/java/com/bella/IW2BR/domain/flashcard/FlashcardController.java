@@ -38,7 +38,7 @@ public class FlashcardController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<GetFlashcard> getById(
+  public ResponseEntity<GetFlashcard> get(
       @PathVariable Long environmentId, @PathVariable Long flashcardDeckId, @PathVariable Long id) {
     GetFlashcard flashcard = flashcardService.getById(environmentId, flashcardDeckId, id);
     return ResponseEntity.ok(flashcard);

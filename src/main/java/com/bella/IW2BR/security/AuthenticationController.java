@@ -21,7 +21,7 @@ public class AuthenticationController implements AuthenticationControllerDocs {
 
   @Override
   @PostMapping("/register")
-  public ResponseEntity<GetUserWithJwtToken> registerUser(
+  public ResponseEntity<GetUserWithJwtToken> register(
       @RequestBody @Valid PostUser body, HttpServletResponse response) {
     GetUserWithJwtToken user = authenticationService.registerUser(body, response);
 

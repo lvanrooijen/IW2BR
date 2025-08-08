@@ -24,7 +24,7 @@ public interface TagControllerDocs {
         description = "User is not the owner of the environment or an admin"),
     @ApiResponse(responseCode = "404", description = "Environment not found")
   })
-  ResponseEntity<GetTag> createTag(@PathVariable Long environmentId, @RequestBody PostTag body);
+  ResponseEntity<GetTag> create(@PathVariable Long environmentId, @RequestBody PostTag body);
 
   @Operation(
       summary = "Get tag by ID",
@@ -37,14 +37,14 @@ public interface TagControllerDocs {
         description = "User is not the owner of the environment or an admin"),
     @ApiResponse(responseCode = "404", description = "Tag not found")
   })
-  ResponseEntity<GetTag> getTagById(@PathVariable Long environmentId, @RequestBody Long id);
+  ResponseEntity<GetTag> get(@PathVariable Long environmentId, @RequestBody Long id);
 
   @Operation(summary = "Get all tags", description = "Returns all tags from the given environment")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "List of tags returned"),
     @ApiResponse(responseCode = "404", description = "Environment not found")
   })
-  ResponseEntity<List<GetTag>> getAllTags(@PathVariable Long environmentId);
+  ResponseEntity<List<GetTag>> getAll(@PathVariable Long environmentId);
 
   @Operation(
       summary = "Update tag",
@@ -60,7 +60,7 @@ public interface TagControllerDocs {
         description = "User is not the owner of the environment or an admin"),
     @ApiResponse(responseCode = "404", description = "Tag not found")
   })
-  ResponseEntity<GetTag> updateTag(
+  ResponseEntity<GetTag> patch(
       @PathVariable Long environmentId, @PathVariable Long id, @RequestBody PatchTag patch);
 
   @Operation(summary = "Delete tag", description = "Deletes tag from the environment")
@@ -72,5 +72,5 @@ public interface TagControllerDocs {
         description = "User is not the owner of the environment or an admin"),
     @ApiResponse(responseCode = "404", description = "Tag not found")
   })
-  ResponseEntity<Void> deleteTag(@PathVariable Long environmentId, @PathVariable Long id);
+  ResponseEntity<Void> delete(@PathVariable Long environmentId, @PathVariable Long id);
 }

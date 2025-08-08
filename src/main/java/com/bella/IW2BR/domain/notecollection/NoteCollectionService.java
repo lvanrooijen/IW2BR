@@ -18,7 +18,7 @@ public class NoteCollectionService {
   private final NoteCollectionMapper noteCollectionMapper;
   private final EnvironmentHelperMethods environmentHelperMethods;
 
-  public GetNoteCollection createNoteCollection(Long environmentId, PostNoteCollection body) {
+  public GetNoteCollection create(Long environmentId, PostNoteCollection body) {
     NoteCollection noteCollection = noteCollectionMapper.fromPost(body);
     Environment environment = environmentHelperMethods.getEnvironmentOrThrow(environmentId);
 
@@ -30,7 +30,7 @@ public class NoteCollectionService {
     return noteCollectionMapper.toGet(noteCollection);
   }
 
-  public GetNoteCollection getNoteCollectionById(Long environmentId, Long id) {
+  public GetNoteCollection getById(Long environmentId, Long id) {
     NoteCollection noteCollection = getNoteCollectionOrThrow(id);
 
     environmentHelperMethods.throwIfNotInEnvironment(noteCollection, environmentId);
@@ -39,7 +39,7 @@ public class NoteCollectionService {
     return noteCollectionMapper.toGet(noteCollection);
   }
 
-  public List<GetNoteCollection> getAllNoteCollections(Long environmentId) {
+  public List<GetNoteCollection> getAll(Long environmentId) {
     environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
     List<NoteCollection> noteCollections =
         noteCollectionRepository.findAllByEnvironmentId(environmentId);
@@ -47,8 +47,7 @@ public class NoteCollectionService {
     return noteCollections.stream().map(noteCollectionMapper::toGet).toList();
   }
 
-  public GetNoteCollection updateNoteCollection(
-      Long environmentId, Long id, PatchNoteCollection patch) {
+  public GetNoteCollection update(Long environmentId, Long id, PatchNoteCollection patch) {
     NoteCollection noteCollection = getNoteCollectionOrThrow(id);
 
     environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
@@ -60,7 +59,7 @@ public class NoteCollectionService {
     return noteCollectionMapper.toGet(noteCollection);
   }
 
-  public void deleteCollection(Long environmentId, Long id) {
+  public void delete(Long environmentId, Long id) {
     NoteCollection noteCollection = getNoteCollectionOrThrow(id);
 
     environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);

@@ -24,7 +24,7 @@ public interface AuthenticationControllerDocs {
         responseCode = "400",
         description = "invalid request body, user already registered")
   })
-  public ResponseEntity<GetUserWithJwtToken> registerUser(
+  public ResponseEntity<GetUserWithJwtToken> register(
       PostUser body, HttpServletResponse response);
 
   @Operation(summary = "update user", description = "updates user and save it in the database")

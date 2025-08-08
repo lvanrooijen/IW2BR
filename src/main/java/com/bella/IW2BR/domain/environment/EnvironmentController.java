@@ -20,44 +20,43 @@ public class EnvironmentController implements EnvironmentControllerDocs {
 
   @Override
   @PostMapping
-  public ResponseEntity<GetEnvironment> createEnvironment(
-      @RequestBody @Valid PostEnvironment body) {
-    GetEnvironment environment = environmentService.createEnvironment(body);
+  public ResponseEntity<GetEnvironment> create(@RequestBody @Valid PostEnvironment body) {
+    GetEnvironment environment = environmentService.create(body);
     URI location =
-            ServletUriComponentsBuilder.fromCurrentRequest()
-                    .path("/{id}")
-                    .buildAndExpand(environment.id())
-                    .toUri();
+        ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(environment.id())
+            .toUri();
 
     return ResponseEntity.created(location).body(environment);
   }
 
   @Override
   @GetMapping("/{id}")
-  public ResponseEntity<GetEnvironment> getEnvironmentById(@PathVariable Long id) {
+  public ResponseEntity<GetEnvironment> get(@PathVariable Long id) {
     GetEnvironment environment = environmentService.getById(id);
     return ResponseEntity.ok(environment);
   }
 
   @Override
   @GetMapping
-  public ResponseEntity<List<GetEnvironment>> getAllEnvironments() {
+  public ResponseEntity<List<GetEnvironment>> getAll() {
     List<GetEnvironment> environments = environmentService.getAll();
     return ResponseEntity.ok(environments);
   }
 
   @Override
   @PatchMapping("/{id}")
-  public ResponseEntity<GetEnvironment> updateEnvironment(
+  public ResponseEntity<GetEnvironment> patch(
       @PathVariable Long id, @RequestBody PatchEnvironment patch) {
-    GetEnvironment updatedEnvironment = environmentService.updateEnvironment(id, patch);
+    GetEnvironment updatedEnvironment = environmentService.update(id, patch);
     return ResponseEntity.ok(updatedEnvironment);
   }
 
   @Override
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteEnvironment(@PathVariable Long id) {
-    environmentService.deleteEnvironmentById(id);
+  public ResponseEntity<Void> delete(@PathVariable Long id) {
+    environmentService.delete(id);
     return ResponseEntity.ok().build();
   }
 }

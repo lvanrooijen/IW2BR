@@ -16,21 +16,21 @@ public interface EnvironmentControllerDocs {
   @ApiResponse(
       responseCode = "400",
       description = "invalid request body, environment already present")
-  public ResponseEntity<GetEnvironment> createEnvironment(PostEnvironment body);
+  public ResponseEntity<GetEnvironment> create(PostEnvironment body);
 
   @Operation(summary = "get environment by id", description = "finds environment by id ")
   @ApiResponses({
     @ApiResponse(responseCode = "403", description = "no permission to access this resource"),
     @ApiResponse(responseCode = "404", description = "environment not found")
   })
-  public ResponseEntity<GetEnvironment> getEnvironmentById(Long id);
+  public ResponseEntity<GetEnvironment> get(Long id);
 
   @Operation(summary = "get all environments", description = "get all environments")
   @ApiResponses({
     @ApiResponse(responseCode = "403", description = "no permission to access this resource"),
     @ApiResponse(responseCode = "404", description = "environment not found")
   })
-  public ResponseEntity<List<GetEnvironment>> getAllEnvironments();
+  public ResponseEntity<List<GetEnvironment>> getAll();
 
   @Operation(
       summary = "update environment",
@@ -39,7 +39,7 @@ public interface EnvironmentControllerDocs {
     @ApiResponse(responseCode = "400", description = "invalid request body"),
     @ApiResponse(responseCode = "404", description = "environment not found")
   })
-  public ResponseEntity<GetEnvironment> updateEnvironment(Long id, PatchEnvironment patch);
+  public ResponseEntity<GetEnvironment> patch(Long id, PatchEnvironment patch);
 
   @Operation(summary = "delete environment", description = "deletes an environment")
   @ApiResponses({
@@ -48,5 +48,5 @@ public interface EnvironmentControllerDocs {
         description = "only owner of admin can delete this resource"),
     @ApiResponse(responseCode = "404", description = "environment nog found")
   })
-  public ResponseEntity<Void> deleteEnvironment(Long id);
+  public ResponseEntity<Void> delete(Long id);
 }

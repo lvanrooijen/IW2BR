@@ -20,7 +20,7 @@ public class EnvironmentService {
   private final EnvironmentHelperMethods environmentHelperMethods;
   private final EnvironmentMapper mapper;
 
-  public GetEnvironment createEnvironment(PostEnvironment body) {
+  public GetEnvironment create(PostEnvironment body) {
     User loggedInUser = authHelperService.getAuthenticatedUser();
 
     Environment createdEnvironment = mapper.fromPost(body, loggedInUser);
@@ -49,7 +49,7 @@ public class EnvironmentService {
     return environments.stream().map(mapper::toGet).toList();
   }
 
-  public GetEnvironment updateEnvironment(Long id, PatchEnvironment patch) {
+  public GetEnvironment update(Long id, PatchEnvironment patch) {
     environmentHelperMethods.throwIfNotOwnerOrAdmin(id);
     Environment environment = getEnvironmentOrThrow(id);
 
@@ -59,7 +59,7 @@ public class EnvironmentService {
     return mapper.toGet(environment);
   }
 
-  public void deleteEnvironmentById(Long id) {
+  public void delete(Long id) {
     environmentHelperMethods.throwIfNotOwnerOrAdmin(id);
     getEnvironmentOrThrow(id);
 

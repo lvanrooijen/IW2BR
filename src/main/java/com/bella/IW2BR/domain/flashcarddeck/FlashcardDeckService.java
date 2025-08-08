@@ -17,7 +17,7 @@ public class FlashcardDeckService {
   private final FlashcardDeckRepository flashcardDeckRepository;
   private final FlashcardDeckMapper mapper;
 
-  public GetFlashcardDeck createFlashcardDeck(Long environmentId, PostFlashcardDeck body) {
+  public GetFlashcardDeck create(Long environmentId, PostFlashcardDeck body) {
     environmentHelper.throwIfNotOwnerOrAdmin(environmentId);
 
     Environment environment = environmentHelper.getEnvironmentOrThrow(environmentId);
@@ -29,7 +29,7 @@ public class FlashcardDeckService {
     return mapper.toGet(flashcardDeck);
   }
 
-  public GetFlashcardDeck getFlashcardDeckById(Long environmentId, Long id) {
+  public GetFlashcardDeck getById(Long environmentId, Long id) {
     environmentHelper.throwIfNotOwnerOrAdmin(environmentId);
 
     FlashcardDeck flashcardDeck = environmentHelper.getFlashcardDeckOrThrow(id);
@@ -39,7 +39,7 @@ public class FlashcardDeckService {
     return mapper.toGet(flashcardDeck);
   }
 
-  public List<GetFlashcardDeck> getAllFlashcardDecks(Long environmentId) {
+  public List<GetFlashcardDeck> getAll(Long environmentId) {
     environmentHelper.throwIfNotOwnerOrAdmin(environmentId);
 
     List<FlashcardDeck> flashcardDecks = flashcardDeckRepository.findByEnvironmentId(environmentId);
@@ -47,8 +47,7 @@ public class FlashcardDeckService {
     return flashcardDecks.stream().map(mapper::toGet).toList();
   }
 
-  public GetFlashcardDeck updateFlashcardDeck(
-      Long environmentId, Long id, PatchFlashcardDeck patch) {
+  public GetFlashcardDeck update(Long environmentId, Long id, PatchFlashcardDeck patch) {
     environmentHelper.throwIfNotOwnerOrAdmin(environmentId);
 
     FlashcardDeck flashcardDeck = environmentHelper.getFlashcardDeckOrThrow(id);
@@ -61,7 +60,7 @@ public class FlashcardDeckService {
     return mapper.toGet(flashcardDeck);
   }
 
-  public void deleteFlashcardDeck(Long environmentId, Long id) {
+  public void delete(Long environmentId, Long id) {
     environmentHelper.throwIfNotOwnerOrAdmin(environmentId);
     environmentHelper.getFlashcardDeckOrThrow(id);
     flashcardDeckRepository.deleteById(id);

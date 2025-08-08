@@ -22,7 +22,7 @@ public class TagService {
   private final TagMapper tagMapper;
   private final EnvironmentHelperMethods environmentHelperMethods;
 
-  public GetTag createTag(Long environmentId, PostTag body) {
+  public GetTag create(Long environmentId, PostTag body) {
     Environment environment = environmentHelperMethods.getEnvironmentOrThrow(environmentId);
 
     Tag tag = tagMapper.fromPost(body, environment);
@@ -51,7 +51,7 @@ public class TagService {
     return Math.round(score * 100.0) / 100.0;
   }
 
-  public void deleteTag(Long environmentId, Long id) {
+  public void delete(Long environmentId, Long id) {
     Tag tag = getTagOrThrow(id);
 
     environmentHelperMethods.throwIfNotInEnvironment(tag, environmentId);
@@ -60,7 +60,7 @@ public class TagService {
     tagRepository.deleteById(id);
   }
 
-  public GetTag getTagById(Long environmentId, Long id) {
+  public GetTag getById(Long environmentId, Long id) {
     Tag tag = getTagOrThrow(id);
 
     environmentHelperMethods.throwIfNotInEnvironment(tag, environmentId);
@@ -81,7 +81,7 @@ public class TagService {
     return tags.stream().map(tag -> tagMapper.toGet(tag, calculateScore(tag))).toList();
   }
 
-  public GetTag updateTag(Long environmentId, Long id, PatchTag patch) {
+  public GetTag update(Long environmentId, Long id, PatchTag patch) {
     Tag tag = getTagOrThrow(id);
     Environment environment = tag.getEnvironment();
 

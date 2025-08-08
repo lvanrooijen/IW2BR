@@ -20,7 +20,7 @@ public class NoteService {
   private final NoteCollectionRepository noteCollectionRepository;
   private final EnvironmentHelperMethods environmentHelperMethods;
 
-  public GetNote createNote(Long environmentId, Long noteCollectionId, PostNote body) {
+  public GetNote create(Long environmentId, Long noteCollectionId, PostNote body) {
     environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
 
     NoteCollection noteCollection =
@@ -41,7 +41,7 @@ public class NoteService {
     return noteMapper.toGet(note);
   }
 
-  public GetNote getNoteById(Long environmentId, Long noteCollectionId, Long id) {
+  public GetNote getById(Long environmentId, Long noteCollectionId, Long id) {
     // TODO is note member van note collection?
     environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
     NoteCollection noteCollection =
@@ -52,7 +52,7 @@ public class NoteService {
     return noteMapper.toGet(note);
   }
 
-  public List<GetNote> getAllNotes(Long environmentId, Long noteCollectionId) {
+  public List<GetNote> getAll(Long environmentId, Long noteCollectionId) {
     environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
     NoteCollection noteCollection =
         environmentHelperMethods.getNoteCollectionOrThrow(noteCollectionId);
@@ -61,7 +61,7 @@ public class NoteService {
     return notes.stream().map(noteMapper::toGet).toList();
   }
 
-  public GetNote updateNote(Long environmentId, Long noteCollectionId, Long id, PatchNote patch) {
+  public GetNote update(Long environmentId, Long noteCollectionId, Long id, PatchNote patch) {
     // TODO is note member van note collection?
     environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
     Note note = environmentHelperMethods.getNoteOrThrow(id);
@@ -75,7 +75,7 @@ public class NoteService {
     return noteMapper.toGet(note);
   }
 
-  public void deleteNote(Long environmentId, Long noteCollectionId, Long id) {
+  public void delete(Long environmentId, Long noteCollectionId, Long id) {
     // TODO is note member van note collection?
     environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
     NoteCollection noteCollection =

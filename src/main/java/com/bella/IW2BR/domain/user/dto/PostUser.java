@@ -8,9 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 
 /**
- * DTO used for creating new Users
- *
- * <p>All fields are required to contain a value
+ * DTO representing the request body of a User POST (register user) request,
  *
  * @param email
  * @param password uses {@link Password} validator

@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Positive;
 import org.hibernate.validator.constraints.Length;
 
 /**
- * DTO for creating flashcards
+ * DTO representing the request body of a Flashcard-Deck POST request
  *
  * @param frontBody content that represent the front of the flashcard
  * @param backBody content that represents the back of the flashcard

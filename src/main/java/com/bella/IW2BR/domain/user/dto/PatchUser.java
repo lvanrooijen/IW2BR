@@ -6,9 +6,7 @@ import jakarta.validation.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
 /**
- * DTO used for patching a User object
- *
- * <p>Fields may contain null values
+ * DTO representing the request body of a User PATCH request
  *
  * @param email
  * @param firstName

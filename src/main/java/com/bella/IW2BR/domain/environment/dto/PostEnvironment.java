@@ -5,6 +5,12 @@ import static com.bella.IW2BR.domain.environment.dto.EnvironmentConstraintsGloba
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 
+/**
+ * DTO representing the request body of an Environment POST request
+ *
+ * @param title
+ * @param description
+ */
 public record PostEnvironment(
     @NotBlank @Length(min = TITLE_MIN, max = TITLE_MAX, message = INVALID_TITLE_LENGTH_MSG)
         String title,

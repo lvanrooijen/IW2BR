@@ -5,6 +5,12 @@ import static com.bella.IW2BR.domain.tag.dto.TagConstraints.*;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 
+/**
+ * DTO representing the request body of a Tag POST request
+ *
+ * @param title
+ * @param description
+ */
 public record PostTag(
     @NotBlank @Length(min = TITLE_MIN, max = TITLE_MAX, message = INVALID_TITLE_LENGTH_MSG)
         String title,

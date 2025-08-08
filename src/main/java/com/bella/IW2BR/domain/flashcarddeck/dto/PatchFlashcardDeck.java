@@ -7,6 +7,12 @@ import static com.bella.IW2BR.utils.constants.GlobalValidationConstraints.INVALI
 
 import org.hibernate.validator.constraints.Length;
 
+/**
+ * DTO representing the request body of a Flashcard-Deck PATCH request
+ *
+ * @param title
+ * @param description
+ */
 public record PatchFlashcardDeck(
     @Length(min = TITLE_MIN, max = TITLE_MAX, message = INVALID_TITLE_LENGTH_MSG) String title,
     @Length(min = DESCRIPTION_MIN, max = DESCRIPTION_MAX, message = INVALID_DESCRIPTION_LENGTH_MSG)

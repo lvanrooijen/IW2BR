@@ -1,7 +1,7 @@
 package com.bella.IW2BR.domain.user.dto;
 
 /**
- * User DTO used for logging in a user
+ * DTO representing the request body of a User POST (login user) request
  *
  * @param username
  * @param password

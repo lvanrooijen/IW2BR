@@ -8,6 +8,12 @@ import static com.bella.IW2BR.utils.constants.GlobalValidationConstraints.INVALI
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 
+/**
+ * DTO representing the request body of a Note-collection POST request
+ *
+ * @param title
+ * @param description
+ */
 public record PostNoteCollection(
     @NotBlank @Length(min = TITLE_MIN, max = TITLE_MAX, message = INVALID_TITLE_LENGTH_MSG)
         String title,

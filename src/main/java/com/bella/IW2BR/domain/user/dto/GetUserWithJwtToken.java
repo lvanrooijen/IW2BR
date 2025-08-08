@@ -3,7 +3,7 @@ package com.bella.IW2BR.domain.user.dto;
 import java.util.UUID;
 
 /**
- * User DTO containing user details and jwt-token
+ * DTO representing how the User is returned to the client, includes JWT-tokens
  *
  * <p>email address is used as the username
  *

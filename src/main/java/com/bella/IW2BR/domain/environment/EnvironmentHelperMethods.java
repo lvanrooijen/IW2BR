@@ -1,13 +1,13 @@
 package com.bella.IW2BR.domain.environment;
 
-import com.bella.IW2BR.domain.flashcard.Flashcard;
-import com.bella.IW2BR.domain.flashcard.FlashcardRepository;
-import com.bella.IW2BR.domain.flashcarddeck.FlashcardDeck;
-import com.bella.IW2BR.domain.flashcarddeck.FlashcardDeckRepository;
-import com.bella.IW2BR.domain.note.Note;
-import com.bella.IW2BR.domain.note.NoteRepository;
-import com.bella.IW2BR.domain.notecollection.NoteCollection;
-import com.bella.IW2BR.domain.notecollection.NoteCollectionRepository;
+import com.bella.IW2BR.domain.flashcarddeck.deck.FlashcardDeck;
+import com.bella.IW2BR.domain.flashcarddeck.deck.FlashcardDeckRepository;
+import com.bella.IW2BR.domain.flashcarddeck.flashcard.Flashcard;
+import com.bella.IW2BR.domain.flashcarddeck.flashcard.FlashcardRepository;
+import com.bella.IW2BR.domain.notecollection.collection.NoteCollection;
+import com.bella.IW2BR.domain.notecollection.collection.NoteCollectionRepository;
+import com.bella.IW2BR.domain.notecollection.note.Note;
+import com.bella.IW2BR.domain.notecollection.note.NoteRepository;
 import com.bella.IW2BR.domain.tag.Tag;
 import com.bella.IW2BR.domain.tag.TagRepository;
 import com.bella.IW2BR.domain.user.User;

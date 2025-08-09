@@ -11,6 +11,7 @@ public class Endpoints {
   public static final String USERS = BASE_ROUTE + "/users";
 
   public static final String ENVIRONMENTS = BASE_ROUTE + "/environments";
+
   private static final String ENVIRONMENTS_WITH_ID = BASE_ROUTE + "/environments/{environmentId}";
 
   public static final String TAGS = ENVIRONMENTS_WITH_ID + "/tags";
@@ -26,5 +27,7 @@ public class Endpoints {
   public static final String FLASHCARDS = FLASHCARD_DECKS_WITH_ID + "/flashcards";
 
   public static final String EXAMS = ENVIRONMENTS_WITH_ID + "/exams";
-  public static final String EXAMS_WITH_ID = EXAMS + "/{examId}";
+  private static final String EXAMS_WITH_ID = EXAMS + "/{examId}";
+
+  public static final String QUESTIONS = EXAMS_WITH_ID + "/questions";
 }

@@ -10,8 +10,8 @@ import com.bella.IW2BR.exceptions.base.BaseBadRequestException;
  * <p>It extends {@link BaseBadRequestException} and is handled by {@link
  * GlobalExceptionHandler#handleBadRequestExceptions(Exception)}
  */
-public class NoteNotInCollectionException extends BaseBadRequestException {
-  public NoteNotInCollectionException(String message) {
+public class NoteCollectionMismatchException extends BaseBadRequestException {
+  public NoteCollectionMismatchException(String message) {
     super(message);
   }
 }

@@ -1,7 +1,8 @@
 package com.bella.IW2BR.domain.environment;
 
-import com.bella.IW2BR.domain.flashcarddeck.FlashcardDeck;
-import com.bella.IW2BR.domain.notecollection.NoteCollection;
+import com.bella.IW2BR.domain.exam.exam.Exam;
+import com.bella.IW2BR.domain.flashcarddeck.deck.FlashcardDeck;
+import com.bella.IW2BR.domain.notecollection.collection.NoteCollection;
 import com.bella.IW2BR.domain.tag.Tag;
 import com.bella.IW2BR.domain.user.User;
 import jakarta.persistence.*;
@@ -49,6 +50,9 @@ public class Environment {
 
   @OneToMany(mappedBy = "environment", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Tag> tags;
+
+  @OneToMany(mappedBy = "environment", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Exam> exams;
 
   /**
    * Checks if the given ID matches the ID that of the owner

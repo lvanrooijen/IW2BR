@@ -1,6 +1,7 @@
 package com.bella.IW2BR.domain.tag;
 
 import com.bella.IW2BR.domain.environment.Environment;
+import com.bella.IW2BR.domain.environment.util.EnvironmentMember;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import lombok.*;
@@ -9,7 +10,7 @@ import lombok.*;
 @Table(name = "tags")
 @Data
 @NoArgsConstructor
-public class Tag {
+public class Tag implements EnvironmentMember {
   @Builder
   public Tag(
       String title,

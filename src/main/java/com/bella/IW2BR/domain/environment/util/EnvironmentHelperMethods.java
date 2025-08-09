@@ -1,5 +1,9 @@
-package com.bella.IW2BR.domain.environment;
+package com.bella.IW2BR.domain.environment.util;
 
+import com.bella.IW2BR.domain.environment.Environment;
+import com.bella.IW2BR.domain.environment.EnvironmentRepository;
+import com.bella.IW2BR.domain.exam.exam.Exam;
+import com.bella.IW2BR.domain.exam.exam.ExamRepository;
 import com.bella.IW2BR.domain.flashcarddeck.deck.FlashcardDeck;
 import com.bella.IW2BR.domain.flashcarddeck.deck.FlashcardDeckRepository;
 import com.bella.IW2BR.domain.flashcarddeck.flashcard.Flashcard;
@@ -31,29 +35,15 @@ public class EnvironmentHelperMethods {
   private final NoteRepository noteRepository;
   private final FlashcardDeckRepository flashcardDeckRepository;
   private final FlashcardRepository flashcardRepository;
+  private final ExamRepository examRepository;
 
   /**
    * Verifies if the authenticated user is the owner of the environment, or has an admin role.
    *
-   * @param environment environment
-   * @throws IllegalActionException if the provided user is not the owner of the environment and
-   *     does not have admin role
-   */
-  public void throwIfNotOwnerOrAdmin(Environment environment) {
-    User user = authHelperService.getAuthenticatedUser();
-    if (!environment.isOwner(user.getId()) && !user.isAdmin()) {
-      throw new IllegalActionException(
-          "Failed to create tag. creator is not the owner of the environment");
-    }
-  }
-
-  /**
-   * Verifies if the authenticated user is the owner of the environment, or has an admin role.
-   *
-   * @param environmentId ID of environment
+   * @param environmentId
    * @throws IllegalActionException When the user is not the owner of the environment and is not
    *     admin role
-   * @throws ItemNotFoundException when the provided environment ID is not found
+   * @throws ItemNotFoundException when the environment is not found
    */
   public void throwIfNotOwnerOrAdmin(Long environmentId) {
     User user = authHelperService.getAuthenticatedUser();
@@ -82,43 +72,18 @@ public class EnvironmentHelperMethods {
   }
 
   /**
-   * Verifies if a Tag is connected to the specified environment.
+   * Verifies if a class that implements EnvironmentMember is connected to the specified
+   * environment.
    *
-   * @param tag The tag
-   * @param environmentId ID of the environment Tag is supposed to be a member of
-   * @throws ResourceNotInEnvironmentException if provided Tag is not a member of environment
+   * @param member
+   * @param environmentId
+   * @throws ResourceNotInEnvironmentException when the member isn't a member of the specified
+   *     environment
    */
-  public void throwIfNotInEnvironment(Tag tag, Long environmentId) {
-    if (!Objects.equals(tag.getEnvironment().getId(), environmentId)) {
-      throw new ResourceNotInEnvironmentException("Tag is not a member of this environment");
-    }
-  }
-
-  /**
-   * Verifies if a Note Collection is connected to the specified environment.
-   *
-   * @param noteCollection Note Collection
-   * @param environmentId ID of the environment Tag is supposed to be a member of
-   * @throws ResourceNotInEnvironmentException if Note Collection is not a member of environment
-   */
-  public void throwIfNotInEnvironment(NoteCollection noteCollection, Long environmentId) {
-    if (!Objects.equals(noteCollection.getEnvironment().getId(), environmentId)) {
+  public void throwIfNotInEnvironment(EnvironmentMember member, Long environmentId) {
+    if (!Objects.equals(member.getEnvironment().getId(), environmentId)) {
       throw new ResourceNotInEnvironmentException(
-          "Note Collection is not a member of this environment");
-    }
-  }
-
-  /**
-   * Verifies if a Flashcard deck is connected to the specified environment.
-   *
-   * @param flashcardDeck Flashcard Deck
-   * @param environmentId ID of the environment Tag is supposed to be a member of
-   * @throws ResourceNotInEnvironmentException if Note Collection is not a member of environment
-   */
-  public void throwIfNotInEnvironment(FlashcardDeck flashcardDeck, Long environmentId) {
-    if (!Objects.equals(flashcardDeck.getEnvironment().getId(), environmentId)) {
-      throw new ResourceNotInEnvironmentException(
-          "Flashcard deck is not a member of this environment");
+          member.getClass().getSimpleName() + " is not a member of this environment");
     }
   }
 
@@ -190,7 +155,7 @@ public class EnvironmentHelperMethods {
   /**
    * Gets a flashcard by ID
    *
-   * @param id ID of the flashcard
+   * @param id
    * @return {@link Flashcard}
    * @throws ItemNotFoundException when flashcard can not be found
    */
@@ -198,5 +163,18 @@ public class EnvironmentHelperMethods {
     return flashcardRepository
         .findById(id)
         .orElseThrow(() -> new ItemNotFoundException("Flashcard not found"));
+  }
+
+  /**
+   * Gets an Exam by ID
+   *
+   * @param id
+   * @return {@link Exam}
+   * @throws ItemNotFoundException
+   */
+  public Exam getExamOrThrow(Long id) {
+    return examRepository
+        .findById(id)
+        .orElseThrow(() -> new ItemNotFoundException("Exam not Found"));
   }
 }

@@ -1,6 +1,6 @@
 package com.bella.IW2BR.domain.flashcarddeck.flashcard;
 
-import com.bella.IW2BR.domain.environment.EnvironmentHelperMethods;
+import com.bella.IW2BR.domain.environment.util.EnvironmentHelperMethods;
 import com.bella.IW2BR.domain.flashcarddeck.deck.FlashcardDeck;
 import com.bella.IW2BR.domain.flashcarddeck.flashcard.dto.FlashcardMapper;
 import com.bella.IW2BR.domain.flashcarddeck.flashcard.dto.GetFlashcard;

@@ -19,16 +19,8 @@ import org.hibernate.validator.constraints.Length;
 public record PostUser(
     @NotBlank @Email(message = "Invalid email address") String email,
     @NotBlank @Password String password,
-    @NotBlank
-        @Length(
-            min = NAME_LENGTH_MIN,
-            max = LAST_NAME_LENGTH_MAX,
-            message = FIRST_NAME_INVALID_LENGTH)
+    @NotBlank @Length(min = NAME_MIN, max = NAME_MAX, message = FIRST_NAME_INVALID_LENGTH)
         String firstName,
-    @NotBlank
-        @Length(
-            min = NAME_LENGTH_MIN,
-            max = LAST_NAME_LENGTH_MAX,
-            message = LAST_NAME_INVALID_LENGTH_MSG)
+    @NotBlank @Length(min = NAME_MIN, max = NAME_MAX, message = LAST_NAME_INVALID_LENGTH_MSG)
         String lastName,
     @NotBlank String role) {}

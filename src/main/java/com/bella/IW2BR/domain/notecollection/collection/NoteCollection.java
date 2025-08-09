@@ -1,6 +1,7 @@
 package com.bella.IW2BR.domain.notecollection.collection;
 
 import com.bella.IW2BR.domain.environment.Environment;
+import com.bella.IW2BR.domain.environment.util.EnvironmentMember;
 import com.bella.IW2BR.domain.notecollection.note.Note;
 import jakarta.persistence.*;
 import java.util.List;
@@ -10,7 +11,7 @@ import lombok.*;
 @Table(name = "note_collection")
 @Data
 @NoArgsConstructor
-public class NoteCollection {
+public class NoteCollection implements EnvironmentMember {
   @Builder
   public NoteCollection(String title, String description) {
     this.title = title;

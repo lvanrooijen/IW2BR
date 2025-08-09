@@ -1,6 +1,6 @@
 package com.bella.IW2BR.domain.notecollection.note;
 
-import com.bella.IW2BR.domain.environment.EnvironmentHelperMethods;
+import com.bella.IW2BR.domain.environment.util.EnvironmentHelperMethods;
 import com.bella.IW2BR.domain.notecollection.collection.NoteCollection;
 import com.bella.IW2BR.domain.notecollection.collection.NoteCollectionRepository;
 import com.bella.IW2BR.domain.notecollection.note.dto.GetNote;

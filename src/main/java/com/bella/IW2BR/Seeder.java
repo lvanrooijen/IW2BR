@@ -2,6 +2,8 @@ package com.bella.IW2BR;
 
 import com.bella.IW2BR.domain.environment.Environment;
 import com.bella.IW2BR.domain.environment.EnvironmentRepository;
+import com.bella.IW2BR.domain.exam.exam.Exam;
+import com.bella.IW2BR.domain.exam.exam.ExamRepository;
 import com.bella.IW2BR.domain.flashcarddeck.deck.FlashcardDeck;
 import com.bella.IW2BR.domain.flashcarddeck.deck.FlashcardDeckRepository;
 import com.bella.IW2BR.domain.flashcarddeck.flashcard.Flashcard;
@@ -31,6 +33,7 @@ public class Seeder implements CommandLineRunner {
   private final NoteRepository noteRepository;
   private final FlashcardDeckRepository flashcardDeckRepository;
   private final FlashcardRepository flashcardRepository;
+  private final ExamRepository examRepository;
 
   @Override
   public void run(String... args) throws Exception {
@@ -41,6 +44,19 @@ public class Seeder implements CommandLineRunner {
     seedNotes();
     seedFlashcardDecks();
     seedFlashcards();
+    seedExams();
+  }
+
+  private void seedExams() {
+    if (!examRepository.findAll().isEmpty()) return;
+
+    List<Environment> environments = environmentRepository.findAll();
+    List<Exam> exams = seederData.getExams();
+
+    exams.get(0).setEnvironment(environments.get(0));
+    exams.get(1).setEnvironment(environments.get(1));
+
+    examRepository.saveAll(exams);
   }
 
   private void seedFlashcards() {

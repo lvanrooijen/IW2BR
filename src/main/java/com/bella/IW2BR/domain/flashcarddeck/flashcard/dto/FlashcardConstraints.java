@@ -2,6 +2,11 @@ package com.bella.IW2BR.domain.flashcarddeck.flashcard.dto;
 
 import com.bella.IW2BR.utils.constants.GlobalValidationConstraints;
 
+/**
+ * Contains constants for validation constraints related to the Flashcard DTO's.
+ *
+ * <p>Extends the {@link GlobalValidationConstraints}
+ */
 public class FlashcardConstraints extends GlobalValidationConstraints {
   public static final int BODY_MIN = 3;
 

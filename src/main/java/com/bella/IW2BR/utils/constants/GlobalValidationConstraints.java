@@ -1,6 +1,10 @@
 package com.bella.IW2BR.utils.constants;
 
-/** Contains constants for Validation */
+/**
+ * Super class for Validation constraints.
+ *
+ * <p>Contains Generic Constraints
+ */
 public abstract class GlobalValidationConstraints {
   public static final int TITLE_MIN = 3;
   public static final int TITLE_MAX = 30;

@@ -2,6 +2,11 @@ package com.bella.IW2BR.domain.notecollection.note.dto;
 
 import com.bella.IW2BR.utils.constants.GlobalValidationConstraints;
 
+/**
+ * Contains constants for validation constraints related to the Note DTO's.
+ *
+ * <p>Extends the {@link GlobalValidationConstraints}
+ */
 public class NoteConstraints extends GlobalValidationConstraints {
   public static final int BODY_MIN = 3;
   public static final int BODY_MAX = 300;

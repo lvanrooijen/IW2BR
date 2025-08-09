@@ -1,6 +1,7 @@
 package com.bella.IW2BR.utils.seederdata;
 
 import com.bella.IW2BR.domain.environment.Environment;
+import com.bella.IW2BR.domain.exam.exam.Exam;
 import com.bella.IW2BR.domain.flashcarddeck.deck.FlashcardDeck;
 import com.bella.IW2BR.domain.flashcarddeck.flashcard.Flashcard;
 import com.bella.IW2BR.domain.notecollection.collection.NoteCollection;
@@ -113,6 +114,24 @@ public class SeederData {
 
     Flashcard history =
         Flashcard.builder().frontBody("History").backBody("Who was Quetzalcoatl").build();
+
+    return List.of(mathematics, history);
+  }
+
+  public List<Exam> getExams() {
+    Exam mathematics =
+        Exam.builder()
+            .title("Mathematics")
+            .description("Test your math skills!")
+            .createdAt(LocalDate.now())
+            .build();
+
+    Exam history =
+        Exam.builder()
+            .title("History")
+            .description("What do you really know about the past?")
+            .createdAt(LocalDate.now())
+            .build();
 
     return List.of(mathematics, history);
   }

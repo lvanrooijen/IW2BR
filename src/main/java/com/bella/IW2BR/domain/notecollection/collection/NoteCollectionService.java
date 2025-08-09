@@ -1,7 +1,7 @@
 package com.bella.IW2BR.domain.notecollection.collection;
 
 import com.bella.IW2BR.domain.environment.Environment;
-import com.bella.IW2BR.domain.environment.EnvironmentHelperMethods;
+import com.bella.IW2BR.domain.environment.util.EnvironmentHelperMethods;
 import com.bella.IW2BR.domain.notecollection.collection.dto.GetNoteCollection;
 import com.bella.IW2BR.domain.notecollection.collection.dto.NoteCollectionMapper;
 import com.bella.IW2BR.domain.notecollection.collection.dto.PatchNoteCollection;
@@ -21,7 +21,7 @@ public class NoteCollectionService {
     NoteCollection noteCollection = noteCollectionMapper.fromPost(body);
     Environment environment = environmentHelperMethods.getEnvironmentOrThrow(environmentId);
 
-    environmentHelperMethods.throwIfNotOwnerOrAdmin(environment);
+    environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
 
     noteCollection.setEnvironment(environment);
     noteCollectionRepository.save(noteCollection);

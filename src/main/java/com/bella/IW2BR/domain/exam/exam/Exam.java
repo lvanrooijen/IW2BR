@@ -1,6 +1,7 @@
 package com.bella.IW2BR.domain.exam.exam;
 
 import com.bella.IW2BR.domain.environment.Environment;
+import com.bella.IW2BR.domain.environment.util.EnvironmentMember;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import lombok.Builder;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "exams")
 @Data
 @NoArgsConstructor
-public class Exam {
+public class Exam implements EnvironmentMember {
   @Builder
   public Exam(String title, String description, LocalDate createdAt, Environment environment) {
     this.title = title;

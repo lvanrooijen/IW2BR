@@ -1,7 +1,7 @@
 package com.bella.IW2BR.domain.tag;
 
 import com.bella.IW2BR.domain.environment.Environment;
-import com.bella.IW2BR.domain.environment.EnvironmentHelperMethods;
+import com.bella.IW2BR.domain.environment.util.EnvironmentHelperMethods;
 import com.bella.IW2BR.domain.tag.dto.GetTag;
 import com.bella.IW2BR.domain.tag.dto.PatchTag;
 import com.bella.IW2BR.domain.tag.dto.PostTag;
@@ -27,7 +27,7 @@ public class TagService {
     Tag tag = tagMapper.fromPost(body, environment);
     double score = calculateScore(tag);
 
-    environmentHelperMethods.throwIfNotOwnerOrAdmin(environment);
+    environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
     environmentHelperMethods.throwIfNotInEnvironment(tag, environmentId);
 
     tagRepository.save(tag);
@@ -54,7 +54,7 @@ public class TagService {
     Tag tag = environmentHelperMethods.getTagOrThrow(id);
 
     environmentHelperMethods.throwIfNotInEnvironment(tag, environmentId);
-    environmentHelperMethods.throwIfNotOwnerOrAdmin(tag.getEnvironment());
+    environmentHelperMethods.throwIfNotOwnerOrAdmin(tag.getEnvironment().getId());
 
     tagRepository.deleteById(id);
   }
@@ -63,7 +63,7 @@ public class TagService {
     Tag tag = environmentHelperMethods.getTagOrThrow(id);
 
     environmentHelperMethods.throwIfNotInEnvironment(tag, environmentId);
-    environmentHelperMethods.throwIfNotOwnerOrAdmin(tag.getEnvironment());
+    environmentHelperMethods.throwIfNotOwnerOrAdmin(tag.getEnvironment().getId());
 
     double score = calculateScore(tag);
     return tagMapper.toGet(tag, score);
@@ -75,7 +75,7 @@ public class TagService {
       return new ArrayList<GetTag>();
     }
 
-    environmentHelperMethods.throwIfNotOwnerOrAdmin(tags.get(0).getEnvironment());
+    environmentHelperMethods.throwIfNotOwnerOrAdmin(tags.get(0).getEnvironment().getId());
 
     return tags.stream().map(tag -> tagMapper.toGet(tag, calculateScore(tag))).toList();
   }
@@ -84,7 +84,7 @@ public class TagService {
     Tag tag = environmentHelperMethods.getTagOrThrow(id);
     Environment environment = tag.getEnvironment();
 
-    environmentHelperMethods.throwIfNotOwnerOrAdmin(environment);
+    environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
     environmentHelperMethods.throwIfNotInEnvironment(tag, environmentId);
 
     tagMapper.updateFields(tag, patch);

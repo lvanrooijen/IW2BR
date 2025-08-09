@@ -1,6 +1,7 @@
 package com.bella.IW2BR.domain.flashcarddeck.deck;
 
 import com.bella.IW2BR.domain.environment.Environment;
+import com.bella.IW2BR.domain.environment.util.EnvironmentMember;
 import com.bella.IW2BR.domain.flashcarddeck.flashcard.Flashcard;
 import jakarta.persistence.*;
 import java.util.List;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "flashcard_decks")
 @Data
 @NoArgsConstructor
-public class FlashcardDeck {
+public class FlashcardDeck implements EnvironmentMember {
   @Builder
   public FlashcardDeck(String title, String description, Environment environment) {
     this.title = title;

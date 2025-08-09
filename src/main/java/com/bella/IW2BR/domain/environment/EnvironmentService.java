@@ -4,6 +4,7 @@ import com.bella.IW2BR.domain.environment.dto.EnvironmentMapper;
 import com.bella.IW2BR.domain.environment.dto.GetEnvironment;
 import com.bella.IW2BR.domain.environment.dto.PatchEnvironment;
 import com.bella.IW2BR.domain.environment.dto.PostEnvironment;
+import com.bella.IW2BR.domain.environment.util.EnvironmentHelperMethods;
 import com.bella.IW2BR.domain.user.User;
 import com.bella.IW2BR.exceptions.generic.ItemNotFoundException;
 import com.bella.IW2BR.security.AuthHelperService;
@@ -31,7 +32,7 @@ public class EnvironmentService {
 
   public GetEnvironment getById(Long id) {
     Environment environment = getEnvironmentOrThrow(id);
-    environmentHelperMethods.throwIfNotOwnerOrAdmin(environment);
+    environmentHelperMethods.throwIfNotOwnerOrAdmin(id);
 
     return mapper.toGet(environment);
   }

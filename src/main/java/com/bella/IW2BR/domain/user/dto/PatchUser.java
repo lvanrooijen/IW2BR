@@ -15,11 +15,6 @@ import org.hibernate.validator.constraints.Length;
  */
 public record PatchUser(
     @Email(message = "Invalid email") String email,
-    @Length(min = NAME_LENGTH_MIN, max = FIRST_NAME_LENGTH_MAX, message = FIRST_NAME_INVALID_LENGTH)
-        String firstName,
-    @Length(
-            min = NAME_LENGTH_MIN,
-            max = LAST_NAME_LENGTH_MAX,
-            message = LAST_NAME_INVALID_LENGTH_MSG)
-        String lastName,
+    @Length(min = NAME_MIN, max = NAME_MAX, message = FIRST_NAME_INVALID_LENGTH) String firstName,
+    @Length(min = NAME_MIN, max = NAME_MAX, message = LAST_NAME_INVALID_LENGTH_MSG) String lastName,
     String role) {}

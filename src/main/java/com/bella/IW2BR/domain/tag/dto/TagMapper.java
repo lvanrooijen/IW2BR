@@ -5,6 +5,17 @@ import com.bella.IW2BR.domain.tag.Tag;
 import java.time.LocalDate;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service that handles mapping between DTOs and the entity.
+ *
+ * <p>Methods:
+ *
+ * <ul>
+ *   <li>Map {@link PostTag} DTO to {@link Tag} entity
+ *   <li>Map {@link Tag} entity to {@link GetTag}
+ *   <li>Patch {@link Tag} with new data from {@link PatchTag}
+ * </ul>
+ */
 @Service
 public class TagMapper {
   public GetTag toGet(Tag tag, double score) {

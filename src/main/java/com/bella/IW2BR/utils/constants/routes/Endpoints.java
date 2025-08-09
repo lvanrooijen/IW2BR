@@ -21,8 +21,10 @@ public class Endpoints {
   public static final String NOTES = NOTE_COLLECTIONS_WITH_ID + "/notes";
 
   public static final String FLASHCARD_DECKS = ENVIRONMENTS_WITH_ID + "/flashcard_decks";
-  private static final String FLASHCARD_DECKS_WITH_ID =
-      ENVIRONMENTS_WITH_ID + "/flashcard_decks/{flashcardDeckId}";
+  private static final String FLASHCARD_DECKS_WITH_ID = FLASHCARD_DECKS + "/{flashcardDeckId}";
 
   public static final String FLASHCARDS = FLASHCARD_DECKS_WITH_ID + "/flashcards";
+
+  public static final String EXAMS = ENVIRONMENTS_WITH_ID + "/exams";
+  public static final String EXAMS_WITH_ID = EXAMS + "/{examId}";
 }

@@ -3,7 +3,16 @@ package com.bella.IW2BR.domain.user.dto;
 import com.bella.IW2BR.domain.user.User;
 import org.springframework.stereotype.Component;
 
-/** This class is used to convert user related DTO's to entities and vice versa */
+/**
+ * Service that handles mapping between DTOs and the entity.
+ *
+ * <p>Methods:
+ *
+ * <ul>
+ *   <li>Map {@link User} entity to {@link GetUser}
+ *   <li>Patch {@link User} with new data from {@link PatchUser}
+ * </ul>
+ */
 @Component
 public class UserMapper {
   /**

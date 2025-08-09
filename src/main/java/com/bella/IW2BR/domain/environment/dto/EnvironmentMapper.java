@@ -5,6 +5,17 @@ import com.bella.IW2BR.domain.user.User;
 import java.time.LocalDate;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service that handles mapping between Environment DTOs and the Environment entity.
+ *
+ * <p>Methods:
+ *
+ * <ul>
+ *   <li>Map {@link PostEnvironment} DTO to {@link Environment} entity
+ *   <li>Map {@link Environment} entity to {@link GetEnvironment}
+ *   <li>Patch {@link Environment} with new data from {@link PatchEnvironment}
+ * </ul>
+ */
 @Service
 public class EnvironmentMapper {
   public Environment fromPost(PostEnvironment dto, User user) {

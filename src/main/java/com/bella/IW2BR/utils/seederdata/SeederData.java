@@ -1,10 +1,10 @@
 package com.bella.IW2BR.utils.seederdata;
 
 import com.bella.IW2BR.domain.environment.Environment;
-import com.bella.IW2BR.domain.flashcard.Flashcard;
-import com.bella.IW2BR.domain.flashcarddeck.FlashcardDeck;
-import com.bella.IW2BR.domain.note.Note;
-import com.bella.IW2BR.domain.notecollection.NoteCollection;
+import com.bella.IW2BR.domain.flashcarddeck.deck.FlashcardDeck;
+import com.bella.IW2BR.domain.flashcarddeck.flashcard.Flashcard;
+import com.bella.IW2BR.domain.notecollection.collection.NoteCollection;
+import com.bella.IW2BR.domain.notecollection.note.Note;
 import com.bella.IW2BR.domain.tag.Tag;
 import com.bella.IW2BR.domain.user.Role;
 import com.bella.IW2BR.domain.user.User;

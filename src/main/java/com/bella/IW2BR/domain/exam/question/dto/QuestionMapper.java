@@ -37,7 +37,7 @@ public class QuestionMapper {
   public Question fromPost(PostQuestion body, Exam exam) {
     return Question.builder()
         .question(body.question())
-        .answerAmount(body.answerAmount())
+        .answerAmount(body.size().getAnswerAmount())
         .exam(exam)
         .build();
   }

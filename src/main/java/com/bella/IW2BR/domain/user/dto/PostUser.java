@@ -17,7 +17,7 @@ import org.hibernate.validator.constraints.Length;
  * @param role represents user role
  */
 public record PostUser(
-    @NotBlank @Email(message = "Invalid email address") String email,
+    @NotBlank @Email(message = INVALID_EMAIL_MSG) String email,
     @NotBlank @Password String password,
     @NotBlank @Length(min = NAME_MIN, max = NAME_MAX, message = FIRST_NAME_INVALID_LENGTH)
         String firstName,

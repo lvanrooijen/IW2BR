@@ -7,7 +7,7 @@ import java.util.UUID;
  *
  * <p>email address is used as the username
  *
- * @param id user ID
- * @param username email address of the user
+ * @param id
+ * @param email
  */
 public record GetUser(UUID id, String username) {}

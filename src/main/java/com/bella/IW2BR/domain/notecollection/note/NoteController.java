@@ -28,7 +28,7 @@ public class NoteController {
   public ResponseEntity<GetNote> create(
       @PathVariable Long environmentId,
       @PathVariable Long noteCollectionId,
-      @RequestBody @Valid PostNote body) {
+      @Valid @RequestBody PostNote body) {
     GetNote note = noteService.create(environmentId, noteCollectionId, body);
 
     URI location =
@@ -60,7 +60,7 @@ public class NoteController {
       @PathVariable Long environmentId,
       @PathVariable Long noteCollectionId,
       @PathVariable Long id,
-      @RequestBody @Valid PatchNote patch) {
+      @Valid @RequestBody PatchNote patch) {
     GetNote note = noteService.update(environmentId, noteCollectionId, id, patch);
     return ResponseEntity.ok(note);
   }

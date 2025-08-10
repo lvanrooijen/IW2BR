@@ -4,6 +4,7 @@ import com.bella.IW2BR.domain.exam.exam.dto.GetExam;
 import com.bella.IW2BR.domain.exam.exam.dto.PatchExam;
 import com.bella.IW2BR.domain.exam.exam.dto.PostExam;
 import com.bella.IW2BR.utils.constants.routes.Endpoints;
+import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class ExamController {
 
   @PostMapping
   public ResponseEntity<GetExam> create(
-      @PathVariable Long environmentId, @RequestBody PostExam body) {
+      @PathVariable Long environmentId, @Valid @RequestBody PostExam body) {
     GetExam exam = examService.create(environmentId, body);
     URI location =
         ServletUriComponentsBuilder.fromCurrentRequest()
@@ -49,7 +50,9 @@ public class ExamController {
 
   @PatchMapping("/{id}")
   public ResponseEntity<GetExam> patch(
-      @PathVariable Long environmentId, @PathVariable Long id, @RequestBody PatchExam patch) {
+      @PathVariable Long environmentId,
+      @PathVariable Long id,
+      @Valid @RequestBody PatchExam patch) {
     GetExam exam = examService.update(environmentId, id, patch);
     return ResponseEntity.ok(exam);
   }

@@ -2,6 +2,7 @@ package com.bella.IW2BR.domain.notecollection.note.dto;
 
 import static com.bella.IW2BR.domain.notecollection.note.dto.NoteConstraints.*;
 
+import jakarta.validation.constraints.Positive;
 import org.hibernate.validator.constraints.Length;
 
 /**
@@ -14,4 +15,4 @@ import org.hibernate.validator.constraints.Length;
 public record PatchNote(
     @Length(min = TITLE_MIN, max = TITLE_MAX, message = INVALID_TITLE_LENGTH_MSG) String title,
     @Length(min = BODY_MIN, max = BODY_MAX, message = INVALID_BODY_LENGTH_MSG) String body,
-    Long tagId) {}
+    @Positive Long tagId) {}

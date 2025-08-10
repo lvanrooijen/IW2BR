@@ -4,7 +4,7 @@ BACKEND
 - als exam finalized is dan moet de delete method een soft delete uitvoeren,
     omdat een potentiele examresult al kan zijn gemaakt.
     als exam finalised is mag je m ook niet meer patchen!
-
+- uitzoeken, kan ik die herhalende is owner of env check in een custom annotatie verwerken?
 - overige domains toevoegen
 - Alle swagger docs interfaces over nieuw doen!
 - java docstrings nalopen en updaten

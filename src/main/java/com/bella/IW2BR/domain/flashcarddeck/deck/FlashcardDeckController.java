@@ -56,7 +56,7 @@ public class FlashcardDeckController {
   public ResponseEntity<GetFlashcardDeck> patch(
       @PathVariable Long environmentId,
       @PathVariable Long id,
-      @RequestBody PatchFlashcardDeck patch) {
+      @Valid @RequestBody PatchFlashcardDeck patch) {
     GetFlashcardDeck flashcardDeck = flashcardDeckService.update(environmentId, id, patch);
     return ResponseEntity.ok(flashcardDeck);
   }

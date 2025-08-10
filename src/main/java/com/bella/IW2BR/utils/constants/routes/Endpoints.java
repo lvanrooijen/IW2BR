@@ -2,9 +2,6 @@ package com.bella.IW2BR.utils.constants.routes;
 
 /** Contains constant values for this apps endpoints */
 public class Endpoints {
-  // TODO delete me
-  public static final String TESTING_TEAPOT = "/api/v1/teapots";
-
   public static final String BASE_ROUTE = "/api/v1";
 
   public static final String AUTH = BASE_ROUTE + "/auth";

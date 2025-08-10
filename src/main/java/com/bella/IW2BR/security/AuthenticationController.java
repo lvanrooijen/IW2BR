@@ -22,7 +22,7 @@ public class AuthenticationController implements AuthenticationControllerDocs {
   @Override
   @PostMapping("/register")
   public ResponseEntity<GetUserWithJwtToken> register(
-      @RequestBody @Valid PostUser body, HttpServletResponse response) {
+      @Valid @RequestBody PostUser body, HttpServletResponse response) {
     GetUserWithJwtToken user = authenticationService.registerUser(body, response);
 
     URI location =
@@ -36,7 +36,7 @@ public class AuthenticationController implements AuthenticationControllerDocs {
   @Override
   @PostMapping("/login")
   public ResponseEntity<GetUserWithJwtToken> login(
-      @RequestBody LoginUser body, HttpServletResponse response) {
+      @Valid @RequestBody LoginUser body, HttpServletResponse response) {
     GetUserWithJwtToken user = authenticationService.login(body, response);
     return ResponseEntity.ok(user);
   }

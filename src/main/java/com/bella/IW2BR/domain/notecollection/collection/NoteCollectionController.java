@@ -4,6 +4,7 @@ import com.bella.IW2BR.domain.notecollection.collection.dto.GetNoteCollection;
 import com.bella.IW2BR.domain.notecollection.collection.dto.PatchNoteCollection;
 import com.bella.IW2BR.domain.notecollection.collection.dto.PostNoteCollection;
 import com.bella.IW2BR.utils.constants.routes.Endpoints;
+import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ public class NoteCollectionController implements NoteCollectionControllerDocs {
   @Override
   @PostMapping
   public ResponseEntity<GetNoteCollection> create(
-      @PathVariable Long environmentId, @RequestBody PostNoteCollection body) {
+      @PathVariable Long environmentId, @Valid @RequestBody PostNoteCollection body) {
     GetNoteCollection noteCollection = noteCollectionService.create(environmentId, body);
 
     URI location =
@@ -57,7 +58,7 @@ public class NoteCollectionController implements NoteCollectionControllerDocs {
   public ResponseEntity<GetNoteCollection> patch(
       @PathVariable Long environmentId,
       @PathVariable Long id,
-      @RequestBody PatchNoteCollection patch) {
+      @Valid @RequestBody PatchNoteCollection patch) {
     GetNoteCollection noteCollection = noteCollectionService.update(environmentId, id, patch);
     return ResponseEntity.ok(noteCollection);
   }

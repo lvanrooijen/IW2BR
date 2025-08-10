@@ -16,4 +16,6 @@ public class UserConstraints extends GlobalValidationConstraints {
 
   public static final String LAST_NAME_INVALID_LENGTH_MSG =
       "Last name must be between " + NAME_MIN + " and " + NAME_MAX + " characters";
+
+  public static final String INVALID_EMAIL_MSG = "Invalid email address";
 }

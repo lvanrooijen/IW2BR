@@ -100,17 +100,17 @@ public class AuthenticationService implements UserDetailsService {
   /**
    * handles user login
    *
-   * @param requestBody containing login credentials of user
+   * @param body containing login credentials of user
    * @return {@link GetUserWithJwtToken} dto
    */
   @Transactional
-  public GetUserWithJwtToken login(LoginUser requestBody, HttpServletResponse response) {
+  public GetUserWithJwtToken login(LoginUser body, HttpServletResponse response) {
     User user =
         userRepository
-            .findByEmailIgnoreCase(requestBody.username())
+            .findByEmailIgnoreCase(body.email())
             .orElseThrow(() -> new UserNotFoundException("invalid username and/or password"));
 
-    if (!passwordEncoder.matches(requestBody.password(), user.getPassword())) {
+    if (!passwordEncoder.matches(body.password(), user.getPassword())) {
       throw new FailedLoginAttemptException("invalid username and/or password");
     }
 

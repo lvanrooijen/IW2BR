@@ -53,7 +53,7 @@ public class TagController implements TagControllerDocs {
   @Override
   @PatchMapping("/{id}")
   public ResponseEntity<GetTag> patch(
-      @PathVariable Long environmentId, @PathVariable Long id, @RequestBody PatchTag patch) {
+      @PathVariable Long environmentId, @PathVariable Long id, @Valid @RequestBody PatchTag patch) {
     GetTag tag = tagService.update(environmentId, id, patch);
     return ResponseEntity.ok(tag);
   }

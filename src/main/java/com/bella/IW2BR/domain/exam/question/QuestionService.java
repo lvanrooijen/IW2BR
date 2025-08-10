@@ -27,7 +27,7 @@ public class QuestionService {
     Exam exam = helperMethods.getExamOrThrow(examId);
     helperMethods.throwIfNotInEnvironment(exam, environmentId);
 
-    throwIfInvalidAnswerAmount(body.answerAmount(), body.answers().size());
+    throwIfInvalidAnswerAmount(body.size().getAnswerAmount(), body.answers().size());
 
     Question question;
     if (body.tagId() != null) {
@@ -52,10 +52,6 @@ public class QuestionService {
   }
 
   private void throwIfInvalidAnswerAmount(int answerAmount, int providedAnswers) {
-    if (answerAmount != 2 && answerAmount != 4 && answerAmount != 6) {
-      throw new InvalidAnswerAmountException("answerAmount must be set to 2,4 or 6");
-    }
-
     if (answerAmount != providedAnswers) {
       throw new InvalidAnswerAmountException(
           "The amount of answers must be the same as the answerAmount");

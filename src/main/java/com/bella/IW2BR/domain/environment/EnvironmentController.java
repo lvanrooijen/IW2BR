@@ -20,7 +20,7 @@ public class EnvironmentController implements EnvironmentControllerDocs {
 
   @Override
   @PostMapping
-  public ResponseEntity<GetEnvironment> create(@RequestBody @Valid PostEnvironment body) {
+  public ResponseEntity<GetEnvironment> create(@Valid @RequestBody PostEnvironment body) {
     GetEnvironment environment = environmentService.create(body);
     URI location =
         ServletUriComponentsBuilder.fromCurrentRequest()
@@ -48,7 +48,7 @@ public class EnvironmentController implements EnvironmentControllerDocs {
   @Override
   @PatchMapping("/{id}")
   public ResponseEntity<GetEnvironment> patch(
-      @PathVariable Long id, @RequestBody PatchEnvironment patch) {
+      @PathVariable Long id, @Valid @RequestBody PatchEnvironment patch) {
     GetEnvironment updatedEnvironment = environmentService.update(id, patch);
     return ResponseEntity.ok(updatedEnvironment);
   }

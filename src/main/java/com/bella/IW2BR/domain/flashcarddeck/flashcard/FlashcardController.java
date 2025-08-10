@@ -4,6 +4,7 @@ import com.bella.IW2BR.domain.flashcarddeck.flashcard.dto.GetFlashcard;
 import com.bella.IW2BR.domain.flashcarddeck.flashcard.dto.PatchFlashcard;
 import com.bella.IW2BR.domain.flashcarddeck.flashcard.dto.PostFlashcard;
 import com.bella.IW2BR.utils.constants.routes.Endpoints;
+import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class FlashcardController {
   public ResponseEntity<GetFlashcard> create(
       @PathVariable Long environmentId,
       @PathVariable Long flashcardDeckId,
-      @RequestBody PostFlashcard body) {
+      @Valid @RequestBody PostFlashcard body) {
     GetFlashcard flashcard = flashcardService.create(environmentId, flashcardDeckId, body);
     URI location =
         ServletUriComponentsBuilder.fromCurrentRequest()
@@ -57,7 +58,7 @@ public class FlashcardController {
       @PathVariable Long environmentId,
       @PathVariable Long flashcardDeckId,
       @PathVariable Long id,
-      @RequestBody PatchFlashcard patch) {
+      @Valid @RequestBody PatchFlashcard patch) {
     GetFlashcard flashcard = flashcardService.update(environmentId, flashcardDeckId, id, patch);
     return ResponseEntity.ok(flashcard);
   }

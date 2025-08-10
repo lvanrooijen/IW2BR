@@ -4,6 +4,7 @@ import com.bella.IW2BR.domain.exam.answer.Answer;
 import com.bella.IW2BR.domain.exam.question.dto.GetQuestion;
 import com.bella.IW2BR.domain.exam.question.dto.PostQuestion;
 import com.bella.IW2BR.utils.constants.routes.Endpoints;
+import jakarta.validation.Valid;
 import java.net.URI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +24,16 @@ public class QuestionController {
   private final QuestionService questionService;
 
   @PostMapping
-    public ResponseEntity<GetQuestion> create(@PathVariable Long environmentId, @PathVariable Long examId, @RequestBody PostQuestion body){
-      GetQuestion question = questionService.create(environmentId, examId, body);
-      URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(question.id()).toUri();
-      return ResponseEntity.created(location).body(question);
+  public ResponseEntity<GetQuestion> create(
+      @PathVariable Long environmentId,
+      @PathVariable Long examId,
+      @Valid @RequestBody PostQuestion body) {
+    GetQuestion question = questionService.create(environmentId, examId, body);
+    URI location =
+        ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(question.id())
+            .toUri();
+    return ResponseEntity.created(location).body(question);
   }
 }

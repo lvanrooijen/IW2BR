@@ -23,8 +23,29 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class QuestionMapper {
+  public GetQuestion toGet(Question question) {
+    Long tagId = question.getTag() == null ? null : question.getTag().getId();
+
+    return new GetQuestion(
+        question.getId(),
+        question.getQuestion(),
+        question.getAnswerAmount(),
+        question.getAnswers(),
+        question.getExam().getId(),
+        tagId);
+  }
+
+  /**
+   * Overloaded to allow to manually provide the answers, when creating the question the answers may
+   * not be available due to the transaction not being completed
+   *
+   * @param question
+   * @param answers
+   * @return {@link GetQuestion}
+   */
   public GetQuestion toGet(Question question, List<Answer> answers) {
     Long tagId = question.getTag() == null ? null : question.getTag().getId();
+
     return new GetQuestion(
         question.getId(),
         question.getQuestion(),
@@ -54,5 +75,21 @@ public class QuestionMapper {
         .isCorrect(body.isCorrect())
         .question(question)
         .build();
+  }
+
+  public Question updateQuestionFields(Question question, PatchQuestion patch) {
+    if (patch.question() != null) {
+      question.setQuestion(patch.question());
+    }
+    if (patch.size() != null) {
+      question.setAnswerAmount(patch.size().getAnswerAmount());
+    }
+    return question;
+  }
+
+  public Question updateQuestionFields(Question question, PatchQuestion patchQuestion, Tag tag) {
+    Question updatedQuestion = updateQuestionFields(question, patchQuestion);
+    updatedQuestion.setTag(tag);
+    return updatedQuestion;
   }
 }

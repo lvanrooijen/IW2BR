@@ -4,15 +4,16 @@ BACKEND
 - als exam finalized is dan moet de delete method een soft delete uitvoeren,
     omdat een potentiele examresult al kan zijn gemaakt.
     als exam finalised is mag je m ook niet meer patchen!
+- als een gebruiker een exam finalised moet er wel minimaal aantal vragen in staan. hoeveel?
+- plan uitwerken voor die soft delete op exam en hoe dat samenhangt met die question en answers. en het effect op de bestaande crud operaties!
+- lezen --> mappers vervangen? https://www.baeldung.com/mapstruct
 - uitzoeken, kan ik die herhalende is owner of env check in een custom annotatie verwerken?
 - overige domains toevoegen
 - Alle swagger docs interfaces over nieuw doen!
 - java docstrings nalopen en updaten
 - wiki pages updaten
-- voeg @Positive toe daar waar nodig!
 - dubbel checken of de wie wat mag wat zien overal goed is ingesteld
 - todo's maken en aan project board toevoegen
-- postman collection fixen --> newman?
 
 - flyway uncommenten
 - fly way files maken, op volgorde! want sql oefenen

@@ -8,8 +8,10 @@ import com.bella.IW2BR.domain.exam.exam.dto.PatchExam;
 import com.bella.IW2BR.domain.exam.exam.dto.PostExam;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ExamService {
@@ -48,6 +50,7 @@ public class ExamService {
     helperMethods.throwIfNotOwnerOrAdmin(environmentId);
 
     Exam exam = helperMethods.getExamOrThrow(id);
+    helperMethods.throwIfExamIsFinalised(exam);
 
     helperMethods.throwIfNotInEnvironment(exam, environmentId);
 
@@ -63,6 +66,11 @@ public class ExamService {
     Exam exam = helperMethods.getExamOrThrow(id);
     helperMethods.throwIfNotInEnvironment(exam, environmentId);
 
-    examRepository.deleteById(id);
+    if (exam.isFinalised()) {
+      // TODO soft delete. en soft delete alles wat gerelateerd is? of wat?
+      log.warn("SOFT DELETE NOT IMPLEMENTED YET");
+    } else {
+      examRepository.deleteById(id);
+    }
   }
 }

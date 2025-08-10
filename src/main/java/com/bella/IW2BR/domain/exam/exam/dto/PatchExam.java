@@ -2,6 +2,7 @@ package com.bella.IW2BR.domain.exam.exam.dto;
 
 import static com.bella.IW2BR.utils.constants.GlobalValidationConstraints.*;
 
+import jakarta.validation.constraints.AssertTrue;
 import org.hibernate.validator.constraints.Length;
 
 /**
@@ -13,4 +14,5 @@ import org.hibernate.validator.constraints.Length;
 public record PatchExam(
     @Length(min = TITLE_MIN, max = TITLE_MAX, message = INVALID_TITLE_LENGTH_MSG) String title,
     @Length(min = DESCRIPTION_MIN, max = DESCRIPTION_MAX, message = INVALID_DESCRIPTION_LENGTH_MSG)
-        String description) {}
+        String description,
+    @AssertTrue(message = "finalise can only be true") Boolean finalise) {}

@@ -2,8 +2,10 @@ package com.bella.IW2BR.domain.exam.exam;
 
 import com.bella.IW2BR.domain.environment.Environment;
 import com.bella.IW2BR.domain.environment.util.EnvironmentMember;
+import com.bella.IW2BR.domain.exam.question.Question;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -44,4 +46,7 @@ public class Exam implements EnvironmentMember {
   @ManyToOne
   @JoinColumn(name = "environment_id")
   private Environment environment;
+
+  @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Question> questions;
 }

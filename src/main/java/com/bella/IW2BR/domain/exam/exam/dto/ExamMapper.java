@@ -43,6 +43,9 @@ public class ExamMapper {
     if (patch.description() != null) {
       exam.setDescription(patch.description());
     }
+    if (patch.finalise() != null) {
+      exam.setFinalised(patch.finalise());
+    }
     return exam;
   }
 }

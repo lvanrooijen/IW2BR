@@ -4,6 +4,8 @@ import com.bella.IW2BR.domain.environment.Environment;
 import com.bella.IW2BR.domain.environment.EnvironmentRepository;
 import com.bella.IW2BR.domain.exam.exam.Exam;
 import com.bella.IW2BR.domain.exam.exam.ExamRepository;
+import com.bella.IW2BR.domain.exam.question.Question;
+import com.bella.IW2BR.domain.exam.question.QuestionRepository;
 import com.bella.IW2BR.domain.flashcarddeck.deck.FlashcardDeck;
 import com.bella.IW2BR.domain.flashcarddeck.deck.FlashcardDeckRepository;
 import com.bella.IW2BR.domain.flashcarddeck.flashcard.Flashcard;
@@ -16,6 +18,7 @@ import com.bella.IW2BR.domain.tag.Tag;
 import com.bella.IW2BR.domain.tag.TagRepository;
 import com.bella.IW2BR.domain.user.User;
 import com.bella.IW2BR.exceptions.base.BaseBadRequestException;
+import com.bella.IW2BR.exceptions.exam.FinalisedExamException;
 import com.bella.IW2BR.exceptions.generic.IllegalActionException;
 import com.bella.IW2BR.exceptions.generic.ItemNotFoundException;
 import com.bella.IW2BR.exceptions.generic.ResourceNotInEnvironmentException;
@@ -36,6 +39,7 @@ public class EnvironmentHelperMethods {
   private final FlashcardDeckRepository flashcardDeckRepository;
   private final FlashcardRepository flashcardRepository;
   private final ExamRepository examRepository;
+  private final QuestionRepository questionRepository;
 
   /**
    * Verifies if the authenticated user is the owner of the environment, or has an admin role.
@@ -84,6 +88,19 @@ public class EnvironmentHelperMethods {
     if (!Objects.equals(member.getEnvironment().getId(), environmentId)) {
       throw new ResourceNotInEnvironmentException(
           member.getClass().getSimpleName() + " is not a member of this environment");
+    }
+  }
+
+  /**
+   * Throws an exception if the exception is finalised.
+   *
+   * @param exam
+   * @throws FinalisedExamException
+   */
+  public void throwIfExamIsFinalised(Exam exam) {
+    if (exam.isFinalised()) {
+      throw new FinalisedExamException(
+          "Altering an Exam or or it's related Questions and answers is not allowed after the Exam is finalised");
     }
   }
 
@@ -176,5 +193,17 @@ public class EnvironmentHelperMethods {
     return examRepository
         .findById(id)
         .orElseThrow(() -> new ItemNotFoundException("Exam not Found"));
+  }
+
+  /**
+   * Gets a Question by ID
+   *
+   * @param id
+   * @return {@link Question}
+   */
+  public Question getQuestionOrThrow(Long id) {
+    return questionRepository
+        .findById(id)
+        .orElseThrow(() -> new ItemNotFoundException("Question not Found"));
   }
 }

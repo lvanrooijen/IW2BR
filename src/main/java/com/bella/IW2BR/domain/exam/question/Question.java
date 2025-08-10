@@ -25,6 +25,9 @@ public class Question {
 
   @Id @GeneratedValue private Long id;
 
+  @Column(name = "deleted", nullable = false)
+  private boolean isDeleted = false;
+
   @Column(name = "question", nullable = false)
   private String Question;
 
@@ -39,7 +42,7 @@ public class Question {
   @JoinColumn(name = "tag_id", nullable = true)
   private Tag tag;
 
-  @OneToMany(mappedBy = "question")
+  @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
   @JsonManagedReference
   private List<Answer> answers;
 }

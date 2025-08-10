@@ -10,8 +10,8 @@ import com.bella.IW2BR.exceptions.base.BaseBadRequestException;
  * <p>It extends {@link BaseBadRequestException} and is handled by {@link
  * GlobalExceptionHandler#handleBadRequestExceptions(Exception)}
  */
-public class FlashcardDeckMismatchException extends BaseBadRequestException {
-  public FlashcardDeckMismatchException(String message) {
+public class MismatchingIdException extends BaseBadRequestException {
+  public MismatchingIdException(String message) {
     super(message);
   }
 }

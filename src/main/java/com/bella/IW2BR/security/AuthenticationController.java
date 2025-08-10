@@ -64,7 +64,7 @@ public class AuthenticationController implements AuthenticationControllerDocs {
   @PreAuthorize("hasRole('ADMIN') or #id == authentication.principal.id")
   public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
     authenticationService.deleteUser(id);
-    return ResponseEntity.ok().build();
+    return ResponseEntity.noContent().build();
   }
 
   @Override

@@ -57,6 +57,6 @@ public class EnvironmentController implements EnvironmentControllerDocs {
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> delete(@PathVariable Long id) {
     environmentService.delete(id);
-    return ResponseEntity.ok().build();
+    return ResponseEntity.noContent().build();
   }
 }

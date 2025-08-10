@@ -57,6 +57,6 @@ public class ExamController {
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> delete(@PathVariable Long environmentId, @PathVariable Long id) {
     examService.delete(environmentId, id);
-    return ResponseEntity.ok().build();
+    return ResponseEntity.noContent().build();
   }
 }

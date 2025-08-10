@@ -62,6 +62,6 @@ public class TagController implements TagControllerDocs {
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> delete(@PathVariable Long environmentId, @PathVariable Long id) {
     tagService.delete(environmentId, id);
-    return ResponseEntity.ok().build();
+    return ResponseEntity.noContent().build();
   }
 }

@@ -31,6 +31,7 @@ public class ExamMapper {
         .title(dto.title())
         .description(dto.description())
         .environment(environment)
+        .isFinalised(false)
         .createdAt(LocalDate.now())
         .build();
   }

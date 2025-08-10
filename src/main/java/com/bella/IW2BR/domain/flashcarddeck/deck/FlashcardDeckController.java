@@ -64,6 +64,6 @@ public class FlashcardDeckController {
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> delete(@PathVariable Long environmentId, @PathVariable Long id) {
     flashcardDeckService.delete(environmentId, id);
-    return ResponseEntity.ok().build();
+    return ResponseEntity.noContent().build();
   }
 }

@@ -66,6 +66,6 @@ public class FlashcardController {
   public ResponseEntity<Void> delete(
       @PathVariable Long environmentId, @PathVariable Long flashcardDeckId, @PathVariable Long id) {
     flashcardService.delete(environmentId, flashcardDeckId, id);
-    return ResponseEntity.ok().build();
+    return ResponseEntity.noContent().build();
   }
 }

@@ -66,6 +66,6 @@ public class NoteCollectionController implements NoteCollectionControllerDocs {
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> delete(@PathVariable Long environmentId, @PathVariable Long id) {
     noteCollectionService.delete(environmentId, id);
-    return ResponseEntity.ok().build();
+    return ResponseEntity.noContent().build();
   }
 }

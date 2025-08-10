@@ -14,11 +14,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Exam implements EnvironmentMember {
   @Builder
-  public Exam(String title, String description, LocalDate createdAt, Environment environment) {
+  public Exam(
+      String title,
+      String description,
+      LocalDate createdAt,
+      boolean isFinalised,
+      Environment environment) {
     this.title = title;
     this.description = description;
     this.createdAt = createdAt;
     this.environment = environment;
+    this.isFinalised = isFinalised;
   }
 
   @Id @GeneratedValue private Long id;
@@ -28,6 +34,9 @@ public class Exam implements EnvironmentMember {
 
   @Column(name = "description", nullable = true)
   private String description;
+
+  @Column(name = "is_finalised", nullable = false)
+  private boolean isFinalised;
 
   @Column(name = "created_at", nullable = false)
   private LocalDate createdAt;

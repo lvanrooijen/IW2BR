@@ -71,6 +71,6 @@ public class NoteController {
       @PathVariable Long noteCollectionId,
       @PathVariable Long id) {
     noteService.delete(environmentId, noteCollectionId, id);
-    return ResponseEntity.ok().build();
+    return ResponseEntity.noContent().build();
   }
 }

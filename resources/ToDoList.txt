@@ -1,11 +1,13 @@
 TODO:
 
 BACKEND
+- als exam finalized is dan moet de delete method een soft delete uitvoeren,
+    omdat een potentiele examresult al kan zijn gemaakt.
+    als exam finalised is mag je m ook niet meer patchen!
+
 - overige domains toevoegen
 - Alle swagger docs interfaces over nieuw doen!
-- java docstrings updaten
-- google welke status code als iets gedelete is? als 204 dan vervang alles
-- alle pathvariabels specifieker maken
+- java docstrings nalopen en updaten
 - wiki pages updaten
 - voeg @Positive toe daar waar nodig!
 - dubbel checken of de wie wat mag wat zien overal goed is ingesteld

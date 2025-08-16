@@ -38,7 +38,10 @@ public class Exam implements EnvironmentMember {
   private String description;
 
   @Column(name = "is_finalised", nullable = false)
-  private boolean isFinalised;
+  private boolean isFinalised = false;
+
+  @Column(name = "is_deleted", nullable = false)
+  private boolean isDeleted = false;
 
   @Column(name = "created_at", nullable = false)
   private LocalDate createdAt;

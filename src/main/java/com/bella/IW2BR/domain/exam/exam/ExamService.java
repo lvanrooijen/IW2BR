@@ -67,8 +67,8 @@ public class ExamService {
     helperMethods.throwIfNotInEnvironment(exam, environmentId);
 
     if (exam.isFinalised()) {
-      // TODO soft delete. en soft delete alles wat gerelateerd is? of wat?
-      log.warn("SOFT DELETE NOT IMPLEMENTED YET");
+      exam.setDeleted(true);
+      examRepository.save(exam);
     } else {
       examRepository.deleteById(id);
     }

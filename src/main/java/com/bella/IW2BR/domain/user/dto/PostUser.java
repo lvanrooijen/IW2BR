@@ -3,6 +3,7 @@ package com.bella.IW2BR.domain.user.dto;
 import static com.bella.IW2BR.domain.user.dto.UserConstraints.*;
 
 import com.bella.IW2BR.utils.customvalidators.password.Password;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
@@ -17,7 +18,7 @@ import org.hibernate.validator.constraints.Length;
  * @param role represents user role
  */
 public record PostUser(
-    @NotBlank @Email(message = INVALID_EMAIL_MSG) String email,
+    @NotBlank @Email(message = INVALID_EMAIL_MSG) @JsonAlias(value = "username") String email,
     @NotBlank @Password String password,
     @NotBlank @Length(min = NAME_MIN, max = NAME_MAX, message = FIRST_NAME_INVALID_LENGTH)
         String firstName,

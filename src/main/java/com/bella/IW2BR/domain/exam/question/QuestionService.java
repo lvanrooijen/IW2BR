@@ -29,6 +29,7 @@ public class QuestionService {
   public GetQuestion create(Long environmentId, Long examId, PostQuestion body) {
     Exam exam = helperMethods.getExamOrThrow(examId);
     helperMethods.throwIfNotInEnvironment(exam, environmentId);
+    helperMethods.throwIfExamIsFinalised(exam);
 
     throwIfInvalidAnswerAmount(body.size().getAnswerAmount(), body.answers().size());
 
@@ -156,14 +157,10 @@ public class QuestionService {
 
     Exam exam = helperMethods.getExamOrThrow(examId);
     helperMethods.throwIfNotInEnvironment(exam, environmentId);
+    helperMethods.throwIfExamIsFinalised(exam);
 
     Question question = helperMethods.getQuestionOrThrow(id);
 
-    if (exam.isFinalised()) {
-      question.setDeleted(true);
-      questionRepository.save(question);
-    } else {
-      questionRepository.delete(question);
-    }
+    questionRepository.delete(question);
   }
 }

@@ -3,6 +3,7 @@ package com.bella.IW2BR.domain.user.dto;
 import static com.bella.IW2BR.domain.user.dto.UserConstraints.INVALID_EMAIL_MSG;
 
 import com.bella.IW2BR.utils.customvalidators.password.Password;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.validation.constraints.Email;
 
 /**
@@ -12,4 +13,5 @@ import jakarta.validation.constraints.Email;
  * @param password
  */
 public record LoginUser(
-    @Email(message = INVALID_EMAIL_MSG) String email, @Password String password) {}
+    @Email(message = INVALID_EMAIL_MSG) @JsonAlias(value = "username") String email,
+    @Password String password) {}

@@ -1,10 +1,8 @@
 TODO:
 
 BACKEND
-- als exam finalized is dan moet de delete method een soft delete uitvoeren,
-    omdat een potentiele examresult al kan zijn gemaakt.
-    als exam finalised is mag je m ook niet meer patchen!
-- als een gebruiker een exam finalised moet er wel minimaal aantal vragen in staan. hoeveel?
+- admin moet wel nog een exam of question/answer kunnen patchen in het geval dat er toc content in staat
+- als een gebruiker een exam finalised moet er wel minimaal aantal vragen in staan. hoeveel? --> maak diverse grotes ook score berekenen makkelijker te maken. small 12, medium 24, large 36
 - plan uitwerken voor die soft delete op exam en hoe dat samenhangt met die question en answers. en het effect op de bestaande crud operaties!
 - lezen --> mappers vervangen? https://www.baeldung.com/mapstruct
 - uitzoeken, kan ik die herhalende is owner of env check in een custom annotatie verwerken?

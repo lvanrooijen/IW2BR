@@ -27,4 +27,7 @@ public class Endpoints {
   private static final String EXAMS_WITH_ID = EXAMS + "/{examId}";
 
   public static final String QUESTIONS = EXAMS_WITH_ID + "/questions";
+
+  public static final String EXAM_ATTEMPTS = EXAMS_WITH_ID + "/attempts";
+  private static final String EXAM_ATTEMPTS_WITH_ID = EXAMS_WITH_ID + "/attempts/{attemptId}";
 }

@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class Question {
   @Builder
   public Question(String question, int answerAmount, Exam exam, Tag tag) {
-    Question = question;
+    this.question = question;
     this.answerAmount = answerAmount;
     this.exam = exam;
     this.tag = tag;
@@ -29,7 +29,7 @@ public class Question {
   private boolean isDeleted = false;
 
   @Column(name = "question", nullable = false)
-  private String Question;
+  private String question;
 
   @Column(name = "answer_amount", nullable = false)
   private int answerAmount;

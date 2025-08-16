@@ -2,6 +2,10 @@ package com.bella.IW2BR.domain.environment.util;
 
 import com.bella.IW2BR.domain.environment.Environment;
 import com.bella.IW2BR.domain.environment.EnvironmentRepository;
+import com.bella.IW2BR.domain.exam.answer.Answer;
+import com.bella.IW2BR.domain.exam.answer.AnswerRepository;
+import com.bella.IW2BR.domain.exam.attempt.ExamAttempt;
+import com.bella.IW2BR.domain.exam.attempt.ExamAttemptRepository;
 import com.bella.IW2BR.domain.exam.exam.Exam;
 import com.bella.IW2BR.domain.exam.exam.ExamRepository;
 import com.bella.IW2BR.domain.exam.question.Question;
@@ -40,6 +44,8 @@ public class EnvironmentHelperMethods {
   private final FlashcardRepository flashcardRepository;
   private final ExamRepository examRepository;
   private final QuestionRepository questionRepository;
+  private final AnswerRepository answerRepository;
+  private final ExamAttemptRepository examAttemptRepository;
 
   /**
    * Verifies if the authenticated user is the owner of the environment, or has an admin role.
@@ -196,6 +202,19 @@ public class EnvironmentHelperMethods {
   }
 
   /**
+   * Gets an ExamAttempt by ID
+   *
+   * @param id
+   * @return {@link ExamAttempt}
+   * @throws ItemNotFoundException
+   */
+  public ExamAttempt getExamAttemptOrThrow(Long id) {
+    return examAttemptRepository
+        .findById(id)
+        .orElseThrow(() -> new ItemNotFoundException("Exam-attempt not Found"));
+  }
+
+  /**
    * Gets a Question by ID
    *
    * @param id
@@ -205,5 +224,11 @@ public class EnvironmentHelperMethods {
     return questionRepository
         .findById(id)
         .orElseThrow(() -> new ItemNotFoundException("Question not Found"));
+  }
+
+  public Answer getAnswerOrThrow(Long id) {
+    return answerRepository
+        .findById(id)
+        .orElseThrow(() -> new ItemNotFoundException("Answer not Found"));
   }
 }

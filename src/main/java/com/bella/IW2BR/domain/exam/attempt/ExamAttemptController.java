@@ -1,7 +1,8 @@
 package com.bella.IW2BR.domain.exam.attempt;
 
-import com.bella.IW2BR.domain.exam.attempt.dto.GetExamAttempt;
-import com.bella.IW2BR.domain.exam.attempt.dto.PostExamAttempt;
+import com.bella.IW2BR.domain.exam.attempt.dto.GetAttempt;
+import com.bella.IW2BR.domain.exam.attempt.dto.GetCompletedAttempt;
+import com.bella.IW2BR.domain.exam.attempt.dto.PostAttempt;
 import com.bella.IW2BR.utils.constants.routes.Endpoints;
 import jakarta.validation.Valid;
 import java.net.URI;
@@ -29,9 +30,9 @@ public class ExamAttemptController {
   private final ExamAttemptService attemptService;
 
   @PostMapping
-  public ResponseEntity<GetExamAttempt> create(
+  public ResponseEntity<GetAttempt> create(
       @PathVariable Long environmentId, @PathVariable Long examId) {
-    GetExamAttempt attempt = attemptService.create(environmentId, examId);
+    GetAttempt attempt = attemptService.create(environmentId, examId);
 
     URI location =
         ServletUriComponentsBuilder.fromCurrentRequest()
@@ -42,17 +43,14 @@ public class ExamAttemptController {
     return ResponseEntity.created(location).body(attempt);
   }
 
-  @PostMapping("/{attemptId}/save")
-  public ResponseEntity<GetExamAttempt> complete(
+  @PostMapping("/{attemptId}/submit")
+  public ResponseEntity<GetCompletedAttempt> submit(
       @PathVariable Long environmentId,
       @PathVariable Long examId,
       @PathVariable Long attemptId,
-      @Valid @RequestBody PostExamAttempt body) {
-    // TODO maak plan
+      @Valid @RequestBody PostAttempt body) {
+    GetCompletedAttempt attempt = attemptService.submit(environmentId, examId, attemptId, body);
 
-    // GetExamAttempt attempt = attemptService.complete(environmentId, examId, attemptId, body);
-
-    // return ResponseEntity.ok(attempt);
-    return null;
+    return ResponseEntity.ok(attempt);
   }
 }

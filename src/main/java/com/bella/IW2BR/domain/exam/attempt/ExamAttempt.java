@@ -5,13 +5,13 @@ import com.bella.IW2BR.domain.environment.util.EnvironmentMember;
 import com.bella.IW2BR.domain.exam.exam.Exam;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+/** Represents an attempt at an exam by the user. */
 @Entity
 @Table(name = "exam_attempts")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class ExamAttempt implements EnvironmentMember {
   @Builder
@@ -39,7 +39,7 @@ public class ExamAttempt implements EnvironmentMember {
   private LocalDateTime completedAt;
 
   @Column(name = "is_completed", nullable = true)
-  private Boolean isCompleted;
+  private boolean isCompleted = false;
 
   @Column(name = "score", nullable = false)
   private double score;
@@ -51,5 +51,4 @@ public class ExamAttempt implements EnvironmentMember {
   @ManyToOne
   @JoinColumn(name = "environment_id", nullable = false)
   private Environment environment;
-
 }

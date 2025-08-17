@@ -50,6 +50,8 @@ public class EnvironmentHelperMethods {
   /**
    * Verifies if the authenticated user is the owner of the environment, or has an admin role.
    *
+   * <p>Checks by retrieving the authenticated user from the SecurityContext
+   *
    * @param environmentId
    * @throws IllegalActionException When the user is not the owner of the environment and is not
    *     admin role

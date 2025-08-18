@@ -82,7 +82,6 @@ public class ExamAttemptController {
     return ResponseEntity.ok(attempts);
   }
 
-  // delete
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> delete(
       @PathVariable Long environmentId, @PathVariable Long examId, @PathVariable Long id) {

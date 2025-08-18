@@ -30,4 +30,6 @@ public class Endpoints {
 
   public static final String EXAM_ATTEMPTS = EXAMS_WITH_ID + "/attempts";
   private static final String EXAM_ATTEMPTS_WITH_ID = EXAMS_WITH_ID + "/attempts/{attemptId}";
+
+  public static final String STATISTICS = ENVIRONMENTS_WITH_ID + "/statistics";
 }

@@ -202,7 +202,6 @@ public class ExamAttemptService {
     ExamAttempt attempt = helperMethods.getExamAttemptOrThrow(attemptId);
     checkPathVariablesOrThrow(environmentId, examId, attemptId, exam, attempt);
 
-    // delete all the  question answers
     List<QuestionAnswer> questionAnswers =
         questionAnswerRepository.findAllByExamAttemptId(attemptId);
     questionAnswerRepository.deleteAll(questionAnswers);

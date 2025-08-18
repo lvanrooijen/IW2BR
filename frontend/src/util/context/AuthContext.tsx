@@ -23,12 +23,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (token) {
       refreshToken()
         .then((userData) => {
-          console.log('loading app, attempting to refresh token');
+          console.log(
+            '[AUTH CONTEXT] loading app, attempting to refresh token'
+          );
           setUser(userData);
           setIsLoggedIn(true);
         })
         .catch((error) => {
-          console.error('Failed to refresh token', error);
+          console.error('[AUTH CONTEXT] Failed to refresh token', error);
           localStorage.removeItem('accessToken');
         })
         .finally(() => setAuthIsLoading(false));

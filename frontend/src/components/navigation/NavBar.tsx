@@ -2,13 +2,17 @@ import NavBarLink from './NavBarLink';
 import ProfilePlaceholder from '../../assets/icons/profile_icon_green.png';
 import { useAuth } from '../../util/context/AuthContext';
 import NavBarActionButton from './NavBarActionButton';
+import { useNavigate } from 'react-router';
 
 const NavBar = () => {
   const { logout } = useAuth();
+  const nav = useNavigate();
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">IW-2-BR</a>
+        <a className="btn btn-ghost text-xl" onClick={() => nav('/')}>
+          IW-2-BR
+        </a>
       </div>
       <div className="flex gap-2">
         <div className="dropdown dropdown-end">

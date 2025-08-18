@@ -5,7 +5,6 @@ import com.bella.IW2BR.domain.environment.util.EnvironmentHelperMethods;
 import com.bella.IW2BR.domain.exam.answer.Answer;
 import com.bella.IW2BR.domain.exam.attempt.dto.AttemptMapper;
 import com.bella.IW2BR.domain.exam.attempt.dto.GetAttempt;
-import com.bella.IW2BR.domain.exam.attempt.dto.GetCompletedAttempt;
 import com.bella.IW2BR.domain.exam.attempt.dto.PostAttempt;
 import com.bella.IW2BR.domain.exam.attempt.questionanswer.QuestionAnswer;
 import com.bella.IW2BR.domain.exam.attempt.questionanswer.QuestionAnswerRepository;
@@ -55,8 +54,7 @@ public class ExamAttemptService {
     return mapper.toGet(examAttempt);
   }
 
-  public GetCompletedAttempt submit(
-      Long environmentId, Long examId, Long attemptId, PostAttempt body) {
+  public GetAttempt submit(Long environmentId, Long examId, Long attemptId, PostAttempt body) {
     helperMethods.throwIfNotOwnerOrAdmin(environmentId);
     Exam exam = helperMethods.getExamOrThrow(examId);
     ExamAttempt attempt = helperMethods.getExamAttemptOrThrow(attemptId);
@@ -79,7 +77,21 @@ public class ExamAttemptService {
 
     attemptRepository.save(attempt);
 
-    return mapper.toGetCompleted(attempt, questionAnswers);
+    return mapper.toGet(attempt, questionAnswers);
+  }
+
+  public GetAttempt getById(Long environmentId, Long examId, Long attemptId) {
+    helperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    Exam exam = helperMethods.getExamOrThrow(examId);
+    ExamAttempt attempt = helperMethods.getExamAttemptOrThrow(attemptId);
+    checkPathVariablesOrThrow(environmentId, examId, attemptId, exam, attempt);
+
+    if (attempt.isCompleted()) {
+      List<QuestionAnswer> answers = questionAnswerRepository.findAllByExamAttemptId(attemptId);
+      return mapper.toGet(attempt, answers);
+    } else {
+      return mapper.toGet(attempt);
+    }
   }
 
   private void checkPathVariablesOrThrow(
@@ -166,5 +178,35 @@ public class ExamAttemptService {
         attempt.getExam().getId(),
         new MismatchingIdException(
             "Path variable representing Exam id does not match the exam id of this exam attempt id."));
+  }
+
+  public List<GetAttempt> getAll(Long environmentId, Long examId, AttemptType type) {
+    helperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    Exam exam = helperMethods.getExamOrThrow(examId);
+    helperMethods.throwIfNotInEnvironment(exam, environmentId);
+
+    List<ExamAttempt> attempts;
+    if (type == AttemptType.INCOMPLETE) {
+      attempts = attemptRepository.findByIsCompleted(false);
+    } else if (type == AttemptType.COMPLETE) {
+      attempts = attemptRepository.findByIsCompleted(true);
+    } else {
+      attempts = attemptRepository.findAll();
+    }
+    return attempts.stream().map(mapper::toGet).toList();
+  }
+
+  public void delete(Long environmentId, Long examId, Long attemptId) {
+    helperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    Exam exam = helperMethods.getExamOrThrow(examId);
+    ExamAttempt attempt = helperMethods.getExamAttemptOrThrow(attemptId);
+    checkPathVariablesOrThrow(environmentId, examId, attemptId, exam, attempt);
+
+    // delete all the  question answers
+    List<QuestionAnswer> questionAnswers =
+        questionAnswerRepository.findAllByExamAttemptId(attemptId);
+    questionAnswerRepository.deleteAll(questionAnswers);
+
+    attemptRepository.deleteById(attemptId);
   }
 }

@@ -2,11 +2,10 @@ TODO:
 
 BACKEND
 - admin moet wel nog een exam of question/answer kunnen patchen in het geval dat er toc content in staat
-- als een gebruiker een exam finalised moet er wel minimaal aantal vragen in staan. hoeveel? --> maak diverse grotes ook score berekenen makkelijker te maken. small 12, medium 24, large 36
-- plan uitwerken voor die soft delete op exam en hoe dat samenhangt met die question en answers. en het effect op de bestaande crud operaties!
+- wanneer moeten tags geflagged worden?
+- nadenken hoe ik de environment statistics wil vormgeven
 - lezen --> mappers vervangen? https://www.baeldung.com/mapstruct
 - uitzoeken, kan ik die herhalende is owner of env check in een custom annotatie verwerken?
-- overige domains toevoegen
 - Alle swagger docs interfaces over nieuw doen!
 - java docstrings nalopen en updaten
 - wiki pages updaten
@@ -24,7 +23,7 @@ FRONTEND
 app naam concept:
     - I want 2 Be Resourceful (de app als geheel)
     - I want 2 Be Remembered (flashcards)
-    - I want 2 Be Ready (quizzes)
+    - I want 2 Be Ready (Exams)
     - I want 2 Be Recorded (notities)
 
 

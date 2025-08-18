@@ -13,14 +13,21 @@ import org.springframework.stereotype.Service;
 public class AttemptMapper {
   public GetAttempt toGet(ExamAttempt attempt) {
     Exam exam = attempt.getExam();
-    return new GetAttempt(attempt.getId(), exam.getId(), exam.getTitle(), exam.getDescription());
+
+    return new GetAttempt(
+        attempt.getId(),
+        exam.getId(),
+        attempt.getScore(),
+        exam.getTitle(),
+        exam.getDescription(),
+        null);
   }
 
-  public GetCompletedAttempt toGetCompleted(ExamAttempt attempt, List<QuestionAnswer> answers) {
+  public GetAttempt toGet(ExamAttempt attempt, List<QuestionAnswer> answers) {
     Exam exam = attempt.getExam();
     List<GetQuestionAnswer> convertedAnswers =
         answers.stream().map(this::toGetQuestionAnswer).toList();
-    return new GetCompletedAttempt(
+    return new GetAttempt(
         attempt.getId(),
         exam.getId(),
         attempt.getScore(),

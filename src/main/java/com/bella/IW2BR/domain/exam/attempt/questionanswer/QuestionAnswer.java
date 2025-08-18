@@ -38,7 +38,7 @@ public class QuestionAnswer {
   @JoinColumn(name = "question_id", nullable = false)
   private Question question;
 
-  @OneToMany
+  @OneToMany(cascade = CascadeType.DETACH, orphanRemoval = false)
   @JoinTable(
       joinColumns = @JoinColumn(name = "question_answer"),
       inverseJoinColumns = @JoinColumn(name = "answers"))

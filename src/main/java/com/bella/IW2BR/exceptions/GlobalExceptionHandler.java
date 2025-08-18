@@ -20,6 +20,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @RestControllerAdvice
 @Slf4j
@@ -135,5 +136,15 @@ public class GlobalExceptionHandler {
   public ProblemDetail handleInvalidRefreshTokenException(Exception e) {
     log.warn("[InvalidRefreshTokenException] {}", e.getMessage(), e);
     return ProblemDetail.forStatus(HttpStatus.UNAUTHORIZED);
+  }
+
+  @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+  public ProblemDetail handleMethodArgumentTypeMismatchException(Exception e) {
+    log.warn("[MethodArgumentTypeMismatchException] {}", e.getMessage());
+
+    int end = e.getMessage().indexOf(':');
+    String msg = "Invalid value for " + e.getMessage().substring(0, end);
+
+    return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, msg);
   }
 }

@@ -6,6 +6,7 @@ import com.bella.IW2BR.domain.exam.exam.dto.ExamMapper;
 import com.bella.IW2BR.domain.exam.exam.dto.GetExam;
 import com.bella.IW2BR.domain.exam.exam.dto.PatchExam;
 import com.bella.IW2BR.domain.exam.exam.dto.PostExam;
+import com.bella.IW2BR.exceptions.exam.InvalidAnswerAmountException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -54,6 +55,10 @@ public class ExamService {
 
     helperMethods.throwIfNotInEnvironment(exam, environmentId);
 
+    if (patch.finalise() && exam.getQuestions().size() <= 3) {
+      throw new InvalidAnswerAmountException(
+          "Exam needs to have at least 6 questions before you finalise");
+    }
     mapper.updateFields(exam, patch);
     examRepository.save(exam);
 

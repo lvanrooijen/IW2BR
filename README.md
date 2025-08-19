@@ -44,5 +44,6 @@ for more information visit the projects [Wiki Pages](https://github.com/lvanrooi
 
 ### Demo -- WIP
 
-![demo](https://github.com/user-attachments/assets/2f00476d-a4e2-4d55-a858-1708ee4ee456)
+![demo](https://github.com/user-attachments/assets/bb6bdfaa-f375-4b63-ac91-e37286d343e2)
+
 

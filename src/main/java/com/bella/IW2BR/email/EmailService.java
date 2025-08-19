@@ -47,12 +47,12 @@ public class EmailService {
    * Sends registration email to the user
    *
    * @param to email address of the recipient
-   * @param fullName name of the recipient
+   * @param fullname name of the recipient
    * @throws MessagingException when something goes wrong
    */
-  public void sendUserRegistrationEmail(String to, String fullName) throws MessagingException {
+  public void sendUserRegistrationEmail(String to, String fullname) throws MessagingException {
     Context context = new Context();
-    context.setVariable("username", fullName);
+    context.setVariable("full_name", fullname);
     context.setVariable("year", LocalDate.now().getYear());
 
     String body = templateEngine.process("UserRegistration.html", context);
@@ -60,7 +60,7 @@ public class EmailService {
     MimeMessage message = mailSender.createMimeMessage();
     MimeMessageHelper helper = new MimeMessageHelper(message, true);
     helper.setTo(to);
-    helper.setSubject(String.format("Welcome %s!", fullName));
+    helper.setSubject(String.format("Welcome %s!", fullname));
     helper.setText(body, true);
     mailSender.send(message);
   }

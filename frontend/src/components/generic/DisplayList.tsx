@@ -1,4 +1,4 @@
-const ItemDisplay: React.FC<ItemDisplayProps> = ({
+const DisplayList: React.FC<DisplayListProps> = ({
   title,
   buttonLabel,
   buttonAction,
@@ -13,15 +13,15 @@ const ItemDisplay: React.FC<ItemDisplayProps> = ({
             {buttonLabel}
           </button>
         </div>
-        <div>{children}</div>
+        <div className="flex flex-col gap-3 pt-3">{children}</div>
       </div>
     </>
   );
 };
 
-export default ItemDisplay;
+export default DisplayList;
 
-interface ItemDisplayProps {
+interface DisplayListProps {
   title: string;
   children: React.ReactNode;
   buttonLabel: string;

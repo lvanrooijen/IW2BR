@@ -42,7 +42,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const login = async (loginForm: LoginFormProps) => {
     try {
       const userData = await loginUser(loginForm);
-      console.log('TEST:: ', userData);
+      console.log('[AUTHCONTEXT] ', userData);
       setUser(userData);
       setIsLoggedIn(true);
     } catch (error) {
@@ -53,7 +53,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const register = async (form: RegisterFormProps) => {
     try {
       const userData = await registerUser(form);
-      console.log('TEST:: ', userData);
+      console.log('[AUTHCONTEXT] ', userData);
       setUser(userData);
       setIsLoggedIn(true);
     } catch (error) {
@@ -65,7 +65,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       await logoutUser();
     } catch (error) {
-      console.error('Logout error', error);
+      console.error('[AUTHCONTEXT] Logout error', error);
     } finally {
       setUser(null);
       setIsLoggedIn(false);

@@ -41,3 +41,8 @@ for more information visit the projects [Wiki Pages](https://github.com/lvanrooi
 
 * [API documentation](http://localhost:8080/swagger-ui/index.html)
 > _Backend needs to be running to access this resource_
+
+### Demo -- WIP
+
+![demo](https://github.com/user-attachments/assets/2f00476d-a4e2-4d55-a858-1708ee4ee456)
+

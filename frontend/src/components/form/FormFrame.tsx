@@ -19,24 +19,24 @@ const FormFrame: React.FC<FormFrameProps> = ({
 
   return (
     <div
-      className={`border-2 pb-12 rounded-md flex justify-center items-center flex-col gap-6 bg-base-300 ${style}`}
+      className={`border-2 pb-6 rounded-md flex justify-center items-center flex-col gap-6 bg-base-300 ${style}`}
     >
       {onClose && (
         <div className="w-full flex justify-end">
-          <button className="btn btn-error text-md m-3" onClick={onClose}>
-            X
+          <button className="btn btn-error text-md mt-3 mr-3" onClick={onClose}>
+            close
           </button>
         </div>
       )}
-      <h2 className="text-2xl text-accent">{formLabel}</h2>
+      <h2 className="text-lg text-accent">{formLabel}</h2>
       <form
-        className="flex flex-col justify-center items-center px-12"
+        className="flex flex-col justify-center items-center"
         onSubmit={(e) => {
           getFormValues(e);
         }}
       >
         <div>{children}</div>
-        <button className="btn btn-secondary p-3 my-3" type="submit">
+        <button className="btn btn-primary" type="submit">
           Submit
         </button>
       </form>

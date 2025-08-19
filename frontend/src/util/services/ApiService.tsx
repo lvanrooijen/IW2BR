@@ -45,13 +45,3 @@ export async function logoutUser() {
   AxiosInstance.post('/auth/logout');
   console.log('logged out');
 }
-
-export async function getEnvironmentsByUser() {
-  let environments;
-  AxiosInstance.get('/environments')
-    .then((response) => (environments = response.data))
-    .catch((error) =>
-      console.error('[APISERVICE] Something went wrong: ', error)
-    );
-  return environments;
-}

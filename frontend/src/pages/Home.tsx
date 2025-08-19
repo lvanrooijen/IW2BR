@@ -9,10 +9,12 @@ import FormInputField from '../components/form/FormInputField';
 import FormTextArea from '../components/form/FormTextArea';
 import type { PostEvironmentProps } from '../interfaces/RequestBodyInterfaces';
 import DisplayListItem from '../components/generic/DisplayListItem';
+import { useNavigate } from 'react-router';
 
 const Home: React.FC<HomeProps> = ({ user }) => {
   const [environments, setEnvironments] = useState<EnvironmentProps[]>([]);
   const [createForm, setCreateForm] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchEnvironments();
@@ -31,11 +33,10 @@ const Home: React.FC<HomeProps> = ({ user }) => {
     AxiosInstance.post('/environments', form)
       .then((response) => {
         console.log(response.status);
-        if (response.status == 200) {
+        if (response.status == 201) {
           setCreateForm(false);
           // todo display some type of success message
           // refresh page so new environment is shown
-          setCreateForm(false);
           fetchEnvironments();
         }
       })
@@ -79,6 +80,7 @@ const Home: React.FC<HomeProps> = ({ user }) => {
                 key={environment.id}
                 title={environment.title}
                 content={environment.description}
+                handleClick={() => navigate(`/environments/${environment.id}`)}
               />
             ))}
         </DisplayList>

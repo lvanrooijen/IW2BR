@@ -1,9 +1,6 @@
 package com.bella.IW2BR.domain.environment;
 
-import com.bella.IW2BR.domain.environment.dto.EnvironmentMapper;
-import com.bella.IW2BR.domain.environment.dto.GetEnvironment;
-import com.bella.IW2BR.domain.environment.dto.PatchEnvironment;
-import com.bella.IW2BR.domain.environment.dto.PostEnvironment;
+import com.bella.IW2BR.domain.environment.dto.*;
 import com.bella.IW2BR.domain.environment.util.EnvironmentHelperMethods;
 import com.bella.IW2BR.domain.user.User;
 import com.bella.IW2BR.exceptions.generic.ItemNotFoundException;
@@ -35,6 +32,13 @@ public class EnvironmentService {
     environmentHelperMethods.throwIfNotOwnerOrAdmin(id);
 
     return mapper.toGet(environment);
+  }
+
+  public GetFullEnvironment getFullById(Long id) {
+    Environment environment = getEnvironmentOrThrow(id);
+    environmentHelperMethods.throwIfNotOwnerOrAdmin(id);
+
+    return mapper.toGetFull(environment);
   }
 
   public List<GetEnvironment> getAll() {

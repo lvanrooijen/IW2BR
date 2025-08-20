@@ -1,6 +1,7 @@
 package com.bella.IW2BR.domain.environment;
 
 import com.bella.IW2BR.domain.environment.dto.GetEnvironment;
+import com.bella.IW2BR.domain.environment.dto.GetFullEnvironment;
 import com.bella.IW2BR.domain.environment.dto.PatchEnvironment;
 import com.bella.IW2BR.domain.environment.dto.PostEnvironment;
 import com.bella.IW2BR.utils.constants.routes.Endpoints;
@@ -33,8 +34,10 @@ public class EnvironmentController implements EnvironmentControllerDocs {
 
   @Override
   @GetMapping("/{id}")
-  public ResponseEntity<GetEnvironment> get(@PathVariable Long id) {
-    GetEnvironment environment = environmentService.getById(id);
+  public ResponseEntity<GetFullEnvironment> get(
+      @PathVariable Long id) {
+
+    GetFullEnvironment environment = environmentService.getFullById(id);
     return ResponseEntity.ok(environment);
   }
 

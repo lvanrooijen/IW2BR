@@ -19,11 +19,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExamMapper {
   public GetExam toGet(Exam entity) {
-    return new GetExam(
-        entity.getId(),
-        entity.getTitle(),
-        entity.getDescription(),
-        entity.getEnvironment().getId());
+    return new GetExam(entity.getId(), entity.getTitle(), entity.getDescription());
   }
 
   public Exam fromPost(PostExam dto, Environment environment) {

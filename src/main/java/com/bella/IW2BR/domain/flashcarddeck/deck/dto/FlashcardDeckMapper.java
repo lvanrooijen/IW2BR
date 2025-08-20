@@ -18,11 +18,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class FlashcardDeckMapper {
   public GetFlashcardDeck toGet(FlashcardDeck entity) {
-    return new GetFlashcardDeck(
-        entity.getId(),
-        entity.getTitle(),
-        entity.getDescription(),
-        entity.getEnvironment().getId());
+    return new GetFlashcardDeck(entity.getId(), entity.getTitle(), entity.getDescription());
   }
 
   public FlashcardDeck fromPost(PostFlashcardDeck dto, Environment environment) {

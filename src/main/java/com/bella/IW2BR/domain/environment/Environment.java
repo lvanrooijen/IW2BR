@@ -1,5 +1,6 @@
 package com.bella.IW2BR.domain.environment;
 
+import com.bella.IW2BR.domain.exam.attempt.ExamAttempt;
 import com.bella.IW2BR.domain.exam.exam.Exam;
 import com.bella.IW2BR.domain.flashcarddeck.deck.FlashcardDeck;
 import com.bella.IW2BR.domain.notecollection.collection.NoteCollection;
@@ -53,6 +54,9 @@ public class Environment {
 
   @OneToMany(mappedBy = "environment", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Exam> exams;
+
+  @OneToMany(mappedBy = "environment", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<ExamAttempt> examAttempts;
 
   /**
    * Checks if the given ID matches the ID that of the owner

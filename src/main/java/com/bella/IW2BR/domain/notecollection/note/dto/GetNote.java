@@ -1,5 +1,6 @@
 package com.bella.IW2BR.domain.notecollection.note.dto;
 
+
 /**
  * DTO representing how the Note is returned to the client
  *
@@ -9,4 +10,6 @@ package com.bella.IW2BR.domain.notecollection.note.dto;
  * @param noteCollectionId
  * @param tagId
  */
-public record GetNote(Long id, String title, String body, Long noteCollectionId, Long tagId) {}
+public record GetNote(Long id, String title, String body, Long noteCollectionId, Long tagId) {
+ 
+}

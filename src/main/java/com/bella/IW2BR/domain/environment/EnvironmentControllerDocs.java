@@ -23,7 +23,7 @@ public interface EnvironmentControllerDocs {
     @ApiResponse(responseCode = "403", description = "no permission to access this resource"),
     @ApiResponse(responseCode = "404", description = "environment not found")
   })
-  public ResponseEntity<GetEnvironment> get(Long id);
+  public ResponseEntity<?> get(Long id);
 
   @Operation(summary = "get all environments", description = "get all environments")
   @ApiResponses({

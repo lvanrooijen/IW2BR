@@ -6,6 +6,5 @@ package com.bella.IW2BR.domain.flashcarddeck.deck.dto;
  * @param id
  * @param title
  * @param description
- * @param environmentId
  */
-public record GetFlashcardDeck(Long id, String title, String description, Long environmentId) {}
+public record GetFlashcardDeck(Long id, String title, String description) {}

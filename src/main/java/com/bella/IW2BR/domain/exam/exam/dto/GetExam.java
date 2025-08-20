@@ -5,6 +5,5 @@ package com.bella.IW2BR.domain.exam.exam.dto;
  *
  * @param title
  * @param description
- * @param environmentId
  */
-public record GetExam(Long id, String title, String description, Long environmentId) {}
+public record GetExam(Long id, String title, String description) {}

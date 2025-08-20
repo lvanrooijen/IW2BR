@@ -6,7 +6,7 @@ const DisplayList: React.FC<DisplayListProps> = ({
 }) => {
   return (
     <>
-      <div className=" bg-accent-content py-3 px-6 rounded-md">
+      <div className=" bg-base-300 py-3 px-6 pb-12 rounded-md">
         <div className="flex justify-between">
           <h1 className="text-xl">{title}</h1>
           <button className="btn btn-soft btn-secondary" onClick={buttonAction}>

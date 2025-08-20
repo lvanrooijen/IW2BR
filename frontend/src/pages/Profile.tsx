@@ -1,11 +1,5 @@
-import BasicPage from '../components/page/BasicPage';
-
 const Profile = () => {
-  return (
-    <BasicPage>
-      <div>hej</div>
-    </BasicPage>
-  );
+  return <div>Profile page WIP</div>;
 };
 
 export default Profile;

@@ -6,7 +6,7 @@ const DisplayListItem: React.FC<DisplayListItemProps> = ({
   return (
     <>
       <div
-        className={`border-1 border-b-3 border-base-200 rounded-md shadow-2xl p-3 ${
+        className={`border-1 border-b-3 border-accent-content rounded-md shadow-2xl p-3 hover:bg-base-300 hover:border-secondary  ${
           handleClick ? 'cursor-pointer' : ''
         }`}
         onClick={handleClick}

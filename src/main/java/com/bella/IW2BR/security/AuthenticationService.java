@@ -120,6 +120,9 @@ public class AuthenticationService implements UserDetailsService {
     RefreshToken refreshToken =
         refreshTokenRepository.findByUser(user).orElse(new RefreshToken(null, user, false));
 
+    if (refreshToken.isRevoked()) {
+      refreshToken.setRevoked(false);
+    }
     refreshToken.setToken(newRefreshToken);
     refreshTokenRepository.save(refreshToken);
 
@@ -185,16 +188,17 @@ public class AuthenticationService implements UserDetailsService {
 
   public GetUserWithJwtToken refreshToken(
       HttpServletRequest request, HttpServletResponse response) {
+    // haal de token uit de http only cookie
     String refreshTokenFromCookie = extractTokenFromCookie(request);
     log.warn("TOKEN FROM COOKIE: " + refreshTokenFromCookie);
-
+    // haal de bijbehorende token uit de database
     RefreshToken refreshTokenFromDB =
         refreshTokenRepository
             .findByToken(refreshTokenFromCookie)
             .orElseThrow(() -> new InvalidRefreshTokenException("Refresh token not found"));
-
+    // haal de user op die verbonden is aan de refreshtoken
     User user = refreshTokenFromDB.getUser();
-
+    // voer validaties uit
     validateRefreshTokenOrThrow(refreshTokenFromCookie, refreshTokenFromDB);
 
     refreshTokenRepository.save(updateRefreshToken(refreshTokenFromDB));
@@ -233,6 +237,8 @@ public class AuthenticationService implements UserDetailsService {
     if (!refreshTokenFromCookie.equals(refreshTokenFromDB.getToken())) {
       throw new InvalidRefreshTokenException("refresh-token does not match refresh token of user");
     }
+
+    // TODO komen de users overeen?
   }
 
   @Transactional
@@ -256,6 +262,6 @@ public class AuthenticationService implements UserDetailsService {
                             refreshTokenFromCookie)));
 
     refreshTokenFromDB.setRevoked(true);
-    refreshTokenRepository.save(refreshTokenFromDB);
+    refreshTokenRepository.delete(refreshTokenFromDB);
   }
 }

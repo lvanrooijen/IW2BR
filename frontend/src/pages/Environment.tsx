@@ -1,17 +1,29 @@
-import { useParams } from 'react-router';
 import { useEnvironment } from '../util/context/EnvironmentContext';
 import { useEffect } from 'react';
+import { ClimbingBoxLoader } from 'react-spinners';
+import Card from '../components/Card';
 
 const Environment = () => {
-  const { environment, getEnvironmentData } = useEnvironment();
-  const { environmentId } = useParams();
+  const { environment } = useEnvironment();
 
   useEffect(() => {
-    getEnvironmentData(Number(environmentId));
     console.log(environment);
   }, []);
 
-  return <div>Hello Environment {environmentId}</div>;
+  if (environment === null) {
+    return <ClimbingBoxLoader />;
+  }
+  return (
+    <div>
+      <div>
+        <h1 className="border-2 bg-amber-900">{environment.title}</h1>
+      </div>
+
+      <Card label={'NoteCollection'}>
+        <div></div>
+      </Card>
+    </div>
+  );
 };
 
 export default Environment;

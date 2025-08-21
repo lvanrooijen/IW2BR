@@ -21,9 +21,3 @@ export default MainPage;
 interface MainPageProps {
   user: UserProps | null;
 }
-
-interface EnvironmentProps {
-  id?: number;
-  title: string;
-  description: string;
-}

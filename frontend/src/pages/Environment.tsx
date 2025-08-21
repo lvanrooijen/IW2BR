@@ -1,7 +1,9 @@
 import { useEnvironment } from '../util/context/EnvironmentContext';
 import { useEffect } from 'react';
 import { ClimbingBoxLoader } from 'react-spinners';
-import Card from '../components/Card';
+import Card from '../components/card/Card';
+import CardListItems from '../components/card/CardListItems';
+import SectionHeader from '../components/generic/SectionHeader';
 
 const Environment = () => {
   const { environment } = useEnvironment();
@@ -16,11 +18,51 @@ const Environment = () => {
   return (
     <div>
       <div>
-        <h1 className="border-2 bg-amber-900">{environment.title}</h1>
+        <SectionHeader label={environment.title} />
       </div>
 
-      <Card label={'NoteCollection'}>
-        <div></div>
+      <Card label={'Note Collections'}>
+        <>
+          <CardListItems
+            list={environment.noteCollections}
+            navTo="note_collections"
+          />
+          <button className="btn btn-soft btn-secondary">Create</button>
+        </>
+      </Card>
+
+      <Card label={'Flashcard decks'}>
+        <>
+          <CardListItems
+            list={environment.flashcardDecks}
+            navTo="flashcard_decks"
+          />
+          <button className="btn btn-soft btn-secondary">Create</button>
+        </>
+      </Card>
+
+      <Card label={'Exams'}>
+        <>
+          <CardListItems list={environment.exams} navTo="exams" />
+          <button className="btn btn-soft btn-secondary">Create</button>
+        </>
+      </Card>
+
+      <Card label={'Exam Attempts'}>
+        <>
+          <CardListItems
+            list={environment.examAttempts}
+            navTo="exam_attempts"
+          />
+          <button className="btn btn-soft btn-secondary">Create</button>
+        </>
+      </Card>
+
+      <Card label={'Tags'}>
+        <>
+          <CardListItems list={environment.tags} navTo="tags" />
+          <button className="btn btn-soft btn-secondary">Create</button>
+        </>
       </Card>
     </div>
   );

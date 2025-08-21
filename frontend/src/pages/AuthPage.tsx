@@ -24,13 +24,13 @@ const AuthPage = () => {
             type="password"
           />
           <input type="hidden" name="role" value={'USER'} />
-          <p>
+          <p className="flex pb-3">
             Already have an account?{' '}
             <span
-              className="underline text-primary cursor-pointer"
+              className="underline text-primary cursor-pointer px-1"
               onClick={() => setSignUpMode(false)}
             >
-              login
+              Login
             </span>
           </p>
         </FormFrame>
@@ -50,10 +50,10 @@ const AuthPage = () => {
             name={'password'}
             type={'password'}
           />
-          <p>
+          <p className="flex pb-3">
             Don't have an account?{' '}
             <span
-              className="underline text-primary cursor-pointer"
+              className="underline text-primary cursor-pointer px-1"
               onClick={() => setSignUpMode(true)}
             >
               sign up

@@ -38,7 +38,7 @@ const FormFrame: React.FC<FormFrameProps> = ({
         }}
       >
         <div className="flex flex-col gap-3">{children}</div>
-        <button className="btn btn-primary" type="submit">
+        <button className="btn btn-primary mt-3" type="submit">
           Submit
         </button>
       </form>

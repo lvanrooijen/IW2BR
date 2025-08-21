@@ -1,7 +1,7 @@
 const FormTextArea: React.FC<FormTextAreaProps> = ({ name, placeholder }) => {
   return (
     <textarea
-      className={`border-2 rounded-md p-3 m-2 w-full resize-none`}
+      className={`border-2 rounded-md w-full resize-none min-h-32 px-2 py-3`}
       name={name}
       placeholder={placeholder}
     ></textarea>

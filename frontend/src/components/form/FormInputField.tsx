@@ -9,14 +9,14 @@ const FormInputField: React.FC<FormInputFieldProps> = ({
   range,
 }) => {
   const [value, setValue] = useState<string | number>('');
-  const inputStyle = 'p-2 border-2 rounded-md m-2 w-full';
+  const inputStyle = 'p-2 border-2 rounded-md w-full';
 
   useEffect(() => {
     if (initialvalue) setValue(initialvalue);
   }, []);
 
   return (
-    <div className="">
+    <>
       {type == 'number' && range ? (
         <input
           className={inputStyle}
@@ -41,7 +41,7 @@ const FormInputField: React.FC<FormInputFieldProps> = ({
           onChange={(e) => setValue(e.target.value)}
         />
       )}
-    </div>
+    </>
   );
 };
 

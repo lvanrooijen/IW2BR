@@ -46,9 +46,11 @@ Run frontend end: </br>
 * [API documentation](http://localhost:8080/swagger-ui/index.html)
 > _Backend needs to be running to access this resource_
 
-### Demo -- WIP
+### Demo 
+<sub>(Updated regularly as new features are built)</sub>
 
-![demo](https://github.com/user-attachments/assets/3e288c19-b1f1-4e17-a29f-36e0c707114a)
+<img src="https://github.com/user-attachments/assets/3e288c19-b1f1-4e17-a29f-36e0c707114a" alt="demo" width="400"/>
+
 
 
 

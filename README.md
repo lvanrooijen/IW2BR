@@ -48,7 +48,8 @@ Run frontend end: </br>
 
 ### Demo -- WIP
 
+![demo](https://github.com/user-attachments/assets/3e288c19-b1f1-4e17-a29f-36e0c707114a)
 
-![demo](https://github.com/user-attachments/assets/7777455d-732a-4f87-84af-4c97c18892ad)
+
 
 

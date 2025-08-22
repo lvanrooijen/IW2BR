@@ -12,13 +12,15 @@ for more information visit the projects [Wiki Pages](https://github.com/lvanrooi
 
 ## How to run
 
-1. Clone the project:
+Clone the project:
 
              https://github.com/lvanrooijen/IW2BR.git
-
-2. `docker compose up --build`
-3. `mvn install`
-4. `mvn spring-boot:run`
+Build containers:</br>
+`cd IW2BR`</br>
+`docker compose up --build` </br></br>
+Run backend: </br>
+`mvn install` </br>
+`mvn spring-boot:run` 
    or <a href="https://www.youtube.com/watch?v=MtaTKXJ89jk" target="_blank">
   <img 
     src="https://github.com/user-attachments/assets/e2e07ab6-bfc0-4ee8-99cb-d595f129b9ba"
@@ -26,8 +28,10 @@ for more information visit the projects [Wiki Pages](https://github.com/lvanrooi
     width="21"
     height="21"
   />
-</a>
-
+</a> </br></br>
+Run frontend end: </br>
+`cd frontend` </br>
+`npm run IW2BR`
 
 ## what runs where
 

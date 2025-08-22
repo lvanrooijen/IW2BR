@@ -49,20 +49,15 @@ const HomePage: React.FC<HomePageProps> = ({ user }) => {
   }
   return (
     <div className="w-full p-6 gap-3 flex flex-col">
-      {createForm && (
-        <FormFrame
-          formLabel="Create new environment"
-          onClose={() => setCreateForm(false)}
-          handleSubmit={postEnvironment}
-        >
-          <FormInputField
-            placeholder={'Title'}
-            name={'title'}
-            required={true}
-          />
-          <FormTextArea placeholder={'description'} name={'description'} />
-        </FormFrame>
-      )}
+      <FormFrame
+        formLabel="Create new environment"
+        onClose={() => setCreateForm(false)}
+        handleSubmit={postEnvironment}
+        isVisible={createForm}
+      >
+        <FormInputField placeholder={'Title'} name={'title'} required={true} />
+        <FormTextArea placeholder={'description'} name={'description'} />
+      </FormFrame>
       <DisplayList
         title="Environments"
         buttonLabel="+ new"

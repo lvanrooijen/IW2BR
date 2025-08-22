@@ -54,7 +54,6 @@ const Environment = () => {
             list={environment.examAttempts}
             navTo="exam_attempts"
           />
-          <button className="btn btn-soft btn-secondary">Create</button>
         </>
       </Card>
 

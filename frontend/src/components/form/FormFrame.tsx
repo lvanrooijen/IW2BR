@@ -3,7 +3,7 @@ import { GrClose } from 'react-icons/gr';
 
 const FormFrame: React.FC<FormFrameProps> = ({
   children,
-  formLabel,
+  label,
   style,
   handleSubmit,
   onClose,
@@ -25,7 +25,7 @@ const FormFrame: React.FC<FormFrameProps> = ({
     handleSubmit(filteredForm);
   };
 
-  if (!isVisible) {
+  if (!isVisible && onClose) {
     return null;
   } else {
     return (
@@ -44,7 +44,7 @@ const FormFrame: React.FC<FormFrameProps> = ({
             </div>
           )}
           <h2 className="text-lg text-accent py-3 border-b-2 min-w-full text-center font-medium tracking-widest">
-            {formLabel}
+            {label}
           </h2>
           <form
             className="flex flex-col justify-center items-center"
@@ -67,9 +67,9 @@ export default FormFrame;
 
 interface FormFrameProps {
   children: React.ReactNode;
-  formLabel: string;
+  label: string;
   style?: string;
   handleSubmit: (body: any) => void;
   onClose?: () => void;
-  isVisible: boolean;
+  isVisible?: boolean;
 }

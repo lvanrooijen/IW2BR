@@ -1,16 +1,32 @@
 import { useEnvironment } from '../util/context/EnvironmentContext';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ClimbingBoxLoader } from 'react-spinners';
 import Card from '../components/card/Card';
 import CardListItems from '../components/card/CardListItems';
 import SectionHeader from '../components/generic/SectionHeader';
+import FormFrame from '../components/form/FormFrame';
+import FormInputField from '../components/form/FormInputField';
+import FormTextArea from '../components/form/FormTextArea';
+import AxiosInstance from '../util/services/AxiosInstance';
+import { useParams } from 'react-router';
+import CreateNewEntity from '../components/form/CreateNewEntity';
 
 const Environment = () => {
+  const { environmentId } = useParams();
   const { environment } = useEnvironment();
+  const [visibleForms, setVisibleForms] = useState<{ noteCollection: boolean }>(
+    {
+      noteCollection: false,
+    }
+  );
+
+  const createPath = (target: string) => {
+    return `environments/${environmentId}/${target}`;
+  };
 
   useEffect(() => {
     console.log(environment);
-  }, []);
+  }, [visibleForms]);
 
   if (environment === null) {
     return <ClimbingBoxLoader />;
@@ -27,7 +43,10 @@ const Environment = () => {
             list={environment.noteCollections}
             navTo="note_collections"
           />
-          <button className="btn btn-soft btn-secondary">Create</button>
+          <CreateNewEntity
+            formLabel="Note Collections"
+            postTo={createPath('note_collections')}
+          />
         </>
       </Card>
 
@@ -37,14 +56,17 @@ const Environment = () => {
             list={environment.flashcardDecks}
             navTo="flashcard_decks"
           />
-          <button className="btn btn-soft btn-secondary">Create</button>
+          <CreateNewEntity
+            formLabel="Flashcard Decks"
+            postTo={createPath('flashcard_decks')}
+          />
         </>
       </Card>
 
       <Card label={'Exams'}>
         <>
           <CardListItems list={environment.exams} navTo="exams" />
-          <button className="btn btn-soft btn-secondary">Create</button>
+          <CreateNewEntity formLabel="Exams" postTo={createPath('exams')} />
         </>
       </Card>
 
@@ -60,7 +82,7 @@ const Environment = () => {
       <Card label={'Tags'}>
         <>
           <CardListItems list={environment.tags} navTo="tags" />
-          <button className="btn btn-soft btn-secondary">Create</button>
+          <CreateNewEntity formLabel="Tags" postTo={createPath('tags')} />
         </>
       </Card>
     </div>

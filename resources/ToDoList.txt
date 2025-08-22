@@ -1,6 +1,8 @@
 TODO:
 
 BACKEND
+- als een gebruiker uitlogt is de accesstoken nog max 15 min bruikbaar. als een gebruiker uitlogt en de accesstoken is nog geldig, die op een blacklist plaatsen. en dan simpele findbyaccesstoken in een blacklistedtokens entity.
+- (also note to self @query() ontwijken want niet sql injection safe!)
 - admin moet wel nog een exam of question/answer kunnen patchen in het geval dat er toc content in staat
 - wanneer moeten tags geflagged worden?
 - nadenken hoe ik de environment statistics wil vormgeven

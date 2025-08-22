@@ -53,8 +53,6 @@ AxiosInstance.interceptors.response.use(
 
         originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
 
-        console.log('refreshing token::');
-
         return AxiosInstance(originalRequest);
       } catch (refreshError) {
         console.error('Failed to refresh token:', refreshError);

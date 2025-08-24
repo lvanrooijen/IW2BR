@@ -9,6 +9,7 @@ import { useParams } from 'react-router';
 const CreateNewEntity: React.FC<CreateNewEntityProps> = ({
   postTo,
   formLabel,
+  children,
 }) => {
   const [showForm, setShowForm] = useState<boolean>(false);
   const { getEnvironmentData } = useEnvironment();
@@ -47,8 +48,14 @@ const CreateNewEntity: React.FC<CreateNewEntityProps> = ({
           post(form, postTo), setShowForm(false);
         }}
       >
-        <FormInputField name="title" placeholder="Title" required />
-        <FormTextArea name="description" placeholder="description" />
+        {children ? (
+          <>{children}</>
+        ) : (
+          <>
+            <FormInputField name="title" placeholder="Title" required />
+            <FormTextArea name="description" placeholder="description" />
+          </>
+        )}
       </FormFrame>
     </div>
   );
@@ -59,6 +66,7 @@ export default CreateNewEntity;
 interface CreateNewEntityProps {
   postTo: string;
   formLabel: string;
+  children?: React.ReactNode;
 }
 
 interface FormProps {

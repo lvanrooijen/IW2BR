@@ -14,7 +14,6 @@ export const EnvironmentProvider: React.FC<EnvironmentProviderProps> = ({
     useState<EnvironmentResponseProps | null>(null);
 
   useEffect(() => {
-    console.log('[ENVIRONMENT CONTEXT] loaded');
     getEnvironmentData(Number(environmentId));
   }, []);
 
@@ -22,7 +21,6 @@ export const EnvironmentProvider: React.FC<EnvironmentProviderProps> = ({
     AxiosInstance.get(`/environments/${id}`)
       .then((response) => {
         setEnvironment(response.data);
-        console.log('[ENVIRONMENT CONTEXT] response data: ', response.data);
       })
       .catch((error) => console.error('[ENVIRONMENT CONTEXT] error: ', error));
   };

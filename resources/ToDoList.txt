@@ -12,14 +12,13 @@ BACKEND
 - java docstrings nalopen en updaten
 - wiki pages updaten
 - dubbel checken of de wie wat mag wat zien overal goed is ingesteld
-- todo's maken en aan project board toevoegen
 
 - flyway uncommenten
 - fly way files maken, op volgorde! want sql oefenen
 
 FRONTEND
 - wire frames maken
-- todo's maken en aan project board toevoegen
+- Die blurred overlay is scrollable, oplossen!
 
 - elke app onderdeel krijgt zijn eigen “tagline”
 app naam concept:

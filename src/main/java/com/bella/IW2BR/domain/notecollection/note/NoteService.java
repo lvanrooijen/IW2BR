@@ -3,7 +3,6 @@ package com.bella.IW2BR.domain.notecollection.note;
 import com.bella.IW2BR.domain.environment.util.EnvironmentHelperMethods;
 import com.bella.IW2BR.domain.notecollection.collection.NoteCollection;
 import com.bella.IW2BR.domain.notecollection.note.dto.GetNote;
-import com.bella.IW2BR.domain.notecollection.note.dto.NoteMapper;
 import com.bella.IW2BR.domain.notecollection.note.dto.PatchNote;
 import com.bella.IW2BR.domain.notecollection.note.dto.PostNote;
 import com.bella.IW2BR.domain.tag.Tag;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class NoteService {
-  private final NoteMapper noteMapper;
   private final NoteRepository noteRepository;
   private final EnvironmentHelperMethods helperMethods;
 
@@ -29,14 +27,14 @@ public class NoteService {
     Note note;
     if (body.tagId() != null) {
       Tag tag = helperMethods.getTagOrThrow(body.tagId());
-      note = noteMapper.fromPost(body, noteCollection, tag);
+      note = PostNote.from(body, noteCollection, tag);
     } else {
-      note = noteMapper.fromPost(body, noteCollection);
+      note = PostNote.from(body, noteCollection);
     }
 
     noteRepository.save(note);
 
-    return noteMapper.toGet(note);
+    return GetNote.to(note);
   }
 
   public GetNote getById(Long environmentId, Long noteCollectionId, Long id) {
@@ -48,7 +46,7 @@ public class NoteService {
     Note note = helperMethods.getNoteOrThrow(id);
     throwIfNoteCollectionIdMismatch(noteCollectionId, note);
 
-    return noteMapper.toGet(note);
+    return GetNote.to(note);
   }
 
   public List<GetNote> getAll(Long environmentId, Long noteCollectionId) {
@@ -56,7 +54,7 @@ public class NoteService {
     NoteCollection noteCollection = helperMethods.getNoteCollectionOrThrow(noteCollectionId);
     List<Note> notes = noteRepository.findByNotecollection(noteCollection);
 
-    return notes.stream().map(noteMapper::toGet).toList();
+    return notes.stream().map(GetNote::to).toList();
   }
 
   public GetNote update(Long environmentId, Long noteCollectionId, Long id, PatchNote patch) {
@@ -67,13 +65,13 @@ public class NoteService {
 
     if (patch.tagId() != null) {
       Tag tag = helperMethods.getTagOrThrow(patch.tagId());
-      noteMapper.updateFields(note, patch, tag);
+      PatchNote.patch(note, patch, tag);
     } else {
-      noteMapper.updateFields(note, patch);
+      PatchNote.patch(note, patch);
     }
 
     noteRepository.save(note);
-    return noteMapper.toGet(note);
+    return GetNote.to(note);
   }
 
   public void delete(Long environmentId, Long noteCollectionId, Long id) {

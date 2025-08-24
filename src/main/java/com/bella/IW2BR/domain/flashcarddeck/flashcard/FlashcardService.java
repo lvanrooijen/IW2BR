@@ -2,7 +2,6 @@ package com.bella.IW2BR.domain.flashcarddeck.flashcard;
 
 import com.bella.IW2BR.domain.environment.util.EnvironmentHelperMethods;
 import com.bella.IW2BR.domain.flashcarddeck.deck.FlashcardDeck;
-import com.bella.IW2BR.domain.flashcarddeck.flashcard.dto.FlashcardMapper;
 import com.bella.IW2BR.domain.flashcarddeck.flashcard.dto.GetFlashcard;
 import com.bella.IW2BR.domain.flashcarddeck.flashcard.dto.PatchFlashcard;
 import com.bella.IW2BR.domain.flashcarddeck.flashcard.dto.PostFlashcard;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 public class FlashcardService {
   private final FlashcardRepository flashcardRepository;
   private final EnvironmentHelperMethods environmentHelper;
-  private final FlashcardMapper mapper;
 
   public GetFlashcard create(Long environmentId, Long flashcardDeckId, PostFlashcard body) {
     environmentHelper.throwIfNotOwnerOrAdmin(environmentId);
@@ -28,13 +26,13 @@ public class FlashcardService {
     Flashcard flashcard;
     if (body.tagId() != null) {
       Tag tag = environmentHelper.getTagOrThrow(body.tagId());
-      flashcard = mapper.fromPost(body, deck, tag);
+      flashcard = PostFlashcard.from(body, deck, tag);
     } else {
-      flashcard = mapper.fromPost(body, deck);
+      flashcard = PostFlashcard.from(body, deck);
     }
 
     flashcardRepository.save(flashcard);
-    return mapper.toGet(flashcard);
+    return GetFlashcard.to(flashcard);
   }
 
   public GetFlashcard getById(Long environmentId, Long flashcardDeckId, Long id) {
@@ -45,7 +43,7 @@ public class FlashcardService {
 
     environmentHelper.throwIfNotInEnvironment(flashcard.getFlashcardDeck(), environmentId);
 
-    return mapper.toGet(flashcard);
+    return GetFlashcard.to(flashcard);
   }
 
   public List<GetFlashcard> getAll(Long environmentId, Long flashcardDeckId) {
@@ -56,7 +54,7 @@ public class FlashcardService {
 
     List<Flashcard> flashcards = flashcardRepository.findByFlashcardDeckId(flashcardDeckId);
 
-    return flashcards.stream().map(mapper::toGet).toList();
+    return flashcards.stream().map(GetFlashcard::to).toList();
   }
 
   public GetFlashcard update(
@@ -70,13 +68,13 @@ public class FlashcardService {
 
     if (patch.tagId() != null) {
       Tag tag = environmentHelper.getTagOrThrow(patch.tagId());
-      mapper.updateFields(flashcard, patch, tag);
+      PatchFlashcard.patch(flashcard, patch, tag);
     } else {
-      mapper.updateFields(flashcard, patch);
+      PatchFlashcard.patch(flashcard, patch);
     }
 
     flashcardRepository.save(flashcard);
-    return mapper.toGet(flashcard);
+    return GetFlashcard.to(flashcard);
   }
 
   public void delete(Long environmentId, Long flashcardDeckId, Long id) {

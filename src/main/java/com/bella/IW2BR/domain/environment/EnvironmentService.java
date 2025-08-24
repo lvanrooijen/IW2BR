@@ -16,29 +16,28 @@ public class EnvironmentService {
   private final EnvironmentRepository environmentRepository;
   private final AuthHelperService authHelperService;
   private final EnvironmentHelperMethods environmentHelperMethods;
-  private final EnvironmentMapper mapper;
 
   public GetEnvironment create(PostEnvironment body) {
     User loggedInUser = authHelperService.getAuthenticatedUser();
 
-    Environment createdEnvironment = mapper.fromPost(body, loggedInUser);
+    Environment createdEnvironment = PostEnvironment.from(body, loggedInUser);
     environmentRepository.save(createdEnvironment);
 
-    return mapper.toGet(createdEnvironment);
+    return GetEnvironment.to(createdEnvironment);
   }
 
   public GetEnvironment getById(Long id) {
     Environment environment = getEnvironmentOrThrow(id);
     environmentHelperMethods.throwIfNotOwnerOrAdmin(id);
 
-    return mapper.toGet(environment);
+    return GetEnvironment.to(environment);
   }
 
   public GetFullEnvironment getFullById(Long id) {
     Environment environment = getEnvironmentOrThrow(id);
     environmentHelperMethods.throwIfNotOwnerOrAdmin(id);
 
-    return mapper.toGetFull(environment);
+    return GetFullEnvironment.to(environment);
   }
 
   public List<GetEnvironment> getAll() {
@@ -51,17 +50,17 @@ public class EnvironmentService {
       environments = environmentRepository.findAllByOwner(loggedInUser);
     }
 
-    return environments.stream().map(mapper::toGet).toList();
+    return environments.stream().map(GetEnvironment::to).toList();
   }
 
   public GetEnvironment update(Long id, PatchEnvironment patch) {
     environmentHelperMethods.throwIfNotOwnerOrAdmin(id);
     Environment environment = getEnvironmentOrThrow(id);
 
-    mapper.updateFields(environment, patch);
+    PatchEnvironment.patch(environment, patch);
     environmentRepository.save(environment);
 
-    return mapper.toGet(environment);
+    return GetEnvironment.to(environment);
   }
 
   public void delete(Long id) {

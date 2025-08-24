@@ -5,7 +5,10 @@ import static com.bella.IW2BR.utils.constants.GlobalValidationConstraints.DESCRI
 import static com.bella.IW2BR.utils.constants.GlobalValidationConstraints.DESCRIPTION_MIN;
 import static com.bella.IW2BR.utils.constants.GlobalValidationConstraints.INVALID_DESCRIPTION_LENGTH_MSG;
 
+import com.bella.IW2BR.domain.environment.Environment;
+import com.bella.IW2BR.domain.exam.exam.Exam;
 import jakarta.validation.constraints.NotBlank;
+import java.time.LocalDate;
 import org.hibernate.validator.constraints.Length;
 
 /**
@@ -18,4 +21,21 @@ public record PostExam(
     @NotBlank @Length(min = TITLE_MIN, max = TITLE_MAX, message = INVALID_TITLE_LENGTH_MSG)
         String title,
     @Length(min = DESCRIPTION_MIN, max = DESCRIPTION_MAX, message = INVALID_DESCRIPTION_LENGTH_MSG)
-        String description) {}
+        String description) {
+  /**
+   * Maps {@link PostExam} to {@link Exam}
+   *
+   * @param dto {@link PostExam}
+   * @param environment {@link Exam}
+   * @return updated {@link Exam}
+   */
+  public static Exam from(PostExam dto, Environment environment) {
+    return Exam.builder()
+        .title(dto.title())
+        .description(dto.description())
+        .environment(environment)
+        .isFinalised(false)
+        .createdAt(LocalDate.now())
+        .build();
+  }
+}

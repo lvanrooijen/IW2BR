@@ -4,29 +4,16 @@ import { ClimbingBoxLoader } from 'react-spinners';
 import Card from '../components/card/Card';
 import CardListItems from '../components/card/CardListItems';
 import SectionHeader from '../components/generic/SectionHeader';
-import FormFrame from '../components/form/FormFrame';
-import FormInputField from '../components/form/FormInputField';
-import FormTextArea from '../components/form/FormTextArea';
-import AxiosInstance from '../util/services/AxiosInstance';
 import { useParams } from 'react-router';
 import CreateNewEntity from '../components/form/CreateNewEntity';
 
-const Environment = () => {
+const EnvironmentPage = () => {
   const { environmentId } = useParams();
   const { environment } = useEnvironment();
-  const [visibleForms, setVisibleForms] = useState<{ noteCollection: boolean }>(
-    {
-      noteCollection: false,
-    }
-  );
 
   const createPath = (target: string) => {
     return `environments/${environmentId}/${target}`;
   };
-
-  useEffect(() => {
-    console.log(environment);
-  }, [visibleForms]);
 
   if (environment === null) {
     return <ClimbingBoxLoader />;
@@ -89,7 +76,7 @@ const Environment = () => {
   );
 };
 
-export default Environment;
+export default EnvironmentPage;
 
 /*
 TODO:

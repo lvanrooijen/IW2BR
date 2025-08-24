@@ -12,8 +12,9 @@ const AuthPage = () => {
     return (
       <div className={FormWrapperStyle}>
         <FormFrame
-          formLabel={'Sign up'}
+          label={'Sign up'}
           handleSubmit={(form) => register(form)}
+          width="w-2/3"
         >
           <FormInputField placeholder="email" name="email" type="email" />
           <FormInputField placeholder="first name" name="firstName" />
@@ -39,7 +40,11 @@ const AuthPage = () => {
   } else {
     return (
       <div className={FormWrapperStyle}>
-        <FormFrame formLabel="Login" handleSubmit={(form) => login(form)}>
+        <FormFrame
+          label="Login"
+          handleSubmit={(form) => login(form)}
+          width="w-2/3"
+        >
           <FormInputField
             placeholder={'email'}
             name={'username'}

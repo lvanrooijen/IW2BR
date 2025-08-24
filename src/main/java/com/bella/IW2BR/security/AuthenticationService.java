@@ -188,17 +188,15 @@ public class AuthenticationService implements UserDetailsService {
 
   public GetUserWithJwtToken refreshToken(
       HttpServletRequest request, HttpServletResponse response) {
-    // haal de token uit de http only cookie
     String refreshTokenFromCookie = extractTokenFromCookie(request);
-    log.warn("TOKEN FROM COOKIE: " + refreshTokenFromCookie);
-    // haal de bijbehorende token uit de database
+
     RefreshToken refreshTokenFromDB =
         refreshTokenRepository
             .findByToken(refreshTokenFromCookie)
             .orElseThrow(() -> new InvalidRefreshTokenException("Refresh token not found"));
-    // haal de user op die verbonden is aan de refreshtoken
+
     User user = refreshTokenFromDB.getUser();
-    // voer validaties uit
+
     validateRefreshTokenOrThrow(refreshTokenFromCookie, refreshTokenFromDB);
 
     refreshTokenRepository.save(updateRefreshToken(refreshTokenFromDB));

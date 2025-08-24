@@ -51,4 +51,20 @@ public class Tag implements EnvironmentMember {
   public void flagNegative() {
     this.setNegativeFlaggedCount(getNegativeFlaggedCount() + 1);
   }
+
+  /**
+   * Calculates score based on positive and negative flags.
+   *
+   * <p>Returns 0 if total flags are 6 or less, otherwise positive percentage
+   */
+  public double calculateScore(Tag tag) {
+    int timesFlagged = tag.getNegativeFlaggedCount() + tag.getPositiveFlaggedCount();
+    if (timesFlagged <= 6) {
+      return 0;
+    }
+
+    double score = ((double) tag.getPositiveFlaggedCount() / timesFlagged) * 100;
+
+    return Math.round(score * 100.0) / 100.0;
+  }
 }

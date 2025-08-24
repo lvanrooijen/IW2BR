@@ -9,12 +9,12 @@ const CardListItems: React.FC<CardListItemsProps> = ({
 }) => {
   const navigate = useNavigate();
   return (
-    <ul className="w-full gap-3 pb-6">
+    <ul className="w-full flex flex-col gap-3 pb-6">
       {list.length > 0 ? (
         list.map((item) => (
           <li
             key={item.id}
-            className="grid-cols-6 grid cursor-pointer items-center place-items-start rounded-md bg-base-200 p-3 mx-3 hover:bg-base-300"
+            className="grid-cols-6 grid cursor-pointer items-center place-items-start rounded-md bg-base-200 p-3 mx-3 hover:bg-base-300 border-b-2"
             onClick={() => {
               if (navTo) {
                 navigate(`${navTo}/${item.id}`);
@@ -22,7 +22,7 @@ const CardListItems: React.FC<CardListItemsProps> = ({
             }}
           >
             <h3 className="col-span-2 pr-3">{item.title}</h3>
-            <p className="col-span-4 pl-3 border-l-1 rounded-md min-h-9">
+            <p className="col-span-4 pl-3 border-l-1 rounded-sm min-h-12 flex items-center">
               {item.description}
             </p>
           </li>

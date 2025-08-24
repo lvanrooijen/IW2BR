@@ -8,6 +8,7 @@ const FormFrame: React.FC<FormFrameProps> = ({
   handleSubmit,
   onClose,
   isVisible,
+  width,
 }) => {
   useEffect(() => {
     console.log(isVisible);
@@ -29,9 +30,15 @@ const FormFrame: React.FC<FormFrameProps> = ({
     return null;
   } else {
     return (
-      <div className="absolute left-0 right-0 bottom-0 top-0 flex flex-col justify-center items-center backdrop-blur-sm">
+      <div
+        className={`${width} ${
+          onClose ? 'backdrop-blur-sm absolute' : ''
+        } left-0 right-0 bottom-0 top-0 flex flex-col justify-center items-center`}
+      >
         <div
-          className={`border-2 pb-6 px-6 rounded-md flex justify-center items-center flex-col gap-6 bg-base-300 w-9/12 ${style}`}
+          className={`${
+            onClose ? 'w-120' : 'w-full'
+          } border-2 pb-6 px-6 rounded-md flex justify-center items-center flex-col gap-6 bg-base-300 ${style}`}
         >
           {onClose && (
             <div className="w-full flex justify-end">
@@ -47,12 +54,12 @@ const FormFrame: React.FC<FormFrameProps> = ({
             {label}
           </h2>
           <form
-            className="flex flex-col justify-center items-center"
+            className={`flex flex-col justify-center items-center w-full`}
             onSubmit={(e) => {
               getFormValues(e);
             }}
           >
-            <div className="flex flex-col gap-3">{children}</div>
+            <div className="flex flex-col gap-3 w-full">{children}</div>
             <button className="btn btn-primary mt-3" type="submit">
               Submit
             </button>
@@ -72,4 +79,5 @@ interface FormFrameProps {
   handleSubmit: (body: any) => void;
   onClose?: () => void;
   isVisible?: boolean;
+  width?: string;
 }

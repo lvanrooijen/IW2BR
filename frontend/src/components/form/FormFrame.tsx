@@ -32,7 +32,7 @@ const FormFrame: React.FC<FormFrameProps> = ({
     return (
       <div
         className={`${width} ${
-          onClose ? 'backdrop-blur-sm absolute' : ''
+          onClose ? 'backdrop-blur-sm fixed overflow-hidden' : ''
         } left-0 right-0 bottom-0 top-0 flex flex-col justify-center items-center`}
       >
         <div

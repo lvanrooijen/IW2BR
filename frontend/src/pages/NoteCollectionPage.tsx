@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useEnvironment } from '../util/context/EnvironmentContext';
 import { useParams } from 'react-router';
-import type { NoteCollection } from '../interfaces/environmentInterfaces';
+import type { INoteCollection } from '../interfaces/environmentInterfaces';
 import NotFound from '../components/notfound/NotFound';
 import CreateNewEntity from '../components/form/CreateNewEntity';
 import { ClimbingBoxLoader } from 'react-spinners';
 import FormInputField from '../components/form/FormInputField';
 import FormTextArea from '../components/form/FormTextArea';
+import Note from '../components/note/Note';
 
 const NoteCollectionPage = () => {
   const { environmentId, noteCollectionId } = useParams();
   const { environment } = useEnvironment();
-  const [noteCollection, setNoteCollection] = useState<NoteCollection | null>(
+  const [noteCollection, setNoteCollection] = useState<INoteCollection | null>(
     null
   );
 
@@ -43,24 +44,12 @@ const NoteCollectionPage = () => {
         >
           <FormInputField placeholder={'Title'} name={'title'} />
           <FormTextArea name={'body'} placeholder={'body'} />
-          <p>
-            TODO iets van een component die alle tags van environment ophaalt,
-            drop down. en selected geeft id terug.
-          </p>
+          <p>TagSelector (WIP)</p>
         </CreateNewEntity>
       </div>
       <ul className="flex flex-col gap-3 items-center">
         {noteCollection.notes.map((note) => (
-          <li
-            key={note.id}
-            className={`bg-amber-300 rounded-sm p-3 text-base-300 h-96 overflow-ellipsis w-96`}
-          >
-            <h2 className="font-bold border-b-1 rounded-xs px-3">
-              {note.title}
-            </h2>
-            <p className="p-3 italic">{note.body}</p>
-            <p>{note.tagId}</p>
-          </li>
+          <Note key={note.id} note={note} />
         ))}
       </ul>
     </div>

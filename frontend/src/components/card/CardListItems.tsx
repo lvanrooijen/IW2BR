@@ -1,5 +1,5 @@
 import type { BaseEntity } from '../../interfaces/environmentInterfaces';
-import CatInBag from '../../assets/images/cat_in_the_bag.png';
+import CatInTheBag from '../../assets/images/cat_in_the_bag.png';
 import { useNavigate } from 'react-router';
 
 const CardListItems: React.FC<CardListItemsProps> = ({
@@ -32,7 +32,7 @@ const CardListItems: React.FC<CardListItemsProps> = ({
           {emptyListMsg ? (
             <span>{emptyListMsg}</span>
           ) : (
-            <img className="w-6" src={CatInBag} />
+            <img className="w-6" src={CatInTheBag} />
           )}
         </div>
       )}

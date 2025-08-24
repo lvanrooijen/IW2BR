@@ -7,7 +7,7 @@ export interface EnvironmentResponseProps {
   id?: number;
   title: string;
   description: string;
-  noteCollections: NoteCollection[];
+  noteCollections: INoteCollection[];
   exams: BaseEntity[];
   examAttempts: BaseEntity[];
   flashcardDecks: BaseEntity[];
@@ -20,11 +20,11 @@ export interface BaseEntity {
   description: string;
 }
 
-export interface NoteCollection extends BaseEntity {
-  notes: Note[];
+export interface INoteCollection extends BaseEntity {
+  notes: INote[];
 }
 
-export interface Note {
+export interface INote {
   id: number;
   title: string;
   body: string;

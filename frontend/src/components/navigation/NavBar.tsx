@@ -3,6 +3,7 @@ import ProfilePlaceholder from '../../assets/icons/profile_icon_green.png';
 import { useAuth } from '../../util/context/AuthContext';
 import NavBarActionButton from './NavBarActionButton';
 import { useNavigate } from 'react-router';
+import TextToSvgComponent from '../icon/TextToSvgComponent';
 
 const NavBar: React.FC<NavBarProps> = ({ style }) => {
   const { logout } = useAuth();
@@ -10,9 +11,9 @@ const NavBar: React.FC<NavBarProps> = ({ style }) => {
   return (
     <div className={`${style}`}>
       <div className={`navbar bg-base-100 shadow-sm`}>
-        <div className="flex-1">
-          <a className="btn btn-ghost text-xl" onClick={() => nav('/')}>
-            IW-2-BR
+        <div className="flex-1 ">
+          <a className="btn btn-ghost p-3 max-w-36" onClick={() => nav('/')}>
+            <TextToSvgComponent fill="#ff0000" className="my-svg" width={''} />
           </a>
         </div>
         <div className="flex gap-2">

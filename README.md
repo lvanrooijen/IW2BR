@@ -54,7 +54,7 @@ Run frontend end: </br>
 
 <sub>(work in progress)</sub>
 
-<img src="https://github.com/user-attachments/assets/3e288c19-b1f1-4e17-a29f-36e0c707114a" alt="demo" width="400"/>
+<img src="resources/images_gifs/demo.gif" alt="demo" width="400"/>
 
 
 

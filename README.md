@@ -32,6 +32,7 @@ height="21"
 </a> </br></br>
 Run frontend end: </br>
 `cd frontend` </br>
+`npm install` </br>
 `npm run IW2BR`
 
 ## what runs where

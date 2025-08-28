@@ -33,7 +33,7 @@ height="21"
 Run frontend end: </br>
 `cd frontend` </br>
 `npm install` </br>
-`npm run IW2BR`
+`npm run forest`
 
 ## what runs where
 

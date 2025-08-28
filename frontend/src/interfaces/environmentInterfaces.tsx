@@ -30,3 +30,8 @@ export interface INote {
   body: string;
   tagId: number;
 }
+
+export interface ITag {
+  id: number;
+  title: string;
+}

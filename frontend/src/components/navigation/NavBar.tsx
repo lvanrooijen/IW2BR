@@ -11,7 +11,7 @@ const NavBar: React.FC<NavBarProps> = ({ style }) => {
   return (
     <div className={`${style}`}>
       <div className={`navbar bg-base-100 shadow-sm`}>
-        <div className="flex-1 ">
+        <div className="flex-1">
           <a className="btn btn-ghost p-3 max-w-36" onClick={() => nav('/')}>
             <TextToSvgComponent fill="#ff0000" className="my-svg" width={''} />
           </a>
@@ -29,7 +29,7 @@ const NavBar: React.FC<NavBarProps> = ({ style }) => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
               <NavBarLink destination="/profile" label="Profile" />
               <NavBarActionButton action={logout} label="Logout" />

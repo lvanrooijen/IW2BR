@@ -8,6 +8,9 @@ import { ClimbingBoxLoader } from 'react-spinners';
 import FormInputField from '../components/form/FormInputField';
 import FormTextArea from '../components/form/FormTextArea';
 import Note from '../components/note/Note';
+import NoteForm from '../components/note/NoteForm';
+import TagSelector from '../components/form/TagSelector';
+import TagDropdown from '../components/tags/TagDropdown';
 
 const NoteCollectionPage = () => {
   const { environmentId, noteCollectionId } = useParams();
@@ -44,12 +47,13 @@ const NoteCollectionPage = () => {
         >
           <FormInputField placeholder={'Title'} name={'title'} />
           <FormTextArea name={'body'} placeholder={'body'} />
-          <p>TagSelector (WIP)</p>
+          <TagDropdown create={true} />
         </CreateNewEntity>
       </div>
+
       <ul className="flex flex-col gap-3 items-center">
         {noteCollection.notes.map((note) => (
-          <Note key={note.id} note={note} />
+          <NoteForm key={note.id} note={note} />
         ))}
       </ul>
     </div>

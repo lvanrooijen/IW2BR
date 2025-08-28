@@ -1,6 +1,7 @@
 package com.bella.IW2BR.domain.notecollection.note.dto;
 
 import com.bella.IW2BR.domain.notecollection.note.Note;
+import com.bella.IW2BR.domain.tag.dto.GetTagCompact;
 
 /**
  * DTO representing how the Note is returned to the client
@@ -8,9 +9,9 @@ import com.bella.IW2BR.domain.notecollection.note.Note;
  * @param id
  * @param title
  * @param body
- * @param tagId
+ * @param tag
  */
-public record GetNote(Long id, String title, String body, Long tagId) {
+public record GetNote(Long id, String title, String body, GetTagCompact tag) {
   /**
    * Maps a {@link Note} to {@link GetNote} dto
    *
@@ -18,7 +19,7 @@ public record GetNote(Long id, String title, String body, Long tagId) {
    * @return {@link GetNote}
    */
   public static GetNote to(Note note) {
-    Long tagId = note.getTag() != null ? note.getTag().getId() : null;
-    return new GetNote(note.getId(), note.getTitle(), note.getBody(), tagId);
+    GetTagCompact tag = note.getTag() != null ? GetTagCompact.to(note.getTag()) : null;
+    return new GetNote(note.getId(), note.getTitle(), note.getBody(), tag);
   }
 }

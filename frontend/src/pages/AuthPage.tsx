@@ -51,7 +51,7 @@ const AuthPage = () => {
   return (
     <div className={FormWrapperStyle}>
       <FormFrame
-        label={'Sign up'}
+        label={signUpMode ? 'Sign up' : 'Login'}
         handleSubmit={(form) => {
           signUpMode ? register(form) : login(form);
         }}

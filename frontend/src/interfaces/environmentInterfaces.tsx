@@ -28,7 +28,7 @@ export interface INote {
   id: number;
   title: string;
   body: string;
-  tagId: number;
+  tag: ITag;
 }
 
 export interface ITag {

@@ -50,7 +50,7 @@ const HomePage: React.FC<HomePageProps> = ({ user }) => {
   return (
     <div className="w-full p-6 gap-3 flex flex-col">
       <FormFrame
-        formLabel="Create new environment"
+        label="Create new environment"
         onClose={() => setCreateForm(false)}
         handleSubmit={postEnvironment}
         isVisible={createForm}

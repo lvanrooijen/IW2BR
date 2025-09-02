@@ -22,9 +22,9 @@ Build containers:</br>
 Run backend: </br>
 `mvn install` </br>
 `mvn spring-boot:run`
-or <a href="https://www.youtube.com/watch?v=MtaTKXJ89jk" target="_blank">
+<a href="https://www.youtube.com/watch?v=MtaTKXJ89jk" target="_blank">
 <img
-src="https://github.com/lvanrooijen/IW2BR/raw/main/resources/images_gifs/demo.gif"
+src="https://github.com/user-attachments/assets/e2e07ab6-bfc0-4ee8-99cb-d595f129b9ba"
 alt="play button"
 width="21"
 height="21"

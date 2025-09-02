@@ -10,6 +10,7 @@ import MainPage from './pages/MainPage';
 import HomePage from './pages/HomePage';
 import EnvironmentLayout from './util/routing/EnvironmentLayout';
 import NoteCollectionPage from './pages/NoteCollectionPage';
+import FlashcardDeckPage from './pages/FlashcardDeckPage';
 
 function App() {
   const { authIsLoading, isLoggedIn, user } = useAuth();
@@ -32,8 +33,12 @@ function App() {
           <Route path=":environmentId" element={<EnvironmentLayout />}>
             <Route index element={<EnvironmentPage />} />
             <Route
-              path="note_collections/:noteCollectionId"
+              path="note-collections/:noteCollectionId"
               element={<NoteCollectionPage />}
+            />
+            <Route
+              path="flashcard-decks/:flashcardDeckId"
+              element={<FlashcardDeckPage />}
             />
           </Route>
         </Route>

@@ -1,15 +1,19 @@
 import { useEnvironment } from '../util/context/EnvironmentContext';
-import { useEffect, useState } from 'react';
 import { ClimbingBoxLoader } from 'react-spinners';
 import Card from '../components/card/Card';
 import CardListItems from '../components/card/CardListItems';
 import SectionHeader from '../components/generic/SectionHeader';
 import { useParams } from 'react-router';
 import CreateNewEntity from '../components/form/CreateNewEntity';
+import { useEffect } from 'react';
 
 const EnvironmentPage = () => {
   const { environmentId } = useParams();
   const { environment } = useEnvironment();
+
+  useEffect(() => {
+    console.log('update');
+  }, [environment]);
 
   const createPath = (target: string) => {
     return `environments/${environmentId}/${target}`;
@@ -28,11 +32,11 @@ const EnvironmentPage = () => {
         <>
           <CardListItems
             list={environment.noteCollections}
-            navTo="note_collections"
+            navTo="note-collections"
           />
           <CreateNewEntity
             formLabel="Note Collections"
-            postTo={createPath('note_collections')}
+            postTo={createPath('note-collections')}
           />
         </>
       </Card>
@@ -41,11 +45,11 @@ const EnvironmentPage = () => {
         <>
           <CardListItems
             list={environment.flashcardDecks}
-            navTo="flashcard_decks"
+            navTo="flashcard-decks"
           />
           <CreateNewEntity
             formLabel="Flashcard Decks"
-            postTo={createPath('flashcard_decks')}
+            postTo={createPath('flashcard-decks')}
           />
         </>
       </Card>
@@ -61,7 +65,7 @@ const EnvironmentPage = () => {
         <>
           <CardListItems
             list={environment.examAttempts}
-            navTo="exam_attempts"
+            navTo="exam-attempts"
           />
         </>
       </Card>

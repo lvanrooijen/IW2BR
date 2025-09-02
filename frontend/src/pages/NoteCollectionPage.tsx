@@ -7,10 +7,9 @@ import CreateNewEntity from '../components/form/CreateNewEntity';
 import { ClimbingBoxLoader } from 'react-spinners';
 import FormInputField from '../components/form/FormInputField';
 import FormTextArea from '../components/form/FormTextArea';
-import Note from '../components/note/Note';
 import NoteForm from '../components/note/NoteForm';
-import TagSelector from '../components/form/TagSelector';
 import TagDropdown from '../components/tags/TagDropdown';
+import SectionHeaderWithDescription from '../components/generic/SectionHeaderWithDescription';
 
 const NoteCollectionPage = () => {
   const { environmentId, noteCollectionId } = useParams();
@@ -37,10 +36,10 @@ const NoteCollectionPage = () => {
   return (
     <div className="p-6 flex flex-col gap-3">
       <div className="border-b-3">
-        <h1 className="font-bold tracking-wider px-3">
-          {noteCollection.title}
-        </h1>
-        <p className="p-3 italic">{noteCollection.description}</p>
+        <SectionHeaderWithDescription
+          title={noteCollection.title}
+          description={noteCollection.description}
+        />
         <CreateNewEntity
           postTo={`environments/${environmentId}/note_collections/${noteCollectionId}/notes`}
           formLabel={'Note'}

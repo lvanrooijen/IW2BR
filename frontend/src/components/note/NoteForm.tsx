@@ -81,7 +81,7 @@ const NoteForm: React.FC<Props> = ({ note }) => {
           ) : (
             <button
               type="button"
-              className="btn p-1.5 bg-amber-200 hover:bg-amber-400"
+              className="btn p-1.5 bg-amber-300 hover:bg-amber-600"
               onClick={(e) => {
                 e.preventDefault();
                 setEditMode(true);
@@ -93,7 +93,7 @@ const NoteForm: React.FC<Props> = ({ note }) => {
 
           <button
             type="button"
-            className="btn p-1.5 bg-red-700 hover:bg-red-900"
+            className="btn p-1.5 bg-amber-300 hover:bg-red-800"
             onClick={handleDelete}
           >
             <img src={deleteIcon} alt="delete" className="h-full" />

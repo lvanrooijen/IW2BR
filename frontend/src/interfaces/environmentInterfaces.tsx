@@ -10,7 +10,7 @@ export interface EnvironmentResponseProps {
   noteCollections: INoteCollection[];
   exams: BaseEntity[];
   examAttempts: BaseEntity[];
-  flashcardDecks: BaseEntity[];
+  flashcardDecks: IFlashcardDeck[];
   tags: BaseEntity[];
 }
 
@@ -28,6 +28,17 @@ export interface INote {
   id: number;
   title: string;
   body: string;
+  tag: ITag;
+}
+
+export interface IFlashcardDeck extends BaseEntity {
+  notes: IFlashcard[];
+}
+
+export interface IFlashcard {
+  id: number;
+  front: string;
+  back: string;
   tag: ITag;
 }
 

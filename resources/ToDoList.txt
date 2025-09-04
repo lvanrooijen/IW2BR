@@ -1,25 +1,31 @@
 TODO:
 
 BACKEND
-- als een gebruiker uitlogt is de accesstoken nog max 15 min bruikbaar. als een gebruiker uitlogt en de accesstoken is nog geldig, die op een blacklist plaatsen. en dan simpele findbyaccesstoken in een blacklistedtokens entity.
 - (also note to self @query() ontwijken want niet sql injection safe!)
 - admin moet wel nog een exam of question/answer kunnen patchen in het geval dat er toc content in staat
-- wanneer moeten tags geflagged worden?
-- nadenken hoe ik de environment statistics wil vormgeven
-- lezen --> mappers vervangen? https://www.baeldung.com/mapstruct
 - uitzoeken, kan ik die herhalende is owner of env check in een custom annotatie verwerken?
 - Alle swagger docs interfaces over nieuw doen!
-- java docstrings nalopen en updaten
-- wiki pages updaten
 - dubbel checken of de wie wat mag wat zien overal goed is ingesteld
-
 - flyway uncommenten
 - fly way files maken, op volgorde! want sql oefenen
 
-FRONTEND
-- wire frames maken
-- Die blurred overlay is scrollable, oplossen!
+SWAGGER DOCS
+** Schema's maken, die security kan je schema voor maken en dan doorgeven in die controllers. nog verder uitzoeken **
+- environment controller --> done
+- examAttempt controller -->
+- exam controller -->
+- Question controller -->
+- Flashcard deck controller -->
+- Flashcard controller -->
+- NoteCollection controller -->
+- Note Controller -->
+- Environment Statitistics controller --> (nog niet af)
+- Tag Controller -->
+- authentication controller -->
 
+FRONTEND
+-
+CREA BEA
 - elke app onderdeel krijgt zijn eigen “tagline”
 app naam concept:
     - I want 2 Be Resourceful (de app als geheel)

@@ -27,7 +27,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(Endpoints.EXAM_ATTEMPTS)
-public class ExamAttemptController {
+public class ExamAttemptController implements ExamAttemptControllerDocs {
   private final ExamAttemptService attemptService;
 
   @PostMapping

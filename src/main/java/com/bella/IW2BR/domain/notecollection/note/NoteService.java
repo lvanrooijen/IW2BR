@@ -18,7 +18,7 @@ public class NoteService {
   private final EnvironmentHelperMethods helperMethods;
 
   public GetNote create(Long environmentId, Long noteCollectionId, PostNote body) {
-    helperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    helperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
 
     NoteCollection noteCollection = helperMethods.getNoteCollectionOrThrow(noteCollectionId);
 
@@ -38,7 +38,7 @@ public class NoteService {
   }
 
   public GetNote getById(Long environmentId, Long noteCollectionId, Long id) {
-    helperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    helperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
 
     NoteCollection noteCollection = helperMethods.getNoteCollectionOrThrow(noteCollectionId);
     helperMethods.throwIfNotInEnvironment(noteCollection, environmentId);
@@ -50,7 +50,7 @@ public class NoteService {
   }
 
   public List<GetNote> getAll(Long environmentId, Long noteCollectionId) {
-    helperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    helperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
     NoteCollection noteCollection = helperMethods.getNoteCollectionOrThrow(noteCollectionId);
     List<Note> notes = noteRepository.findByNotecollection(noteCollection);
 
@@ -58,7 +58,7 @@ public class NoteService {
   }
 
   public GetNote update(Long environmentId, Long noteCollectionId, Long id, PatchNote patch) {
-    helperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    helperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
 
     Note note = helperMethods.getNoteOrThrow(id);
     throwIfNoteCollectionIdMismatch(noteCollectionId, note);
@@ -75,7 +75,7 @@ public class NoteService {
   }
 
   public void delete(Long environmentId, Long noteCollectionId, Long id) {
-    helperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    helperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
 
     NoteCollection noteCollection = helperMethods.getNoteCollectionOrThrow(noteCollectionId);
     helperMethods.throwIfNotInEnvironment(noteCollection, environmentId);

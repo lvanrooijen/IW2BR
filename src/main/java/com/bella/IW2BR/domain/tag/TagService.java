@@ -24,7 +24,7 @@ public class TagService {
 
     Tag tag = PostTag.from(body, environment);
 
-    environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    environmentHelperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
     environmentHelperMethods.throwIfNotInEnvironment(tag, environmentId);
 
     tagRepository.save(tag);
@@ -35,7 +35,8 @@ public class TagService {
     Tag tag = environmentHelperMethods.getTagOrThrow(id);
 
     environmentHelperMethods.throwIfNotInEnvironment(tag, environmentId);
-    environmentHelperMethods.throwIfNotOwnerOrAdmin(tag.getEnvironment().getId());
+    environmentHelperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(
+        tag.getEnvironment().getId());
 
     tagRepository.deleteById(id);
   }
@@ -44,7 +45,8 @@ public class TagService {
     Tag tag = environmentHelperMethods.getTagOrThrow(id);
 
     environmentHelperMethods.throwIfNotInEnvironment(tag, environmentId);
-    environmentHelperMethods.throwIfNotOwnerOrAdmin(tag.getEnvironment().getId());
+    environmentHelperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(
+        tag.getEnvironment().getId());
 
     return GetTag.to(tag);
   }
@@ -55,7 +57,8 @@ public class TagService {
       return new ArrayList<>();
     }
 
-    environmentHelperMethods.throwIfNotOwnerOrAdmin(tags.get(0).getEnvironment().getId());
+    environmentHelperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(
+        tags.get(0).getEnvironment().getId());
 
     return tags.stream().map(GetTag::to).toList();
   }
@@ -63,7 +66,7 @@ public class TagService {
   public GetTag update(Long environmentId, Long id, PatchTag patch) {
     Tag tag = environmentHelperMethods.getTagOrThrow(id);
 
-    environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    environmentHelperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
     environmentHelperMethods.throwIfNotInEnvironment(tag, environmentId);
 
     PatchTag.patch(tag, patch);

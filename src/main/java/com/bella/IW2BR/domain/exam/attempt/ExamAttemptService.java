@@ -32,7 +32,7 @@ public class ExamAttemptService {
   private final QuestionAnswerRepository questionAnswerRepository;
 
   public GetAttempt create(Long environmentId, Long examId) {
-    helperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    helperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
 
     Exam exam = helperMethods.getExamOrThrow(examId);
     Environment environment = helperMethods.getEnvironmentOrThrow(environmentId);
@@ -53,12 +53,12 @@ public class ExamAttemptService {
   }
 
   public GetAttempt submit(Long environmentId, Long examId, Long attemptId, PostAttempt body) {
-    helperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    helperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
     Exam exam = helperMethods.getExamOrThrow(examId);
     ExamAttempt attempt = helperMethods.getExamAttemptOrThrow(attemptId);
     throwIfCompleted(attempt);
 
-    checkPathVariablesOrThrow(environmentId, examId, attemptId, exam, attempt);
+    checkPathVariablesOrThrow(environmentId, examId, exam, attempt);
 
     int submittedAnswers = body.questions().size();
     int expectedAnswers = exam.getQuestions().size();
@@ -79,10 +79,10 @@ public class ExamAttemptService {
   }
 
   public GetAttempt getById(Long environmentId, Long examId, Long attemptId) {
-    helperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    helperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
     Exam exam = helperMethods.getExamOrThrow(examId);
     ExamAttempt attempt = helperMethods.getExamAttemptOrThrow(attemptId);
-    checkPathVariablesOrThrow(environmentId, examId, attemptId, exam, attempt);
+    checkPathVariablesOrThrow(environmentId, examId, exam, attempt);
 
     if (attempt.isCompleted()) {
       List<QuestionAnswer> answers = questionAnswerRepository.findAllByExamAttemptId(attemptId);
@@ -93,7 +93,7 @@ public class ExamAttemptService {
   }
 
   public List<GetAttempt> getAll(Long environmentId, Long examId, AttemptType type) {
-    helperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    helperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
     Exam exam = helperMethods.getExamOrThrow(examId);
     helperMethods.throwIfNotInEnvironment(exam, environmentId);
 
@@ -109,10 +109,10 @@ public class ExamAttemptService {
   }
 
   public void delete(Long environmentId, Long examId, Long attemptId) {
-    helperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    helperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
     Exam exam = helperMethods.getExamOrThrow(examId);
     ExamAttempt attempt = helperMethods.getExamAttemptOrThrow(attemptId);
-    checkPathVariablesOrThrow(environmentId, examId, attemptId, exam, attempt);
+    checkPathVariablesOrThrow(environmentId, examId, exam, attempt);
 
     List<QuestionAnswer> questionAnswers =
         questionAnswerRepository.findAllByExamAttemptId(attemptId);
@@ -124,7 +124,7 @@ public class ExamAttemptService {
   // ~~~~~~~~~~~~~~~~~ HELPER METHODS ~~~~~~~~~~~~~~~~~
 
   private void checkPathVariablesOrThrow(
-      Long environmentId, Long examId, Long attemptId, Exam exam, ExamAttempt attempt) {
+      Long environmentId, Long examId, Exam exam, ExamAttempt attempt) {
     helperMethods.throwIfNotInEnvironment(exam, environmentId);
     helperMethods.throwIfNotInEnvironment(attempt, environmentId);
     throwIfNotInExam(exam, attempt);

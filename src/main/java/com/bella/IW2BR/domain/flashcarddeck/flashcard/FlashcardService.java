@@ -18,7 +18,7 @@ public class FlashcardService {
   private final EnvironmentHelperMethods environmentHelper;
 
   public GetFlashcard create(Long environmentId, Long flashcardDeckId, PostFlashcard body) {
-    environmentHelper.throwIfNotOwnerOrAdmin(environmentId);
+    environmentHelper.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
 
     FlashcardDeck deck = environmentHelper.getFlashcardDeckOrThrow(flashcardDeckId);
     environmentHelper.throwIfNotInEnvironment(deck, environmentId);
@@ -36,7 +36,7 @@ public class FlashcardService {
   }
 
   public GetFlashcard getById(Long environmentId, Long flashcardDeckId, Long id) {
-    environmentHelper.throwIfNotOwnerOrAdmin(environmentId);
+    environmentHelper.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
     Flashcard flashcard = environmentHelper.getFlashcardOrThrow(id);
 
     throwIfFlashcardDeckIdMismatch(flashcardDeckId, flashcard);
@@ -47,7 +47,7 @@ public class FlashcardService {
   }
 
   public List<GetFlashcard> getAll(Long environmentId, Long flashcardDeckId) {
-    environmentHelper.throwIfNotOwnerOrAdmin(environmentId);
+    environmentHelper.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
 
     FlashcardDeck flashcardDeck = environmentHelper.getFlashcardDeckOrThrow(flashcardDeckId);
     environmentHelper.throwIfNotInEnvironment(flashcardDeck, environmentId);
@@ -59,7 +59,7 @@ public class FlashcardService {
 
   public GetFlashcard update(
       Long environmentId, Long flashcardDeckId, Long id, PatchFlashcard patch) {
-    environmentHelper.throwIfNotOwnerOrAdmin(environmentId);
+    environmentHelper.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
 
     Flashcard flashcard = environmentHelper.getFlashcardOrThrow(id);
     environmentHelper.throwIfNotInEnvironment(flashcard.getFlashcardDeck(), environmentId);
@@ -78,7 +78,7 @@ public class FlashcardService {
   }
 
   public void delete(Long environmentId, Long flashcardDeckId, Long id) {
-    environmentHelper.throwIfNotOwnerOrAdmin(environmentId);
+    environmentHelper.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
 
     Flashcard flashcard = environmentHelper.getFlashcardOrThrow(id);
     environmentHelper.throwIfNotInEnvironment(flashcard.getFlashcardDeck(), environmentId);

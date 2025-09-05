@@ -77,7 +77,34 @@ public interface ExamAttemptControllerDocs {
   })
   public ResponseEntity<GetAttempt> getById(Long environmentId, Long examId, Long id);
 
+  @Operation(
+      summary = "gets all the exam attempts",
+      description =
+          "Gets all the exam Attempts. Type can be provided to filter by COMPLETE, INCOMPLETE or any type of exam attempt")
+  @ApiResponses({
+    @ApiResponse(responseCode = "200", description = "success"),
+    @ApiResponse(
+        responseCode = "400",
+        description = "exam is not part of environment specified in path"),
+    @ApiResponse(
+        responseCode = "403",
+        description = "authenticated user is not owner of exam or ADMIN"),
+    @ApiResponse(responseCode = "404", description = "exam not found")
+  })
   public ResponseEntity<List<GetAttempt>> getAll(Long environmentId, Long examId, AttemptType type);
 
+  @Operation(summary = "deletes exam attempt")
+  @ApiResponses({
+    @ApiResponse(responseCode = "200", description = "success"),
+    @ApiResponse(responseCode = "403", description = "authenticated user is not owner or ADMIN"),
+    @ApiResponse(responseCode = "400", description = "environment does not found"),
+    @ApiResponse(responseCode = "400", description = "exam not found"),
+    @ApiResponse(responseCode = "400", description = "exam attempt not found"),
+    @ApiResponse(responseCode = "400", description = "exam not part of specified environment"),
+    @ApiResponse(
+        responseCode = "400",
+        description = "exam attempt not part of specified environment"),
+    @ApiResponse(responseCode = "400", description = "exam attempt not connected to specified exam")
+  })
   public ResponseEntity<Void> delete(Long environmentId, Long examId, Long id);
 }

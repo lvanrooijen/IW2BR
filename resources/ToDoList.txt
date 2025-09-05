@@ -1,6 +1,9 @@
 TODO:
 
 BACKEND
+-
+- doc string exceptions fixen en dubbel-checken
+- EnvironmentHelper class method throwIfNotOwnerOrAdmin() heeft eigenlijk een side effect, splitsen of naam veranderen?
 - (also note to self @query() ontwijken want niet sql injection safe!)
 - admin moet wel nog een exam of question/answer kunnen patchen in het geval dat er toc content in staat
 - uitzoeken, kan ik die herhalende is owner of env check in een custom annotatie verwerken?

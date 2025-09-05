@@ -19,7 +19,7 @@ public class ExamService {
   private final ExamRepository examRepository;
 
   public GetExam create(Long environmentId, PostExam body) {
-    helperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    helperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
 
     Environment environment = helperMethods.getEnvironmentOrThrow(environmentId);
     Exam exam = PostExam.from(body, environment);
@@ -29,7 +29,7 @@ public class ExamService {
   }
 
   public GetExam getById(Long environmentId, Long id) {
-    helperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    helperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
 
     Exam exam = helperMethods.getExamOrThrow(id);
     helperMethods.throwIfNotInEnvironment(exam, environmentId);
@@ -38,7 +38,7 @@ public class ExamService {
   }
 
   public List<GetExam> getAll(Long environmentId) {
-    helperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    helperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
 
     List<Exam> exams = examRepository.findByEnvironmentId(environmentId);
 
@@ -46,7 +46,7 @@ public class ExamService {
   }
 
   public GetExam update(Long environmentId, Long id, PatchExam patch) {
-    helperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    helperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
 
     Exam exam = helperMethods.getExamOrThrow(id);
     helperMethods.throwIfExamIsFinalised(exam);
@@ -64,7 +64,7 @@ public class ExamService {
   }
 
   public void delete(Long environmentId, Long id) {
-    helperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    helperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
 
     Exam exam = helperMethods.getExamOrThrow(id);
     helperMethods.throwIfNotInEnvironment(exam, environmentId);

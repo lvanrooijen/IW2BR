@@ -16,7 +16,7 @@ public class FlashcardDeckService {
   private final FlashcardDeckRepository flashcardDeckRepository;
 
   public GetFlashcardDeck create(Long environmentId, PostFlashcardDeck body) {
-    environmentHelper.throwIfNotOwnerOrAdmin(environmentId);
+    environmentHelper.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
 
     Environment environment = environmentHelper.getEnvironmentOrThrow(environmentId);
 
@@ -28,7 +28,7 @@ public class FlashcardDeckService {
   }
 
   public GetFlashcardDeck getById(Long environmentId, Long id) {
-    environmentHelper.throwIfNotOwnerOrAdmin(environmentId);
+    environmentHelper.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
 
     FlashcardDeck flashcardDeck = environmentHelper.getFlashcardDeckOrThrow(id);
 
@@ -38,7 +38,7 @@ public class FlashcardDeckService {
   }
 
   public List<GetFlashcardDeck> getAll(Long environmentId) {
-    environmentHelper.throwIfNotOwnerOrAdmin(environmentId);
+    environmentHelper.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
 
     List<FlashcardDeck> flashcardDecks = flashcardDeckRepository.findByEnvironmentId(environmentId);
 
@@ -46,7 +46,7 @@ public class FlashcardDeckService {
   }
 
   public GetFlashcardDeck update(Long environmentId, Long id, PatchFlashcardDeck patch) {
-    environmentHelper.throwIfNotOwnerOrAdmin(environmentId);
+    environmentHelper.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
 
     FlashcardDeck flashcardDeck = environmentHelper.getFlashcardDeckOrThrow(id);
     environmentHelper.throwIfNotInEnvironment(flashcardDeck, environmentId);
@@ -58,7 +58,7 @@ public class FlashcardDeckService {
   }
 
   public void delete(Long environmentId, Long id) {
-    environmentHelper.throwIfNotOwnerOrAdmin(environmentId);
+    environmentHelper.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
     environmentHelper.getFlashcardDeckOrThrow(id);
     flashcardDeckRepository.deleteById(id);
   }

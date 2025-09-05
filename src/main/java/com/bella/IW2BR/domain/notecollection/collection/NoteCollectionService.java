@@ -19,7 +19,7 @@ public class NoteCollectionService {
     NoteCollection noteCollection = PostNoteCollection.from(body);
     Environment environment = environmentHelperMethods.getEnvironmentOrThrow(environmentId);
 
-    environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    environmentHelperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
 
     noteCollection.setEnvironment(environment);
     noteCollectionRepository.save(noteCollection);
@@ -31,13 +31,13 @@ public class NoteCollectionService {
     NoteCollection noteCollection = environmentHelperMethods.getNoteCollectionOrThrow(id);
 
     environmentHelperMethods.throwIfNotInEnvironment(noteCollection, environmentId);
-    environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    environmentHelperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
 
     return GetNoteCollection.to(noteCollection);
   }
 
   public List<GetNoteCollection> getAll(Long environmentId) {
-    environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    environmentHelperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
     List<NoteCollection> noteCollections =
         noteCollectionRepository.findAllByEnvironmentId(environmentId);
 
@@ -47,7 +47,7 @@ public class NoteCollectionService {
   public GetNoteCollection update(Long environmentId, Long id, PatchNoteCollection patch) {
     NoteCollection noteCollection = environmentHelperMethods.getNoteCollectionOrThrow(id);
 
-    environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    environmentHelperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
     environmentHelperMethods.throwIfNotInEnvironment(noteCollection, environmentId);
 
     PatchNoteCollection.patch(noteCollection, patch);
@@ -60,7 +60,7 @@ public class NoteCollectionService {
   public void delete(Long environmentId, Long id) {
     NoteCollection noteCollection = environmentHelperMethods.getNoteCollectionOrThrow(id);
 
-    environmentHelperMethods.throwIfNotOwnerOrAdmin(environmentId);
+    environmentHelperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
     environmentHelperMethods.throwIfNotInEnvironment(noteCollection, environmentId);
 
     noteCollectionRepository.deleteById(id);

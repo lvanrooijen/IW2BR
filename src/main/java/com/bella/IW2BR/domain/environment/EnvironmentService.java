@@ -28,14 +28,14 @@ public class EnvironmentService {
 
   public GetEnvironment getById(Long id) {
     Environment environment = getEnvironmentOrThrow(id);
-    environmentHelperMethods.throwIfNotOwnerOrAdmin(id);
+    environmentHelperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(id);
 
     return GetEnvironment.to(environment);
   }
 
   public GetFullEnvironment getFullById(Long id) {
     Environment environment = getEnvironmentOrThrow(id);
-    environmentHelperMethods.throwIfNotOwnerOrAdmin(id);
+    environmentHelperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(id);
 
     return GetFullEnvironment.to(environment);
   }
@@ -54,7 +54,7 @@ public class EnvironmentService {
   }
 
   public GetEnvironment update(Long id, PatchEnvironment patch) {
-    environmentHelperMethods.throwIfNotOwnerOrAdmin(id);
+    environmentHelperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(id);
     Environment environment = getEnvironmentOrThrow(id);
 
     PatchEnvironment.patch(environment, patch);
@@ -64,7 +64,7 @@ public class EnvironmentService {
   }
 
   public void delete(Long id) {
-    environmentHelperMethods.throwIfNotOwnerOrAdmin(id);
+    environmentHelperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(id);
     getEnvironmentOrThrow(id);
 
     environmentRepository.deleteById(id);

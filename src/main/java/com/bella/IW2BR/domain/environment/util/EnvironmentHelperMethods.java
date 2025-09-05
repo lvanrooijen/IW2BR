@@ -57,7 +57,7 @@ public class EnvironmentHelperMethods {
    *     admin role
    * @throws ItemNotFoundException when the environment is not found
    */
-  public void throwIfNotOwnerOrAdmin(Long environmentId) {
+  public void ensureEnvironmentExistsAndUserIsOwnerOrAdmin(Long environmentId) {
     User user = authHelperService.getAuthenticatedUser();
     Environment environment =
         environmentRepository

@@ -16,7 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestController
 @RequestMapping(Endpoints.AUTH)
 @RequiredArgsConstructor
-public class AuthenticationController implements AuthenticationControllerDocs {
+public class AuthenticationController implements AuthenticationAPIDocs {
   private final AuthenticationService authenticationService;
 
   @Override

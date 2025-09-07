@@ -21,7 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestController
 @RequestMapping(Endpoints.FLASHCARD_DECKS)
 @RequiredArgsConstructor
-public class FlashcardDeckController {
+public class FlashcardDeckController implements FlashcardDeckAPIDocs {
   private final FlashcardDeckService flashcardDeckService;
 
   @PostMapping

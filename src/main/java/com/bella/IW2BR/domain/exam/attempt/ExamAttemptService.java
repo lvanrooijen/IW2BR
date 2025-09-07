@@ -154,6 +154,11 @@ public class ExamAttemptService {
     return questionAnswer;
   }
 
+  /**
+   * Verifies if exam is finalised. throw {@link FinalisedExamException} if that is not the case.
+   *
+   * @param exam
+   */
   private void throwIfExamNotFinalised(Exam exam) {
     if (!exam.isFinalised()) {
       throw new FinalisedExamException("Can create an ExamAttempt if exam is not finalised");

@@ -2,6 +2,7 @@ package com.bella.IW2BR.domain.exam.exam;
 
 import com.bella.IW2BR.domain.environment.Environment;
 import com.bella.IW2BR.domain.environment.util.EnvironmentHelperMethods;
+import com.bella.IW2BR.domain.exam.attempt.ExamAttempt;
 import com.bella.IW2BR.domain.exam.exam.dto.GetExam;
 import com.bella.IW2BR.domain.exam.exam.dto.PatchExam;
 import com.bella.IW2BR.domain.exam.exam.dto.PostExam;
@@ -63,6 +64,14 @@ public class ExamService {
     return GetExam.to(exam);
   }
 
+  /**
+   * Deletes an exam
+   *
+   * <p>finalized exams get soft-deleted because there may be {@link ExamAttempt}'s connected to it.
+   *
+   * @param environmentId
+   * @param id {@link Exam} ID
+   */
   public void delete(Long environmentId, Long id) {
     helperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
 

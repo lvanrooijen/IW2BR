@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 /**
- * Controller for handling handling operations related to Exam Attempts
+ * Controller for handling operations related to Exam Attempts
  *
  * <p>The Exam Attempts endpoint contains the following path variables:
  *
@@ -27,7 +27,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(Endpoints.EXAM_ATTEMPTS)
-public class ExamAttemptController implements ExamAttemptControllerDocs {
+public class ExamAttemptController implements ExamAttemptAPIDocs {
   private final ExamAttemptService attemptService;
 
   @PostMapping

@@ -16,7 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestController
 @RequestMapping(Endpoints.ENVIRONMENTS)
 @RequiredArgsConstructor
-public class EnvironmentController implements EnvironmentControllerDocs {
+public class EnvironmentController implements EnvironmentAPIDocs {
   private final EnvironmentService environmentService;
 
   @Override
@@ -34,8 +34,7 @@ public class EnvironmentController implements EnvironmentControllerDocs {
 
   @Override
   @GetMapping("/{id}")
-  public ResponseEntity<GetFullEnvironment> get(
-      @PathVariable Long id) {
+  public ResponseEntity<GetFullEnvironment> get(@PathVariable Long id) {
 
     GetFullEnvironment environment = environmentService.getFullById(id);
     return ResponseEntity.ok(environment);

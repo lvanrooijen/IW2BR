@@ -1,7 +1,6 @@
 TODO:
 
 BACKEND
--
 - doc string exceptions fixen en dubbel-checken
 - EnvironmentHelper class method throwIfNotOwnerOrAdmin() heeft eigenlijk een side effect, splitsen of naam veranderen?
 - (also note to self @query() ontwijken want niet sql injection safe!)
@@ -14,17 +13,8 @@ BACKEND
 
 SWAGGER DOCS
 ** Schema's maken, die security kan je schema voor maken en dan doorgeven in die controllers. nog verder uitzoeken **
-- environment controller --> done
-- examAttempt controller -->
-- exam controller -->
-- Question controller -->
-- Flashcard deck controller -->
-- Flashcard controller -->
-- NoteCollection controller -->
-- Note Controller -->
 - Environment Statitistics controller --> (nog niet af)
-- Tag Controller -->
-- authentication controller -->
+
 
 FRONTEND
 -

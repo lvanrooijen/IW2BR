@@ -21,7 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestController
 @RequestMapping(Endpoints.EXAMS)
 @RequiredArgsConstructor
-public class ExamController {
+public class ExamController implements ExamAPIDocs {
   private final ExamService examService;
 
   @PostMapping

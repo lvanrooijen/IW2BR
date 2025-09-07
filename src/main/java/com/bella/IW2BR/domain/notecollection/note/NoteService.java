@@ -21,7 +21,6 @@ public class NoteService {
     helperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
 
     NoteCollection noteCollection = helperMethods.getNoteCollectionOrThrow(noteCollectionId);
-
     helperMethods.throwIfNotInEnvironment(noteCollection, environmentId);
 
     Note note;
@@ -33,7 +32,6 @@ public class NoteService {
     }
 
     noteRepository.save(note);
-
     return GetNote.to(note);
   }
 

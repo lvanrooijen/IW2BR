@@ -22,7 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestController
 @RequestMapping(Endpoints.QUESTIONS)
 @RequiredArgsConstructor
-public class QuestionController {
+public class QuestionController implements QuestionAPIDocs {
   private final QuestionService questionService;
 
   @PostMapping

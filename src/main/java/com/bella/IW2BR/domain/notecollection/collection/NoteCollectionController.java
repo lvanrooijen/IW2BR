@@ -21,7 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(Endpoints.NOTE_COLLECTIONS)
-public class NoteCollectionController implements NoteCollectionControllerDocs {
+public class NoteCollectionController implements NoteCollectionAPIDocs {
   private final NoteCollectionService noteCollectionService;
 
   @Override

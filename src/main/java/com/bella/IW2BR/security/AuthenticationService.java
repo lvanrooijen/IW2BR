@@ -79,7 +79,6 @@ public class AuthenticationService implements UserDetailsService {
             .build();
 
     userRepository.save(user);
-
     eventPublisher.publishUserRegistrationEvent(user);
 
     String accessToken = jwtService.generateAccessTokenForUser(user);

@@ -43,7 +43,7 @@ public class QuestionService {
 
     questionRepository.save(question);
     List<Answer> answers = convertAndSaveAnswers(body.answers(), question);
-    // add the answers manually because the answers arent available on the question yet.
+    // add the answers manually because the answers aren't available on the question yet.
     return mapper.toGet(question, answers);
   }
 
@@ -105,6 +105,19 @@ public class QuestionService {
     return newAnswers;
   }
 
+  public void delete(Long environmentId, Long examId, Long id) {
+    helperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
+
+    Exam exam = helperMethods.getExamOrThrow(examId);
+    helperMethods.throwIfNotInEnvironment(exam, environmentId);
+    helperMethods.throwIfExamIsFinalised(exam);
+
+    Question question = helperMethods.getQuestionOrThrow(id);
+
+    questionRepository.delete(question);
+  }
+
+  // HELPER METHODS
   /**
    * Verifies if the exam in the path variable is the same as the exam connected to the question
    *
@@ -150,17 +163,5 @@ public class QuestionService {
         answers.stream().map(answer -> mapper.fromPostAnswer(answer, question)).toList();
     answerRepository.saveAll(converted);
     return converted;
-  }
-
-  public void delete(Long environmentId, Long examId, Long id) {
-    helperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
-
-    Exam exam = helperMethods.getExamOrThrow(examId);
-    helperMethods.throwIfNotInEnvironment(exam, environmentId);
-    helperMethods.throwIfExamIsFinalised(exam);
-
-    Question question = helperMethods.getQuestionOrThrow(id);
-
-    questionRepository.delete(question);
   }
 }

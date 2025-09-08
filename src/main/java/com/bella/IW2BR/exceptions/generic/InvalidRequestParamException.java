@@ -9,6 +9,10 @@ import com.bella.IW2BR.exceptions.base.BaseBadRequestException;
  *
  * <p>This Exception extends the {@link BaseBadRequestException} and is handled by {@link
  * GlobalExceptionHandler#handleBadRequestExceptions(Exception)}
+ *
+ * <p>Returns HTTP status code {@code 400 BAD REQUEST}
+ *
+ * <p>The exception message is logged and returned to the client
  */
 public class InvalidRequestParamException extends BaseBadRequestException {
   public InvalidRequestParamException(String message) {

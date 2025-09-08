@@ -25,7 +25,7 @@ import com.bella.IW2BR.exceptions.base.BaseBadRequestException;
 import com.bella.IW2BR.exceptions.exam.FinalisedExamException;
 import com.bella.IW2BR.exceptions.generic.IllegalActionException;
 import com.bella.IW2BR.exceptions.generic.ItemNotFoundException;
-import com.bella.IW2BR.exceptions.generic.ResourceNotInEnvironmentException;
+import com.bella.IW2BR.exceptions.generic.ResourceNotConnectedToParentException;
 import com.bella.IW2BR.security.AuthHelperService;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
@@ -89,12 +89,12 @@ public class EnvironmentHelperMethods {
    *
    * @param member
    * @param environmentId
-   * @throws ResourceNotInEnvironmentException when the member isn't a member of the specified
+   * @throws ResourceNotConnectedToParentException when the member isn't a member of the specified
    *     environment
    */
   public void throwIfNotInEnvironment(EnvironmentMember member, Long environmentId) {
     if (!Objects.equals(member.getEnvironment().getId(), environmentId)) {
-      throw new ResourceNotInEnvironmentException(
+      throw new ResourceNotConnectedToParentException(
           member.getClass().getSimpleName() + " is not a member of this environment");
     }
   }

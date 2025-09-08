@@ -2,14 +2,12 @@ TODO:
 
 BACKEND
 - doc string exceptions fixen en dubbel-checken
-- EnvironmentHelper class method throwIfNotOwnerOrAdmin() heeft eigenlijk een side effect, splitsen of naam veranderen?
-- (also note to self @query() ontwijken want niet sql injection safe!)
 - admin moet wel nog een exam of question/answer kunnen patchen in het geval dat er toc content in staat
 - uitzoeken, kan ik die herhalende is owner of env check in een custom annotatie verwerken?
-- Alle swagger docs interfaces over nieuw doen!
-- dubbel checken of de wie wat mag wat zien overal goed is ingesteld
+- nadenken welke log levels ik gebruik, ik heb nu overal warn.
 - flyway uncommenten
 - fly way files maken, op volgorde! want sql oefenen
+
 
 SWAGGER DOCS
 ** Schema's maken, die security kan je schema voor maken en dan doorgeven in die controllers. nog verder uitzoeken **
@@ -25,5 +23,7 @@ app naam concept:
     - I want 2 Be Remembered (flashcards)
     - I want 2 Be Ready (Exams)
     - I want 2 Be Recorded (notities)
+
+
 
 

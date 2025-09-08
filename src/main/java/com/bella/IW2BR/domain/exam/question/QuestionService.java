@@ -10,8 +10,8 @@ import com.bella.IW2BR.domain.exam.question.dto.PatchQuestion;
 import com.bella.IW2BR.domain.exam.question.dto.PostQuestion;
 import com.bella.IW2BR.domain.exam.question.dto.QuestionMapper;
 import com.bella.IW2BR.domain.tag.Tag;
-import com.bella.IW2BR.exceptions.environment.MismatchingIdException;
 import com.bella.IW2BR.exceptions.exam.InvalidAnswerAmountException;
+import com.bella.IW2BR.exceptions.generic.ResourceNotConnectedToParentException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -123,13 +123,13 @@ public class QuestionService {
    *
    * @param examId ID of exam provided through the path variable
    * @param question {@link Question}
-   * @throws MismatchingIdException when the ID's aren't the same
+   * @throws ResourceNotConnectedToParentException when the ID's aren't the same
    */
   private void throwIfExamIdMismatch(Long examId, Question question) {
     helperMethods.throwIfIdMismatch(
         examId,
         question.getExam().getId(),
-        new MismatchingIdException(
+        new ResourceNotConnectedToParentException(
             "Exam is not a member of the Exam specified in the path variable"));
   }
 

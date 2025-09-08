@@ -6,7 +6,7 @@ import com.bella.IW2BR.domain.flashcarddeck.flashcard.dto.GetFlashcard;
 import com.bella.IW2BR.domain.flashcarddeck.flashcard.dto.PatchFlashcard;
 import com.bella.IW2BR.domain.flashcarddeck.flashcard.dto.PostFlashcard;
 import com.bella.IW2BR.domain.tag.Tag;
-import com.bella.IW2BR.exceptions.environment.MismatchingIdException;
+import com.bella.IW2BR.exceptions.generic.ResourceNotConnectedToParentException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -94,13 +94,13 @@ public class FlashcardService {
    *
    * @param flashcardDeckId ID of flashcard provided through the path variable
    * @param flashcard {@link Flashcard}
-   * @throws MismatchingIdException when the ID's aren't the same
+   * @throws ResourceNotConnectedToParentException when the ID's aren't the same
    */
   private void throwIfFlashcardDeckIdMismatch(Long flashcardDeckId, Flashcard flashcard) {
     environmentHelper.throwIfIdMismatch(
         flashcardDeckId,
         flashcard.getFlashcardDeck().getId(),
-        new MismatchingIdException(
+        new ResourceNotConnectedToParentException(
             "Flashcard is not a member of the flashcard deck specified in the path variable"));
   }
 }

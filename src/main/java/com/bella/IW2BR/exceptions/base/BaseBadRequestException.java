@@ -5,9 +5,9 @@ import com.bella.IW2BR.exceptions.GlobalExceptionHandler;
 /**
  * Base class for exceptions related to entities that need to return a bad request status code.
  *
- * <p>Specific exceptions that need to be caught and return a status code bad request can extend
- * this class, exceptions extending this class will automatically get caught and return a problem
- * detail with http status of bad request, and the provided exception message as detail.
+ * <p>Specific exceptions that need to be caught and return an HTTP status code 400 BAD REQUEST can
+ * extend this class, exceptions extending this class will automatically get caught and return a
+ * problem detail with http status of bad request, and the provided exception message as detail.
  *
  * <p>Exceptions will be caught and handled by the following method {@link
  * GlobalExceptionHandler#handleBadRequestExceptions(Exception e)}

@@ -10,11 +10,10 @@ import com.bella.IW2BR.domain.exam.attempt.questionanswer.QuestionAnswerReposito
 import com.bella.IW2BR.domain.exam.attempt.questionanswer.dto.PostQuestionAnswer;
 import com.bella.IW2BR.domain.exam.exam.Exam;
 import com.bella.IW2BR.domain.exam.question.Question;
-import com.bella.IW2BR.exceptions.environment.MismatchingIdException;
 import com.bella.IW2BR.exceptions.exam.ExamAttemptSubmittedException;
 import com.bella.IW2BR.exceptions.exam.FinalisedExamException;
 import com.bella.IW2BR.exceptions.exam.InvalidAnswerAmountException;
-import com.bella.IW2BR.exceptions.generic.ResourceNotInEnvironmentException;
+import com.bella.IW2BR.exceptions.generic.ResourceNotConnectedToParentException;
 import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -169,7 +168,7 @@ public class ExamAttemptService {
     helperMethods.throwIfIdMismatch(
         exam.getId(),
         attempt.getExam().getId(),
-        new ResourceNotInEnvironmentException(
+        new ResourceNotConnectedToParentException(
             "Exam ID in path variable does not match exam ID connected to this exam attempt"));
   }
 
@@ -210,7 +209,7 @@ public class ExamAttemptService {
     helperMethods.throwIfIdMismatch(
         examId,
         attempt.getExam().getId(),
-        new MismatchingIdException(
+        new ResourceNotConnectedToParentException(
             "Path variable representing Exam id does not match the exam id of this exam attempt id."));
   }
 }

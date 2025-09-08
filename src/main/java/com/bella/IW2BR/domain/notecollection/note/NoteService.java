@@ -6,7 +6,7 @@ import com.bella.IW2BR.domain.notecollection.note.dto.GetNote;
 import com.bella.IW2BR.domain.notecollection.note.dto.PatchNote;
 import com.bella.IW2BR.domain.notecollection.note.dto.PostNote;
 import com.bella.IW2BR.domain.tag.Tag;
-import com.bella.IW2BR.exceptions.environment.MismatchingIdException;
+import com.bella.IW2BR.exceptions.generic.ResourceNotConnectedToParentException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -90,13 +90,13 @@ public class NoteService {
    *
    * @param noteCollectionId ID of flashcard provided through the path variable
    * @param note {@link Note}
-   * @throws MismatchingIdException when the ID's aren't the same
+   * @throws ResourceNotConnectedToParentException when the ID's aren't the same
    */
   private void throwIfNoteCollectionIdMismatch(Long noteCollectionId, Note note) {
     helperMethods.throwIfIdMismatch(
         noteCollectionId,
         note.getNotecollection().getId(),
-        new MismatchingIdException(
+        new ResourceNotConnectedToParentException(
             "Note is not a member of the Note-Collection specified in the path variable"));
   }
 }

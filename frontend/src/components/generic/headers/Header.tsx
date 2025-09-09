@@ -1,4 +1,4 @@
-import Cat from '../../assets/images/cat.png';
+import Cat from '../../../assets/images/cat.png';
 const Header: React.FC<HeaderProps> = ({ label }) => {
   return (
     <div className="relative">

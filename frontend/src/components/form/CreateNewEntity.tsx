@@ -29,7 +29,7 @@ const CreateNewEntity: React.FC<CreateNewEntityProps> = ({
   };
 
   return (
-    <div className="flex items-center justify-center mb-3">
+    <div className="flex items-center justify-center mb-3 text-white">
       <button
         className="btn btn-soft btn-secondary"
         onClick={() => {

@@ -2,7 +2,7 @@ import { useEnvironment } from '../util/context/EnvironmentContext';
 import { ClimbingBoxLoader } from 'react-spinners';
 import Card from '../components/card/Card';
 import CardListItems from '../components/card/CardListItems';
-import SectionHeader from '../components/generic/SectionHeader';
+import SectionHeader from '../components/generic/headers/SectionHeader';
 import { useParams } from 'react-router';
 import CreateNewEntity from '../components/form/CreateNewEntity';
 import { useEffect } from 'react';
@@ -13,6 +13,7 @@ const EnvironmentPage = () => {
 
   useEffect(() => {
     console.log('update');
+    console.log(environment?.tags);
   }, [environment]);
 
   const createPath = (target: string) => {
@@ -36,7 +37,7 @@ const EnvironmentPage = () => {
           />
           <CreateNewEntity
             formLabel="Note Collections"
-            postTo={createPath('note-collections')}
+            postTo={createPath('note_collections')}
           />
         </>
       </Card>
@@ -49,7 +50,7 @@ const EnvironmentPage = () => {
           />
           <CreateNewEntity
             formLabel="Flashcard Decks"
-            postTo={createPath('flashcard-decks')}
+            postTo={createPath('flashcard_decks')}
           />
         </>
       </Card>
@@ -65,7 +66,7 @@ const EnvironmentPage = () => {
         <>
           <CardListItems
             list={environment.examAttempts}
-            navTo="exam-attempts"
+            navTo="exam_attempts"
           />
         </>
       </Card>

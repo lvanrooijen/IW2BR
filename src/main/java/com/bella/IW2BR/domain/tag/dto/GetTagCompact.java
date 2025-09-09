@@ -12,6 +12,6 @@ import com.bella.IW2BR.domain.tag.Tag;
  */
 public record GetTagCompact(Long id, String title) {
   public static GetTagCompact to(Tag tag) {
-    return new GetTagCompact(tag.getId(), tag.getDescription());
+    return new GetTagCompact(tag.getId(), tag.getTitle());
   }
 }

@@ -1,5 +1,5 @@
 import NotFound from '../components/notfound/NotFound';
-import BasicPage from '../components/page/BasicPage';
+import BasicPage from '../components/pagecomponent/BasicPage';
 
 const NotFoundPage = () => {
   return (

@@ -1,4 +1,5 @@
-import Divider from '../../assets/images/divider.png';
+import Divider from './Divider';
+
 const SectionHeaderWithDescription: React.FC<Props> = ({
   id,
   title,
@@ -8,13 +9,7 @@ const SectionHeaderWithDescription: React.FC<Props> = ({
     <div className="rounded-md pb-6">
       <h1 className="font-bold tracking-wider px-3">{title}</h1>
       <p className="min-h-24 p-3 italic">{description}</p>
-      <div className="w-full h-6 overflow-hidden flex items-center justify-center">
-        <img
-          className="invert rotate-180 opacity-5"
-          src={Divider}
-          alt="image of footsteps"
-        />
-      </div>
+      <Divider lines={3} />
     </div>
   );
 };

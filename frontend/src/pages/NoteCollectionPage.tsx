@@ -9,7 +9,7 @@ import FormInputField from '../components/form/FormInputField';
 import FormTextArea from '../components/form/FormTextArea';
 import NoteForm from '../components/note/NoteForm';
 import TagDropdown from '../components/tags/TagDropdown';
-import SectionHeaderWithDescription from '../components/generic/SectionHeaderWithDescription';
+import SectionHeaderWithDescription from '../components/generic/headers/SectionHeaderWithDescription';
 
 const NoteCollectionPage = () => {
   const { environmentId, noteCollectionId } = useParams();

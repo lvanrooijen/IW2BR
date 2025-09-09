@@ -20,7 +20,10 @@ public record GetNoteCollection(Long id, String title, String description, List<
    * @return {@link GetNoteCollection}
    */
   public static GetNoteCollection to(NoteCollection noteCollection) {
-    List<GetNote> notes = noteCollection.getNotes().stream().map(GetNote::to).toList();
+    List<GetNote> notes =
+        noteCollection.getNotes() != null
+            ? noteCollection.getNotes().stream().map(GetNote::to).toList()
+            : null;
     return new GetNoteCollection(
         noteCollection.getId(), noteCollection.getTitle(), noteCollection.getDescription(), notes);
   }

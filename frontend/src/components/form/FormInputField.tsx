@@ -9,7 +9,7 @@ const FormInputField: React.FC<FormInputFieldProps> = ({
   range,
 }) => {
   const [value, setValue] = useState<string | number>('');
-  const inputStyle = 'p-2 border-2 rounded-md w-full';
+  const inputStyle = 'p-2 border-2 rounded-md';
 
   useEffect(() => {
     if (initialvalue) setValue(initialvalue);

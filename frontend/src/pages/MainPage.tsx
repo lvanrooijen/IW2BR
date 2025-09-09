@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router';
 import type { UserProps } from '../interfaces/ApiServiceInterfaces';
-import BasicPage from '../components/page/BasicPage';
-import Header from '../components/generic/Header';
+import BasicPage from '../components/pagecomponent/BasicPage';
+import Header from '../components/generic/headers/Header';
 
 const MainPage: React.FC<MainPageProps> = ({ user }) => {
   return (

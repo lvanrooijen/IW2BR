@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useEnvironment } from '../util/context/EnvironmentContext';
 import type { IFlashcardDeck } from '../interfaces/environmentInterfaces';
-import SectionHeaderWithDescription from '../components/generic/SectionHeaderWithDescription';
+import SectionHeaderWithDescription from '../components/generic/headers/SectionHeaderWithDescription';
 import { ClimbingBoxLoader } from 'react-spinners';
+import FlashcardTab from '../components/flashcard/FlashcardTab';
 
 const FlashcardDeckPage: React.FC<Props> = () => {
   const [flashcardDeck, setFlashcardDeck] = useState<IFlashcardDeck | null>(
@@ -32,6 +33,7 @@ const FlashcardDeckPage: React.FC<Props> = () => {
         title={flashcardDeck?.title}
         description={flashcardDeck?.description}
       />
+      <FlashcardTab />
     </div>
   );
 };

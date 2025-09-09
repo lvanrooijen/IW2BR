@@ -109,6 +109,7 @@ const NoteForm: React.FC<Props> = ({ note }) => {
         <TagDropdown
           selectedTagId={note.tag?.id}
           style="col-span-12 row-start-5"
+          isEnabled={editMode}
         />
 
         <input

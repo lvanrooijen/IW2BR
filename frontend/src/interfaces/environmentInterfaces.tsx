@@ -32,13 +32,13 @@ export interface INote {
 }
 
 export interface IFlashcardDeck extends BaseEntity {
-  notes: IFlashcard[];
+  flashcards: IFlashcard[];
 }
 
 export interface IFlashcard {
   id: number;
-  front: string;
-  back: string;
+  frontBody: string;
+  backBody: string;
   tag: ITag;
 }
 

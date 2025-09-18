@@ -8,7 +8,7 @@ import java.util.List;
 import lombok.*;
 
 @Entity
-@Table(name = "note_collection")
+@Table(name = "note_collections")
 @Data
 @NoArgsConstructor
 public class NoteCollection implements EnvironmentMember {

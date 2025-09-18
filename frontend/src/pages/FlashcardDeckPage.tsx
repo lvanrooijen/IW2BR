@@ -4,7 +4,8 @@ import { useEnvironment } from '../util/context/EnvironmentContext';
 import type { IFlashcardDeck } from '../interfaces/environmentInterfaces';
 import SectionHeaderWithDescription from '../components/generic/headers/SectionHeaderWithDescription';
 import { ClimbingBoxLoader } from 'react-spinners';
-import FlashcardTab from '../components/flashcard/FlashcardTab';
+import TabContainer from '../components/tabContainer/TabContainer';
+import Flashcard from '../components/flashcard/Flashcard';
 
 const FlashcardDeckPage: React.FC<Props> = () => {
   const [flashcardDeck, setFlashcardDeck] = useState<IFlashcardDeck | null>(
@@ -28,12 +29,25 @@ const FlashcardDeckPage: React.FC<Props> = () => {
   if (!flashcardDeck) return <ClimbingBoxLoader />;
 
   return (
-    <div>
+    <div className="">
       <SectionHeaderWithDescription
         title={flashcardDeck?.title}
         description={flashcardDeck?.description}
       />
-      <FlashcardTab />
+      <TabContainer
+        tab1Label={'Study'}
+        tab1={
+          <div className="flex flex-col gap-6">
+            {flashcardDeck.flashcards.map((card) => (
+              <Flashcard key={card.id} flashcard={card} />
+            ))}
+          </div>
+        }
+        tab2Label={'Edit deck'}
+        tab2={<div>contente B</div>}
+        tab3Label={'Vieuw statistics'}
+        tab3={<div>contente C</div>}
+      />
     </div>
   );
 };

@@ -5,8 +5,9 @@ BACKEND
 - admin moet wel nog een exam of question/answer kunnen patchen in het geval dat er toc content in staat
 - uitzoeken, kan ik die herhalende is owner of env check in een custom annotatie verwerken?
 - nadenken welke log levels ik gebruik, ik heb nu overal warn.
-- flyway uncommenten
-- fly way files maken, op volgorde! want sql oefenen
+
+- db migrations constraints toevoegen unique email etc.
+- db data inserten via db migration files ipv. seeder
 
 
 SWAGGER DOCS

@@ -6,6 +6,7 @@ import com.bella.IW2BR.domain.exam.exam.dto.GetExam;
 import com.bella.IW2BR.domain.flashcarddeck.deck.dto.GetFlashcardDeck;
 import com.bella.IW2BR.domain.notecollection.collection.dto.GetNoteCollection;
 import com.bella.IW2BR.domain.tag.dto.GetTagCompact;
+import java.util.Collections;
 import java.util.List;
 
 public record GetFullEnvironment(
@@ -25,17 +26,29 @@ public record GetFullEnvironment(
    */
   public static GetFullEnvironment to(Environment environment) {
     List<GetNoteCollection> noteCollections =
-        environment.getNoteCollections().stream().map(GetNoteCollection::to).toList();
+        environment.getNoteCollections() != null
+            ? environment.getNoteCollections().stream().map(GetNoteCollection::to).toList()
+            : Collections.emptyList();
 
     List<GetFlashcardDeck> flashcardDecks =
-        environment.getFlashcardDecks().stream().map(GetFlashcardDeck::to).toList();
+        environment.getFlashcardDecks() != null
+            ? environment.getFlashcardDecks().stream().map(GetFlashcardDeck::to).toList()
+            : Collections.emptyList();
 
-    List<GetExam> exams = environment.getExams().stream().map(GetExam::to).toList();
+    List<GetExam> exams =
+        environment.getExams() != null
+            ? environment.getExams().stream().map(GetExam::to).toList()
+            : Collections.emptyList();
 
     List<GetAttemptCompact> attempts =
-        environment.getExamAttempts().stream().map(GetAttemptCompact::to).toList();
+        environment.getExamAttempts() != null
+            ? environment.getExamAttempts().stream().map(GetAttemptCompact::to).toList()
+            : Collections.emptyList();
 
-    List<GetTagCompact> tags = environment.getTags().stream().map(GetTagCompact::to).toList();
+    List<GetTagCompact> tags =
+        environment.getTags() != null
+            ? environment.getTags().stream().map(GetTagCompact::to).toList()
+            : Collections.emptyList();
 
     return new GetFullEnvironment(
         environment.getId(),

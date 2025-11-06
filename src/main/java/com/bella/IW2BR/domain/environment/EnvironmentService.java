@@ -3,7 +3,6 @@ package com.bella.IW2BR.domain.environment;
 import com.bella.IW2BR.domain.environment.dto.*;
 import com.bella.IW2BR.domain.environment.util.EnvironmentHelperMethods;
 import com.bella.IW2BR.domain.user.User;
-import com.bella.IW2BR.exceptions.generic.ItemNotFoundException;
 import com.bella.IW2BR.security.AuthHelperService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -27,14 +26,14 @@ public class EnvironmentService {
   }
 
   public GetEnvironment getById(Long id) {
-    Environment environment = getEnvironmentOrThrow(id);
+    Environment environment = environmentHelperMethods.getEnvironmentOrThrow(id);
     environmentHelperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(id);
 
     return GetEnvironment.to(environment);
   }
 
   public GetFullEnvironment getFullById(Long id) {
-    Environment environment = getEnvironmentOrThrow(id);
+    Environment environment = environmentHelperMethods.getEnvironmentOrThrow(id);
     environmentHelperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(id);
 
     return GetFullEnvironment.to(environment);
@@ -55,7 +54,7 @@ public class EnvironmentService {
 
   public GetEnvironment update(Long id, PatchEnvironment patch) {
     environmentHelperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(id);
-    Environment environment = getEnvironmentOrThrow(id);
+    Environment environment = environmentHelperMethods.getEnvironmentOrThrow(id);
 
     PatchEnvironment.patch(environment, patch);
     environmentRepository.save(environment);
@@ -65,15 +64,7 @@ public class EnvironmentService {
 
   public void delete(Long id) {
     environmentHelperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(id);
-    getEnvironmentOrThrow(id);
 
     environmentRepository.deleteById(id);
-  }
-
-  // helper methods
-  public Environment getEnvironmentOrThrow(Long environmentId) {
-    return environmentRepository
-        .findById(environmentId)
-        .orElseThrow(() -> new ItemNotFoundException("Environment not found"));
   }
 }

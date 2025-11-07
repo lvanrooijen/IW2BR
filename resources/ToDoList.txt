@@ -1,6 +1,10 @@
 TODO:
 
 BACKEND
+- logs refactoren en een goede strategie gaan hanteren, opties?
+    in de global exception handler laten? in de methods loggen?
+    exceptions aanpassen zodat log en client msg kan worden meegegeven?
+
 - doc string exceptions fixen en dubbel-checken
 - admin moet wel nog een exam of question/answer kunnen patchen in het geval dat er toc content in staat
 - uitzoeken, kan ik die herhalende is owner of env check in een custom annotatie verwerken?

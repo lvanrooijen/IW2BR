@@ -23,6 +23,8 @@ import com.bella.IW2BR.domain.tag.TagRepository;
 import com.bella.IW2BR.domain.user.User;
 import com.bella.IW2BR.exceptions.base.BaseBadRequestException;
 import com.bella.IW2BR.exceptions.exam.FinalisedExamException;
+import com.bella.IW2BR.exceptions.exam.MissingArgumentException;
+import com.bella.IW2BR.exceptions.exam.MissingEnvironmentException;
 import com.bella.IW2BR.exceptions.generic.IllegalActionException;
 import com.bella.IW2BR.exceptions.generic.ItemNotFoundException;
 import com.bella.IW2BR.exceptions.generic.ResourceNotConnectedToParentException;
@@ -62,10 +64,10 @@ public class EnvironmentHelperMethods {
     Environment environment =
         environmentRepository
             .findById(environmentId)
-            .orElseThrow(() -> new ItemNotFoundException("environment not found"));
+            .orElseThrow(() -> new ItemNotFoundException("Environment not found"));
     if (!environment.isOwner(user.getId()) && !user.isAdmin()) {
       throw new IllegalActionException(
-          "Failed to create tag. creator is not the owner of the environment");
+          "Only the owner or an administrator can perform this action.");
     }
   }
 
@@ -78,6 +80,19 @@ public class EnvironmentHelperMethods {
    * @throws BaseBadRequestException or co-variants if ID's do not match
    */
   public void throwIfIdMismatch(Long expectedId, Long actualId, BaseBadRequestException exception) {
+    String MissingArgumentMessage =
+        "[Class=EnvironmentHelperMethods Method=throwIfIdMismatch] reason=";
+    if (expectedId == null) {
+      throw new MissingArgumentException(MissingArgumentMessage + "expectedId is NULL");
+    }
+    if (actualId == null) {
+      throw new MissingArgumentException(MissingArgumentMessage + "actualId is NULL");
+    }
+    if (exception == null) {
+      throw new MissingArgumentException(
+          MissingArgumentMessage
+              + "exception is NULL, you must provide an exception to be thrown in case of id mismatch");
+    }
     if (!Objects.equals(expectedId, actualId)) {
       throw exception;
     }
@@ -93,9 +108,17 @@ public class EnvironmentHelperMethods {
    *     environment
    */
   public void throwIfNotInEnvironment(EnvironmentMember member, Long environmentId) {
+    if (member.getEnvironment() == null) {
+      throw new MissingEnvironmentException(
+          String.format(
+              "[%s] Member does not have environment connected to it",
+              member.getClass().getSimpleName()));
+    }
+
     if (!Objects.equals(member.getEnvironment().getId(), environmentId)) {
       throw new ResourceNotConnectedToParentException(
-          member.getClass().getSimpleName() + " is not a member of this environment");
+          String.format(
+              "%s is not a member of this environment", member.getClass().getSimpleName()));
     }
   }
 
@@ -106,6 +129,9 @@ public class EnvironmentHelperMethods {
    * @throws FinalisedExamException
    */
   public void throwIfExamIsFinalised(Exam exam) {
+    if (exam == null) {
+      throw new MissingArgumentException("Can not verify is exam is finalised, exam is NULL");
+    }
     if (exam.isFinalised()) {
       throw new FinalisedExamException(
           "Altering an Exam or or it's related Questions and answers is not allowed after the Exam is finalised");
@@ -120,9 +146,12 @@ public class EnvironmentHelperMethods {
    * @throws ItemNotFoundException when the environment is not found
    */
   public Environment getEnvironmentOrThrow(Long environmentId) {
+    if (environmentId == null) {
+      throw new MissingArgumentException("Can not retrieve environment, ID is NULL");
+    }
     return environmentRepository
         .findById(environmentId)
-        .orElseThrow(() -> new ItemNotFoundException("environment not found"));
+        .orElseThrow(() -> new ItemNotFoundException("Environment not found"));
   }
 
   /**
@@ -133,6 +162,9 @@ public class EnvironmentHelperMethods {
    * @throws ItemNotFoundException when the tag can not be found
    */
   public Tag getTagOrThrow(Long tagId) {
+    if (tagId == null) {
+      throw new MissingArgumentException("Can not retrieve tag, ID is NULL");
+    }
     return tagRepository
         .findById(tagId)
         .orElseThrow(() -> new ItemNotFoundException("Tag not found"));
@@ -146,6 +178,9 @@ public class EnvironmentHelperMethods {
    * @throws ItemNotFoundException when the note collection can not be found
    */
   public NoteCollection getNoteCollectionOrThrow(Long noteCollectionId) {
+    if (noteCollectionId == null) {
+      throw new MissingArgumentException("Can not retrieve NoteCollection, ID is NULL");
+    }
     return noteCollectionRepository
         .findById(noteCollectionId)
         .orElseThrow(() -> new ItemNotFoundException("Note Collection not found"));
@@ -159,6 +194,9 @@ public class EnvironmentHelperMethods {
    * @throws ItemNotFoundException when the note can not be found
    */
   public Note getNoteOrThrow(Long id) {
+    if (id == null) {
+      throw new MissingArgumentException("Can not retrieve note, ID is NULL");
+    }
     return noteRepository
         .findById(id)
         .orElseThrow(() -> new ItemNotFoundException("Note not found"));
@@ -172,6 +210,9 @@ public class EnvironmentHelperMethods {
    * @throws ItemNotFoundException when flashcard deck can not be found
    */
   public FlashcardDeck getFlashcardDeckOrThrow(Long id) {
+    if (id == null) {
+      throw new MissingArgumentException("Can not retrieve FlashcardDeck, ID is NULL");
+    }
     return flashcardDeckRepository
         .findById(id)
         .orElseThrow(() -> new ItemNotFoundException("Flashcard deck not found"));
@@ -185,6 +226,9 @@ public class EnvironmentHelperMethods {
    * @throws ItemNotFoundException when flashcard can not be found
    */
   public Flashcard getFlashcardOrThrow(Long id) {
+    if (id == null) {
+      throw new MissingArgumentException("Could not retrieve Flashcard, ID is NULL");
+    }
     return flashcardRepository
         .findById(id)
         .orElseThrow(() -> new ItemNotFoundException("Flashcard not found"));
@@ -198,9 +242,12 @@ public class EnvironmentHelperMethods {
    * @throws ItemNotFoundException
    */
   public Exam getExamOrThrow(Long id) {
+    if (id == null) {
+      throw new MissingArgumentException("Could not retrieve Exam, ID is NULL");
+    }
     return examRepository
         .findById(id)
-        .orElseThrow(() -> new ItemNotFoundException("Exam not Found"));
+        .orElseThrow(() -> new ItemNotFoundException("Exam not found"));
   }
 
   /**
@@ -211,6 +258,9 @@ public class EnvironmentHelperMethods {
    * @throws ItemNotFoundException
    */
   public ExamAttempt getExamAttemptOrThrow(Long id) {
+    if (id == null) {
+      throw new MissingArgumentException("Could not retrieve Exam-attempt, ID is NULL");
+    }
     return examAttemptRepository
         .findById(id)
         .orElseThrow(() -> new ItemNotFoundException("Exam-attempt not Found"));
@@ -223,14 +273,20 @@ public class EnvironmentHelperMethods {
    * @return {@link Question}
    */
   public Question getQuestionOrThrow(Long id) {
+    if (id == null) {
+      throw new MissingArgumentException("Could not retrieve Question, ID is NULL");
+    }
     return questionRepository
         .findById(id)
-        .orElseThrow(() -> new ItemNotFoundException("Question not Found"));
+        .orElseThrow(() -> new ItemNotFoundException("Question not found"));
   }
 
   public Answer getAnswerOrThrow(Long id) {
+    if (id == null) {
+      throw new MissingArgumentException("Could not retrieve Answer, ID is NULL");
+    }
     return answerRepository
         .findById(id)
-        .orElseThrow(() -> new ItemNotFoundException("Answer not Found"));
+        .orElseThrow(() -> new ItemNotFoundException("Answer not found"));
   }
 }

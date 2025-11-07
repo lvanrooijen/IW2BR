@@ -1,8 +1,7 @@
 # IW-2-BR
 
 IW-2-BR is intended to be a study platform.
-A user can create an enviroment per subject. create and add notes, flashcards and exams to test their knowledge.
-for more information visit the projects [Wiki Pages](https://github.com/lvanrooijen/IW2BR/wiki)
+For more information on the project and it's features visit the projects [Wiki Pages](https://github.com/lvanrooijen/IW2BR/wiki)
 
 ## Requirements
 
@@ -50,12 +49,6 @@ Run frontend end: </br>
 * [API documentation](http://localhost:8080/swagger-ui/index.html)
 
 > _Backend needs to be running to access this resource_
-
-### Demo
-
-<sub>(work in progress)</sub>
-
-<img src="resources/images_gifs/demo.gif" alt="demo" width="400"/>
 
 
 

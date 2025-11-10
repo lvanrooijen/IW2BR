@@ -32,7 +32,6 @@ public class ExamAttemptService {
 
   public GetAttempt create(Long environmentId, Long examId) {
     helperMethods.ensureEnvironmentExistsAndUserIsOwnerOrAdmin(environmentId);
-
     Exam exam = helperMethods.getExamOrThrow(examId);
     Environment environment = helperMethods.getEnvironmentOrThrow(environmentId);
 
@@ -160,7 +159,7 @@ public class ExamAttemptService {
    */
   private void throwIfExamNotFinalised(Exam exam) {
     if (!exam.isFinalised()) {
-      throw new FinalisedExamException("Can create an ExamAttempt if exam is not finalised");
+      throw new FinalisedExamException("Can not create an ExamAttempt if exam is not finalised");
     }
   }
 
